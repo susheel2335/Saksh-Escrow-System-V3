@@ -581,11 +581,11 @@ $instructions= ( get_the_author_meta( 'user_deposit_instruction', $user_id ) );
   <tbody>
     <tr>
       <th scope="row"><?php _e( 'Bank Account Details', 'aistore' ); ?></th>
-      <td><?php echo $bank_account; ?></td>
+      <td><?php echo esc_attr($bank_account); ?></td>
     </tr>
     <tr>
       <th scope="row"><?php _e( 'Instructions', 'aistore' ); ?></th>
-      <td><?php echo $instructions; ?></td>
+      <td><?php echo esc_attr($instructions); ?></td>
     </tr>
   </tbody>
   </table>

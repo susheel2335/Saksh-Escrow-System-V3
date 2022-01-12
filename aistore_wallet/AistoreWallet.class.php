@@ -165,19 +165,19 @@ $currency=  $row->currency;
 
 ?>    <tr>
           
-		   <td>   <?php echo $row->transaction_id; ?> </td>
-		    <td>   <?php echo $row->reference; ?> </td>
-  <td> 	   <?php echo $row->type; ?> </td>
+		   <td>   <?php echo esc_attr($row->transaction_id); ?> </td>
+		    <td>   <?php echo esc_attr($row->reference); ?> </td>
+  <td> 	   <?php echo esc_attr($row->type); ?> </td>
     <td> 	
  
    <?php echo $row->balance ?>
 		  </td>
 		   
-		  	   <td> 		   <?php echo $row->amount ?>  </td>
+		  	   <td> 		   <?php echo esc_attr($row->amount) ?>  </td>
 		  
-		    <td> 		   <?php echo $row->currency; ?> </td>
-		     <td> 		   <?php echo $row->description; ?> </td>
- <td> 		   <?php echo $row->date; ?> </td>
+		    <td> 		   <?php echo esc_attr($row->currency); ?> </td>
+		     <td> 		   <?php echo esc_attr($row->description); ?> </td>
+ <td> 		   <?php echo esc_attr($row->date); ?> </td>
             </tr>
     <?php
             endforeach;

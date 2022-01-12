@@ -744,16 +744,18 @@ sendNotificationDisputed($eid);
             _e("No Notification Found", 'aistore');
 
         }
-        ?>
+        else
+        {
+            ?>
+            
           <table  id="example1" class="display nowrap" style="width:100%">
       
         <thead>
      <tr>
-         <th>Id</th>
-      <th>Email</th>
-      
-     <th> Message</th>
-        <th>Date</th>
+            <th><?php _e('ID', 'aistore'); ?></th>
+          <th><?php _e('Email', 'aistore'); ?></th>
+     <th><?php _e('Message', 'aistore'); ?></th>
+      <th><?php _e('Date', 'aistore'); ?></th>
    
     
      </tr>
@@ -781,13 +783,13 @@ sendNotificationDisputed($eid);
     
       <tfoot>
             <tr>
-       <th>Id</th>
-      <th>Email</th>
-     <th> Message</th>
-        <th>Date</th>
+       <th><?php _e('ID', 'aistore'); ?></th>
+          <th><?php _e('Email', 'aistore'); ?></th>
+     <th><?php _e('Message', 'aistore'); ?></th>
+      <th><?php _e('Date', 'aistore'); ?></th>
             </tr>
         </tfoot>
-        </table>
+        </table>    <?php } ?>
      <br><br>
     
     
@@ -808,16 +810,20 @@ sendNotificationDisputed($eid);
             _e("No Email Found", 'aistore');
 
         }
+        else{
         ?>
           <table  id="example2" class="display nowrap" style="width:100%">
       
         <thead>
      <tr>
-         <th>Id</th>
-      <th>Email</th>
-           <th>Subject</th>
-     <th> Message</th>
-        <th>Date</th>
+         
+           <th><?php _e('ID', 'aistore'); ?></th>
+          <th><?php _e('Email', 'aistore'); ?></th>
+            <th><?php _e('Subject', 'aistore'); ?></th>
+     <th><?php _e('Message', 'aistore'); ?></th>
+      <th><?php _e('Date', 'aistore'); ?></th>
+      
+   
    
     
      </tr>
@@ -847,14 +853,17 @@ sendNotificationDisputed($eid);
     
       <tfoot>
             <tr>
-       <th>Id</th>
-      <th>Email</th>
-        <th>Subject</th>
-     <th> Message</th>
-        <th>Date</th>
+       <th><?php _e('ID', 'aistore'); ?></th>
+          <th><?php _e('Email', 'aistore'); ?></th>
+            <th><?php _e('Subject', 'aistore'); ?></th>
+     <th><?php _e('Message', 'aistore'); ?></th>
+      <th><?php _e('Date', 'aistore'); ?></th>
+      
             </tr>
         </tfoot>
         </table>
+        
+        <?php } ?>
      <br><br>
     
   

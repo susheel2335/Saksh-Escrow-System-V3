@@ -23,16 +23,6 @@ $escrow_user_id_balance = $wallet->aistore_balance($escrow_user_id, $currency);
             }        
 
             
-
-
-            ?>
-            
-     
-     
-    
-         
-   
-<?php
 $users = get_users( );
 
 //print_r($users);
@@ -306,10 +296,10 @@ $users = get_users( );
       
         <thead>
      <tr>
-         <th>Id</th>
-      <th>Email</th>
-     <th> Message</th>
-        <th>Date</th>
+         <th> <?php _e('Id', 'aistore') ?></th>
+      <th> <?php _e('Email', 'aistore') ?></th>
+     <th>  <?php _e('Message', 'aistore') ?></th>
+        <th> <?php _e('Date', 'aistore') ?></th>
    
     
      </tr>
@@ -322,10 +312,10 @@ $users = get_users( );
   
     <tr>
         <td> 	 
-		   <?php echo $row->id; ?></td>
-           <td> <?php echo $row->user_email; ?></td>
+		   <?php echo esc_attr($row->id); ?></td>
+           <td> <?php echo esc_attr($row->user_email); ?></td>
 		   <td> <?php echo html_entity_decode($row->message); ?></td>
-		     <td><?php echo $row->created_at; ?></td>
+		     <td><?php echo esc_attr($row->created_at); ?></td>
 
     </tr>
             
@@ -336,10 +326,10 @@ $users = get_users( );
     
       <tfoot>
             <tr>
-       <th>Id</th>
-      <th>Email</th>
-     <th> Message</th>
-        <th>Date</th>
+     <th> <?php _e('Id', 'aistore') ?></th>
+      <th> <?php _e('Email', 'aistore') ?></th>
+     <th>  <?php _e('Message', 'aistore') ?></th>
+        <th> <?php _e('Date', 'aistore') ?></th>
             </tr>
         </tfoot>
         </table>

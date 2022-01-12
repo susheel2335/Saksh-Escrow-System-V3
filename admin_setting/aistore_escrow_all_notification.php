@@ -40,14 +40,14 @@ $id=sanitize_text_field($_REQUEST['id']);
 
         }
         ?>
-          <table  id="example" class="display nowrap" style="width:100%">
+          <table  id="example" class="table" style="width:100%">
       
         <thead>
      <tr>
-         <th>Id</th>
-      <th>Email</th>
-     <th> Message</th>
-        <th>Date</th>
+         <th> <?php _e('Id', 'aistore') ?></th>
+      <th> <?php _e('Email', 'aistore') ?></th>
+     <th> <?php _e('Message', 'aistore') ?> </th>
+        <th> <?php _e('Date', 'aistore') ?></th>
    
     
      </tr>
@@ -60,11 +60,11 @@ $id=sanitize_text_field($_REQUEST['id']);
   
     <tr>
         <td> 	 
-		   <?php echo $row->id; ?></td>
+		   <?php echo esc_attr($row->id); ?></td>
            <td> 	 
-		   <?php echo $row->user_email; ?></td>
+		   <?php echo esc_attr($row->user_email); ?></td>
 		   <td> <?php echo html_entity_decode($row->message); ?></td>
-		     <td><?php echo $row->created_at; ?></td>
+		     <td><?php echo esc_attr($row->created_at); ?></td>
 
     </tr>
             
@@ -75,10 +75,11 @@ $id=sanitize_text_field($_REQUEST['id']);
     
       <tfoot>
             <tr>
-       <th>Id</th>
-      <th>Email</th>
-     <th> Message</th>
-        <th>Date</th>
+      <th> <?php _e('Id', 'aistore') ?></th>
+      <th> <?php _e('Email', 'aistore') ?></th>
+     <th> <?php _e('Message', 'aistore') ?> </th>
+        <th> <?php _e('Date', 'aistore') ?></th>
+   
             </tr>
         </tfoot>
         </table>

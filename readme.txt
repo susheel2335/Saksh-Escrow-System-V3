@@ -2,7 +2,7 @@
 Contributors: susheelhbti
 Tags: Escrow System 
 License: GPLv2 or later
-Requires at least:  5.3
+Requires at least:  5.6
 Tested up to: 5.8.3
 Stable tag: 2.1
 

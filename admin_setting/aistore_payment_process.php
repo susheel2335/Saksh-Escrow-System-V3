@@ -170,15 +170,15 @@
   <table  id="example" class="display nowrap" style="width:100%">
          <thead>
      <tr>
-         <th>Id</th>
-      <th>Title</th>
+         <th> <?php _e('Id', 'aistore') ?> </th>
+      <th> <?php _e('Title', 'aistore') ?> </th>
     
-        <th>Amount</th>
-      <th>Sender </th>
-       <th>Receiver</th>  
-        <th>Payment Status</th>
-       <th>Date</th>
-       <th>Action</th>
+        <th> <?php _e('Amount', 'aistore') ?> </th>
+      <th> <?php _e('Sender', 'aistore') ?>  </th>
+       <th> <?php _e('Receiver', 'aistore') ?> </th>  
+        <th> <?php _e('Payment Status', 'aistore') ?></th>
+       <th> <?php _e('Datet', 'aistore') ?> </th>
+       <th> <?php _e('Action', 'aistore') ?> </th>
      </tr>
       </thead>
 <tbody>
@@ -265,15 +265,15 @@ endforeach;
 </tbody>
     <tfoot>
              <tr>
-         <th>Id</th>
-      <th>Title</th>
+        <th> <?php _e('Id', 'aistore') ?> </th>
+      <th> <?php _e('Title', 'aistore') ?> </th>
     
-        <th>Amount</th>
-      <th>Sender </th>
-       <th>Receiver</th>  
-        <th>Payment Status</th>
-       <th>Date</th>
-       <th>Action</th>
+        <th> <?php _e('Amount', 'aistore') ?> </th>
+      <th> <?php _e('Sender', 'aistore') ?>  </th>
+       <th> <?php _e('Receiver', 'aistore') ?> </th>  
+        <th> <?php _e('Payment Status', 'aistore') ?></th>
+       <th> <?php _e('Datet', 'aistore') ?> </th>
+       <th> <?php _e('Action', 'aistore') ?> </th>
      </tr>
         </tfoot>
     </table>

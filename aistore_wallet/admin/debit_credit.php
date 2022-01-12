@@ -3,17 +3,7 @@
      $wallet = new AistoreWallet();
       $pages = get_pages(); 
     
-       ?>
        
-<!--       <div id="col-container ">-->
-<!--<div id="col"    >-->
-
-<!--<div class="card">-->
-
- 
-     
-
-<?php
 if(isset($_POST['submit']) and $_POST['action']=='deposit_type' )
 {
 
@@ -50,9 +40,7 @@ else{
 }
 
 
-// _e( 'Successfully', 'aistore' ) ;
-//   printf(__( 'Amount %s.', 'aistore'),$amount ." ". $currency ); 
-//   printf(__( 'Description %s.', 'aistore'),$description); 
+
 
  $wallet = new AistoreWallet();
         $results = $wallet->aistore_wallet_transaction_history($user_id);
@@ -73,9 +61,7 @@ else{
             ob_start();
 
 ?>
-  
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+
     
           
 <h3><?php  _e( 'Transaction Report', 'aistore' ) ?></h3>
@@ -104,19 +90,19 @@ else{
 
 ?>    <tr>
           
-		   <td>   <?php echo $row->transaction_id; ?> </td>
-		    <td>   <?php echo $row->reference; ?> </td>
-  <td> 	   <?php echo $row->type; ?> </td>
+		   <td>   <?php echo esc_attr($row->transaction_id); ?> </td>
+		    <td>   <?php echo esc_attr($row->reference); ?> </td>
+  <td> 	   <?php echo esc_attr($row->type); ?> </td>
     <td> 	
  
-   <?php echo $row->balance ?>
+   <?php echo esc_attr($row->balance) ?>
 		  </td>
 		   
-		  	   <td> 		   <?php echo $row->amount ?>  </td>
+		  	   <td> 		   <?php echo esc_attr($row->amount) ?>  </td>
 		  
-		    <td> 		   <?php echo $row->currency; ?> </td>
-		     <td> 		   <?php echo $row->description; ?> </td>
- <td> 		   <?php echo $row->date; ?> </td>
+		    <td> 		   <?php echo esc_attr($row->currency); ?> </td>
+		     <td> 		   <?php echo esc_attr($row->description); ?> </td>
+ <td> 		   <?php echo esc_attr($row->date); ?> </td>
             </tr>
     <?php
             endforeach;
@@ -238,32 +224,6 @@ else{
 
 
 ?>
-
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
- <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
-    
-    <script>
-    
-    $(document).ready(function() {
-    $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    } );
-} );
-
-</script>
 
 
  <?php

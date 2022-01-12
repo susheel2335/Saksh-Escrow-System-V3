@@ -115,7 +115,7 @@ class AistoreEscrowSystem
     <tr><td><?php echo esc_attr(get_option('deposit_instructions')); ?></td></tr>
     
      <tr><td>Total Amount :</td></tr>
-    <tr><td><?php echo esc_attr($total_amount).' '.$aistore_escrow_currency; ?></td></tr>
+    <tr><td><?php echo esc_attr($total_amount).' '.esc_attr($aistore_escrow_currency); ?></td></tr>
 
 
   <tr><td colspan="2">
@@ -1321,8 +1321,8 @@ function aistore_escrow_discussion()
   <p><?php echo html_entity_decode($row->message); ?></p>
   
   <br /><br />
-  <b><?php echo $row->user_login; ?> </b>
-  <h6 > <?php echo $row->created_at; ?></h6>
+  <b><?php echo esc_attr($row->user_login); ?> </b>
+  <h6 > <?php echo esc_attr($row->created_at); ?></h6>
 </div>
  
 <hr>

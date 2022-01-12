@@ -27,12 +27,14 @@ global $wpdb;
       
         <thead>
      <tr>
-         <th>Id</th>
-      <th>Title</th>
-     <th> Status</th>
-        <th>Amount</th>
-      <th>Sender </th>
-       <th>Receiver</th>  
+         
+         
+         <th> <?php _e('Id', 'aistore') ?></th>
+      <th> <?php _e('Title', 'aistore') ?></th>
+     <th>  <?php _e('Status', 'aistore') ?></th>
+        <th> <?php _e('Amount', 'aistore') ?></th>
+      <th> <?php _e('Sender', 'aistore') ?> </th>
+       <th> <?php _e('Receiver', 'aistore') ?></th>  
   
     
      </tr>
@@ -49,17 +51,17 @@ global $wpdb;
 
 		   
 		   <td> 	 
-		  <a href="<?php echo ($url); ?>">  <?php echo $row->id; ?></a></td>
+		  <a href="<?php echo ($url); ?>">  <?php echo esc_attr($row->id); ?></a></td>
 		  
 		   
-		   <td> 		   <?php echo $row->title; ?> </td>
+		   <td> 		   <?php echo esc_attr($row->title); ?> </td>
 		  
-		   <td> 		   <?php echo $row->status; ?> </td>
+		   <td> 		   <?php echo esc_attr($row->status); ?> </td>
 		  
 		   
-		   <td> 		   <?php echo $row->amount  . " " . $row->currency; ?> </td>
-		   <td> 		   <?php echo $row->sender_email; ?> </td>
-		   <td> 		   <?php echo $row->receiver_email; ?> </td>
+		   <td> 		   <?php echo esc_attr($row->amount)  . " " . esc_attr($row->currency); ?> </td>
+		   <td> 		   <?php echo esc_attr($row->sender_email); ?> </td>
+		   <td> 		   <?php echo esc_attr($row->receiver_email); ?> </td>
 		  
               
             </tr>

@@ -120,9 +120,9 @@ public function date_filter( $text, $input_id ) {
 	 <input type="hidden" name="date_filter" value="1" /> 
 		
 	  
-     Start Date <input type='date' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo $_POST['fromDate']; ?>'>
+     Start Date <input type='date' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo esc_attr($_POST['fromDate']); ?>'>
  
-     End Date <input type='date' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo $_POST['endDate']; ?>'>
+     End Date <input type='date' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo esc_attr($_POST['endDate']); ?>'>
 
   
      
@@ -233,8 +233,8 @@ $sql .=  Escrow_List::prepareWhereClouse();
 
 
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			$sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
-			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : 'DESC';
+			$sql .= ' ORDER BY ' . sanitize_text_field( $_REQUEST['orderby'] );
+			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . sanitize_text_field( $_REQUEST['order'] ) : 'DESC';
 		}
 		
 		else{
@@ -260,8 +260,8 @@ $sql .=  Escrow_List::prepareWhereClouse();
 
 
 		if( ! empty( $_REQUEST['date_filter'] ) ){
-           $fromDate = $_POST["fromDate"];
-      $endDate   = $_POST["endDate"]; 
+           $fromDate = sanitize_text_field($_POST["fromDate"]);
+      $endDate   =sanitize_text_field($_POST["endDate"]); 
 
     //sql will be 
     $sql .= "and  DATE('created_at') BETWEEN '{$fromDate}' AND '{$endDate}'  ";
@@ -273,9 +273,9 @@ $sql .=  Escrow_List::prepareWhereClouse();
 
 
 		if( ! empty( $_REQUEST['s'] ) ){
-         $search = esc_sql( $_REQUEST['s'] );
-		  $search_column=esc_sql( $_REQUEST['search_column'] ); 
-		  $search_operator=esc_sql( $_REQUEST['search_operator'] ); 
+         $search = sanitize_text_field( $_REQUEST['s'] );
+		  $search_column=sanitize_text_field( $_REQUEST['search_column'] ); 
+		  $search_operator=sanitize_text_field( $_REQUEST['search_operator'] ); 
 		 
    if($search_operator=="LIKE")
    { $sql .= " and   ". $search_column."  ".$search_operator." '%{$search}%'  "; }
@@ -396,11 +396,11 @@ $sql .=  Escrow_List::prepareWhereClouse();
 		$title = '<strong>' . $item['title'] . '</strong>';
 
 		$actions = [
-		'delete' => sprintf( '<a href="?page=%s&action=%s&escrow=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['id'] ), $delete_nonce )
+		'delete' => sprintf( '<a href="?page=%s&action=%s&escrow=%s&_wpnonce=%s">Delete</a>', sanitize_text_field( $_REQUEST['page'] ), 'delete', absint( $item['id'] ), $delete_nonce )
 		];
 		
 			$actions_payment = [
-		'remove_payment' => sprintf( '<a href="?page=%s&action=%s&escrow=%s&_wpnonce=%s">Remove Payment</a>', esc_attr( $_REQUEST['page'] ), 'remove_payment', absint( $item['id'] ), $remove_payment_nonce )
+		'remove_payment' => sprintf( '<a href="?page=%s&action=%s&escrow=%s&_wpnonce=%s">Remove Payment</a>', sanitize_text_field( $_REQUEST['page'] ), 'remove_payment', absint( $item['id'] ), $remove_payment_nonce )
 		];
 
 		return $title . $this->row_actions( $actions );
