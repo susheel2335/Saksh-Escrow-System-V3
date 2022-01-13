@@ -113,6 +113,11 @@ class AistoreEscrowSystem
     
     <tr><td><?php _e('Deposit Instructions', 'aistore'); ?> :</td></tr>
     <tr><td><?php echo esc_attr(get_option('deposit_instructions')); ?></td></tr>
+      <tr><td><?php _e(' Amount', 'aistore'); ?> :</td></tr>
+    <tr><td><?php echo esc_attr($escrow_amount).' '.esc_attr($aistore_escrow_currency); ?></td></tr>
+    
+      <tr><td><?php _e('Escrow Fee Amount', 'aistore'); ?> :</td></tr>
+    <tr><td><?php echo esc_attr($escrow_fee).' '.esc_attr($aistore_escrow_currency); ?></td></tr>
     
      <tr><td><?php _e('Total Amount', 'aistore'); ?> :</td></tr>
     <tr><td><?php echo esc_attr($total_amount).' '.esc_attr($aistore_escrow_currency); ?></td></tr>
