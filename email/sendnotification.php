@@ -406,8 +406,7 @@ function sendNotificationAccepted($eid)
     $n['message'] = $partner_accept_escrow;
       $n['reference_id'] = $eid;
     $n['type'] = "success";
- 
- 
+     $n['subject'] = $partner_accept_escrow;
  
 	 $details_escrow_page_id_url =  esc_url( add_query_arg( array(
     'page_id' => get_option('details_escrow_page_id'),
