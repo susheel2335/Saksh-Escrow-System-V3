@@ -198,7 +198,7 @@
 		  
 		   <!--<td> 		   <?php echo esc_attr($row->status); ?> </td>-->
 		   
-		   <td> 		   <?php echo esc_attr($row->amount) . " " . $row->currency; ?> </td>
+		   <td> 		   <?php echo esc_attr($row->amount) . " " . esc_attr($row->currency); ?> </td>
 		   <td> 		   <?php echo esc_attr($row->sender_email); ?> </td>
 		   <td> 		   <?php echo esc_attr($row->receiver_email); ?> </td>
 		      <td> 		   <?php echo esc_attr($row->payment_status); ?> </td>
@@ -214,7 +214,7 @@ if($row->payment_status=='processing'){
     <form method="POST" action="" name="escrow_payment" enctype="multipart/form-data"> 
 
 <?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
-	<input type="hidden" name="ecsrow_id" value="<?php echo $row->id; ?>" />
+	<input type="hidden" name="ecsrow_id" value="<?php echo esc_attr($row->id); ?>" />
 <input 
  type="submit" name="submit" value="<?php _e('Approve Payment', 'aistore') ?>"/>
 <input type="hidden" name="action" value="escrow_payment" />
@@ -224,7 +224,7 @@ if($row->payment_status=='processing'){
                  <form method="POST" action="" name="reject_payment" enctype="multipart/form-data"> 
 
 <?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
-		<input type="hidden" name="reject_ecsrow_id" value="<?php echo $row->id; ?>" />
+		<input type="hidden" name="reject_ecsrow_id" value="<?php echo esc_attr($row->id); ?>" />
 <input 
  type="submit" name="submit" value="<?php _e('Reject Payment', 'aistore') ?>"/>
 <input type="hidden" name="action" value="reject_payment" />
@@ -240,7 +240,7 @@ if($row->payment_status=='processing'){
                  <form method="POST" action="" name="remove_escrow_payment" enctype="multipart/form-data"> 
 
 <?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
-		<input type="hidden" name="ecsrow_id" value="<?php echo $row->id; ?>" />
+		<input type="hidden" name="ecsrow_id" value="<?php echo esc_attr($row->id); ?>" />
 <input 
  type="submit" name="submit" value="<?php _e('Remove Payment', 'aistore') ?>"/>
 <input type="hidden" name="action" value="remove_escrow_payment" />

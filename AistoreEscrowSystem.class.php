@@ -184,7 +184,7 @@ class AistoreEscrowSystem
         $escrow_admin_user_id = $object_escrow->get_escrow_admin_user_id(); // change variable name
         
 
-        echo " <div>";
+        echo "<div>";
 
         $wallet = new AistoreWallet();
 
@@ -862,7 +862,7 @@ global $wpdb;
             
             ?>
 
-<a href="<?php echo $bank_details_page_id_url; ?>"><input type="submit" name="submit" value="<?php _e('Make Payment', 'aistore') ?>"/></a>
+<a href="<?php echo esc_url($bank_details_page_id_url); ?>"><input type="submit" name="submit" value="<?php _e('Make Payment', 'aistore') ?>"/></a>
  
  
 <?php
@@ -1269,7 +1269,7 @@ function aistore_upload_file()
     }
     else
     {
-        echo "Unauthorized user";
+ _e('Unauthorized user', 'aistore') ;
     }
 
 }

@@ -555,7 +555,7 @@ function form(){
 		if ( 'remove_payment' === $this->current_action() ) {
 
 			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+			$nonce = sanitize_text_field( $_REQUEST['_wpnonce'] );
 
 			if ( ! wp_verify_nonce( $nonce, 'sp_remove_payment_escrow' ) ) {
 				die( 'Go get a life script kiddies' );
@@ -576,7 +576,7 @@ function form(){
 		     || ( isset( $_POST['action2'] ) && $_POST['action2'] == 'bulk-removepayment' )
 		) {
 
-			$delete_ids = esc_sql( $_POST['bulk-removepayment'] );
+			$delete_ids = sanitize_text_field( $_POST['bulk-removepayment'] );
 
 			// loop over the array of record IDs and delete them
 			foreach ( $delete_ids as $id ) {

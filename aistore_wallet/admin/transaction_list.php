@@ -43,7 +43,7 @@ public function status_filter( $text, $input_id ) {
 		 
     
 <p class="search-box">
-  <label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo $text; ?>:</label>
+  <label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_attr($text); ?>:</label>
  
 
 
@@ -154,7 +154,7 @@ public function search_box( $text, $input_id ) {
 		 
     
 <p class="search-box">
-  <label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo $text; ?>:</label>
+  <label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_attr($text); ?>:</label>
   
 
 <select name="search_column"  >
@@ -225,7 +225,7 @@ $id=sanitize_text_field($_REQUEST['id']);
                 
 $balance = $wallet->aistore_balance($id, 'USD');
 ?>
-<h3>Balance : <?php echo $balance; ?>  USD </h3><br>
+<h3>Balance : <?php echo esc_attr($balance); ?>  USD </h3><br>
 
 <?php
 
@@ -244,8 +244,8 @@ $sql .=  Aistore_Transaction_List::prepareWhereClouse();
 
 
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			$sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
-			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' DESC';
+			$sql .= ' ORDER BY ' . sanitize_text_field( $_REQUEST['orderby'] );
+			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . sanitize_text_field( $_REQUEST['order'] ) : ' DESC';
 		}
 
 		$sql .= " LIMIT $per_page";
@@ -266,8 +266,8 @@ $sql .=  Aistore_Transaction_List::prepareWhereClouse();
 
 
 		if( ! empty( $_REQUEST['date_filter'] ) ){
-           $fromDate = $_POST["fromDate"];
-      $endDate   = $_POST["endDate"]; 
+           $fromDate = sanitize_text_field($_POST["fromDate"]);
+      $endDate   = sanitize_text_field($_POST["endDate"]); 
 
     //sql will be 
     $sql .= " and   DATE( `date`) BETWEEN '{$fromDate}' AND '{$endDate}'";
@@ -279,9 +279,9 @@ $sql .=  Aistore_Transaction_List::prepareWhereClouse();
 
 
 		if( ! empty( $_REQUEST['s'] ) ){
-         $search = esc_sql( $_REQUEST['s'] );
-		  $search_column=esc_sql( $_REQUEST['search_column'] ); 
-		  $search_operator=esc_sql( $_REQUEST['search_operator'] ); 
+         $search = sanitize_text_field( $_REQUEST['s'] );
+		  $search_column=sanitize_text_field( $_REQUEST['search_column'] ); 
+		  $search_operator=sanitize_text_field( $_REQUEST['search_operator'] ); 
 		 
    if($search_operator=="LIKE")
    { $sql .= " and   ". $search_column."  ".$search_operator." '%{$search}%'  "; }
@@ -432,8 +432,8 @@ $sql .=  Aistore_Transaction_List::prepareWhereClouse();
 
 function form(){
  
-		$from = ( isset( $_GET['mishaDateFrom'] ) && $_GET['mishaDateFrom'] ) ? $_GET['mishaDateFrom'] : '';
-		$to = ( isset( $_GET['mishaDateTo'] ) && $_GET['mishaDateTo'] ) ? $_GET['mishaDateTo'] : '';
+		$from = ( isset( $_GET['mishaDateFrom'] ) && sanitize_text_field($_GET['mishaDateFrom'] )) ? sanitize_text_field($_GET['mishaDateFrom']) : '';
+		$to = ( isset( $_GET['mishaDateTo'] ) && sanitize_text_field($_GET['mishaDateTo']) ) ? sanitize_text_field($_GET['mishaDateTo']) : '';
  
 		echo ' 
  
@@ -474,7 +474,7 @@ function form(){
 		if ( 'delete' === $this->current_action() ) {
 
 			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+			$nonce = sanitize_text_field( $_REQUEST['_wpnonce'] );
 
 			if ( ! wp_verify_nonce( $nonce, 'sp_delete_customer' ) ) {
 				die( 'Go get a life script kiddies' );

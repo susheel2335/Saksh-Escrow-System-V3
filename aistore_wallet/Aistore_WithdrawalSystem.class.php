@@ -394,10 +394,10 @@ $user_id=get_current_user_id();
     else{
 ?>
 <table>
-    <tr><td>Bank Details :</td></tr>
+    <tr><td><?php _e( 'Bank Details', 'aistore' ); ?> :</td></tr>
     <tr><td><?php echo esc_attr(get_the_author_meta('user_bank_detail')); ?></td></tr>
     
-    <tr><td>Deposit Instructions :</td></tr>
+    <tr><td><?php _e( 'Deposit Instructions', 'aistore' ); ?> :</td></tr>
     <tr><td><?php echo esc_attr(get_the_author_meta('user_deposit_instruction')); ?></td></tr>
 </table>
 <?php
@@ -447,23 +447,9 @@ global $wpdb;
 
     <?php 
     
-     
-   
     foreach($results as $row):
-  
-	
  ?>
- 
- 
-      
-    
-      <tr>
-           
-		 
-		   
-		   
-		   <td> 
-
+ <tr>         		   <td> 
 		   <?php echo esc_attr($row->id) ; ?></td>
 
    

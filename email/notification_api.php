@@ -27,10 +27,10 @@ $user_email = get_the_author_meta('user_email', get_current_user_id());
   
   <div class="discussionmsg">
    
-  <p><a href="<?php echo $row->url; ?>"> <?php echo html_entity_decode($row->message); ?> </a> </p>
+  <p><a href="<?php echo esc_url($row->url); ?>"> <?php echo html_entity_decode($row->message); ?> </a> </p>
   
   
-  <h6 > <?php echo $row->created_at; ?></h6>
+  <h6 > <?php echo esc_attr($row->created_at); ?></h6>
 </div>
  
 <hr>
