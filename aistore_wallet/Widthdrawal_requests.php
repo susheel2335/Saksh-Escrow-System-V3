@@ -442,8 +442,8 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 
 function form(){
  
-		$from = ( isset( sanitize_text_field($_GET['mishaDateFrom']) ) && sanitize_text_field($_GET['mishaDateFrom'] )) ? $_GET['mishaDateFrom'] : '';
-		$to = ( isset(sanitize_text_field( $_GET['mishaDateTo'] )) && sanitize_text_field($_GET['mishaDateTo'] )) ? sanitize_text_field($_GET['mishaDateTo']) : '';
+		$from = ( isset($_GET['mishaDateFrom'] ) && sanitize_text_field($_GET['mishaDateFrom'] )) ? $_GET['mishaDateFrom'] : '';
+		$to = ( isset( $_GET['mishaDateTo'] ) && sanitize_text_field($_GET['mishaDateTo'] )) ? sanitize_text_field($_GET['mishaDateTo']) : '';
  
 		echo ' 
  
