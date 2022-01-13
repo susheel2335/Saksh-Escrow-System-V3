@@ -416,7 +416,7 @@ sendNotificationDisputed($eid);
 ?>
 	  <div>
 	      <?php
-        echo "<h1>#" . $escrow->id . " " . $escrow->title . "</h1><br>";
+        echo "<h1>#" . esc_attr($escrow->id) . " " . esc_attr($escrow->title) . "</h1><br>";
 
         printf(__("Term Condition : %s", 'aistore') , html_entity_decode($escrow->term_condition) . "<br>");
         printf(__("Sender :  %s", 'aistore') , $escrow->sender_email . "<br>");
@@ -614,8 +614,8 @@ sendNotificationDisputed($eid);
   <p><?php echo html_entity_decode($row->message); ?></p>
   
   <br /><br />
-  <b><?php echo $row->user_login; ?> </b>
-  <h6 > <?php echo $row->created_at; ?></h6>
+  <b><?php echo esc_attr($row->user_login); ?> </b>
+  <h6 > <?php echo esc_attr($row->created_at); ?></h6>
 </div>
  
 <hr>
@@ -768,11 +768,11 @@ sendNotificationDisputed($eid);
   
     <tr>
         <td> 	 
-		   <?php echo $row->id; ?></td>
+		   <?php echo esc_attr($row->id); ?></td>
            <td> 	 
-		   <?php echo $row->user_email; ?></td>
+		   <?php echo esc_attr($row->user_email); ?></td>
 		   <td> <?php echo html_entity_decode($row->message); ?></td>
-		     <td><?php echo $row->created_at; ?></td>
+		     <td><?php echo esc_attr($row->created_at); ?></td>
 
     </tr>
             
@@ -836,13 +836,13 @@ sendNotificationDisputed($eid);
   
     <tr>
         <td> 	 
-		   <?php echo $row->id; ?></td>
+		   <?php echo esc_attr($row->id); ?></td>
            <td> 	 
-		   <?php echo $row->user_email; ?></td>
+		   <?php echo esc_attr($row->user_email); ?></td>
 		    <td> 	 
-		   <?php echo $row->subject; ?></td>
+		   <?php echo esc_attr($row->subject); ?></td>
 		   <td> <?php echo html_entity_decode($row->message); ?></td>
-		     <td><?php echo $row->created_at; ?></td>
+		     <td><?php echo esc_attr($row->created_at); ?></td>
 
     </tr>
             

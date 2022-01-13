@@ -47,7 +47,7 @@ public function status_filter( $text, $input_id ) {
 		 
     
 <p class="search-box">
-  <label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo $text; ?>:</label>
+  <label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_attr($text); ?>:</label>
  
  
  
@@ -155,7 +155,7 @@ public function search_box( $text, $input_id ) {
 		 
     
 <p class="search-box">
-  <label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo $text; ?>:</label>
+  <label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_attr($text); ?>:</label>
  
  
 <select name="search_column"  >
@@ -469,8 +469,8 @@ $sql .=  Escrow_List::prepareWhereClouse();
 
 function form(){
  
-		$from = ( isset( $_GET['EscrowDateFrom'] ) && $_GET['EscrowDateFrom'] ) ? $_GET['EscrowDateFrom'] : '';
-		$to = ( isset( $_GET['EscrowDateTo'] ) && $_GET['EscrowDateTo'] ) ? $_GET['EscrowDateTo'] : '';
+		$from = ( isset( sanitize_text_field($_GET['EscrowDateFrom']) ) && sanitize_text_field($_GET['EscrowDateFrom']) ) ? sanitize_text_field($_GET['EscrowDateFrom']) : '';
+		$to = ( isset( sanitize_text_field($_GET['EscrowDateTo'] )) && sanitize_text_field($_GET['EscrowDateTo']) ) ? sanitize_text_field($_GET['EscrowDateTo']) : '';
  
 		echo ' 
  
@@ -532,7 +532,7 @@ function form(){
 		     || ( isset( $_POST['action2'] ) && $_POST['action2'] == 'bulk-delete' )
 		) {
 
-			$delete_ids = esc_sql( $_POST['bulk-delete'] );
+			$delete_ids = sanitize_text_field( $_POST['bulk-delete'] );
 
 			// loop over the array of record IDs and delete them
 			foreach ( $delete_ids as $id ) {

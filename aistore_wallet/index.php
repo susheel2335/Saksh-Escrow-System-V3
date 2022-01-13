@@ -6,16 +6,7 @@ if (!defined('ABSPATH'))
     exit; // Exit if accessed directly.
     
 }
-function aistore_withdraw_enqueue_styles() {
-wp_enqueue_style( 'aistore', '//stackpath.bootstrapcdn.com/bootstrap/5.0.1/css/bootstrap.min.css' );
-wp_enqueue_script( 'aistore', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js');
-wp_enqueue_style( 'aistore', get_template_directory_uri() . '/style.css');
-}
 
-
-
-
-add_action('wp_enqueue_scripts', 'aistore_withdraw_enqueue_styles');
 
 
 

@@ -13,11 +13,6 @@
 $balance = $wallet->aistore_balance($user_id, $currency);
 $escrow_user_id_balance = $wallet->aistore_balance($escrow_user_id, $currency);
 
- ?>
- 
- <!--<h3>Balance : <?php echo $balance." ".$currency; ?>  </h3>-->
- <!-- <h3>Escrow Admin Balance : <?php echo $escrow_user_id_balance." ".$currency; ?> </h3><br>-->
- <?php
 
         
             }        

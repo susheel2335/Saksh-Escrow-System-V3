@@ -227,8 +227,8 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 
 
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			$sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
-			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : 'DESC';
+			$sql .= ' ORDER BY ' . sanitize_text_field( $_REQUEST['orderby'] );
+			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . sanitize_text_field( $_REQUEST['order'] ) : 'DESC';
 		}
 		
 		else{
@@ -254,8 +254,8 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 
 
 		if( ! empty( $_REQUEST['date_filter'] ) ){
-           $fromDate = $_POST["fromDate"];
-      $endDate   = $_POST["endDate"]; 
+           $fromDate = sanitize_text_field($_POST["fromDate"]);
+      $endDate   = sanitize_text_field($_POST["endDate"]); 
 
     //sql will be 
     $sql .= " and  DATE('created_at') BETWEEN '{$fromDate}' AND '{$endDate}'  ";
@@ -267,9 +267,9 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 
 
 		if( ! empty( $_REQUEST['s'] ) ){
-         $search = esc_sql( $_REQUEST['s'] );
-		  $search_column=esc_sql( $_REQUEST['search_column'] ); 
-		  $search_operator=esc_sql( $_REQUEST['search_operator'] ); 
+         $search = sanitize_text_field( $_REQUEST['s'] );
+		  $search_column=sanitize_text_field( $_REQUEST['search_column'] ); 
+		  $search_operator=sanitize_text_field( $_REQUEST['search_operator'] ); 
 		 
    if($search_operator=="LIKE")
    { $sql .= " and   ". $search_column."  ".$search_operator." '%{$search}%'  "; }
@@ -375,7 +375,7 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 		$title = '<strong>' . $item['title'] . '</strong>';
 
 		$actions = [
-		'delete' => sprintf( '<a href="?page=%s&action=%s&escrow=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['id'] ), $delete_nonce )
+		'delete' => sprintf( '<a href="?page=%s&action=%s&escrow=%s&_wpnonce=%s">Delete</a>', sanitize_text_field( $_REQUEST['page'] ), 'delete', absint( $item['id'] ), $delete_nonce )
 		];
 
 		return $title . $this->row_actions( $actions );
@@ -442,8 +442,8 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 
 function form(){
  
-		$from = ( isset( $_GET['mishaDateFrom'] ) && $_GET['mishaDateFrom'] ) ? $_GET['mishaDateFrom'] : '';
-		$to = ( isset( $_GET['mishaDateTo'] ) && $_GET['mishaDateTo'] ) ? $_GET['mishaDateTo'] : '';
+		$from = ( isset( sanitize_text_field($_GET['mishaDateFrom']) ) && sanitize_text_field($_GET['mishaDateFrom'] )) ? $_GET['mishaDateFrom'] : '';
+		$to = ( isset(sanitize_text_field( $_GET['mishaDateTo'] )) && sanitize_text_field($_GET['mishaDateTo'] )) ? sanitize_text_field($_GET['mishaDateTo']) : '';
  
 		echo ' 
  

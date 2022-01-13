@@ -208,7 +208,7 @@
 
 <?php
 
-echo $row->payment_status;
+// echo $row->payment_status;
 if($row->payment_status=='processing'){
     ?>
     <form method="POST" action="" name="escrow_payment" enctype="multipart/form-data"> 

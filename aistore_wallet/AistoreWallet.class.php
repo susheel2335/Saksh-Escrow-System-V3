@@ -117,7 +117,7 @@ $currency=  $row->currency;
 
         $balance = $wallet->aistore_balance($user_id, $currency);
 
-         echo "<br>".$balance . " " . $currency;
+         echo "<br>".esc_attr($balance) . " " . esc_attr($currency);
        
    endforeach;
         $wallet = new AistoreWallet();
@@ -170,7 +170,7 @@ $currency=  $row->currency;
   <td> 	   <?php echo esc_attr($row->type); ?> </td>
     <td> 	
  
-   <?php echo $row->balance ?>
+   <?php echo esc_attr($row->balance) ?>
 		  </td>
 		   
 		  	   <td> 		   <?php echo esc_attr($row->amount) ?>  </td>

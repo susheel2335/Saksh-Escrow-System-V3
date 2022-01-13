@@ -108,13 +108,13 @@ class AistoreEscrowSystem
         ?>
         
        <table>
-    <tr><td>Bank Details :</td></tr>
+    <tr><td><?php _e('Bank Details ', 'aistore'); ?>:</td></tr>
     <tr><td><?php echo esc_attr(get_option('bank_details')); ?></td></tr>
     
-    <tr><td>Deposit Instructions :</td></tr>
+    <tr><td><?php _e('Deposit Instructions', 'aistore'); ?> :</td></tr>
     <tr><td><?php echo esc_attr(get_option('deposit_instructions')); ?></td></tr>
     
-     <tr><td>Total Amount :</td></tr>
+     <tr><td><?php _e('Total Amount', 'aistore'); ?> :</td></tr>
     <tr><td><?php echo esc_attr($total_amount).' '.esc_attr($aistore_escrow_currency); ?></td></tr>
 
 
@@ -515,10 +515,10 @@ if($user_balance>$new_amount){
 		 
 		   
 		   
-		   <td> 	<a href="<?php echo $details_escrow_page_id_url; ?>" >
+		   <td> 	<a href="<?php echo esc_url($details_escrow_page_id_url); ?>" >
 
-		   <?php echo $row->id; ?> </a> </td>
-  <td> 		   <?php echo $row->title; ?> </td>
+		   <?php echo esc_attr($row->id); ?> </a> </td>
+  <td> 		   <?php echo esc_attr($row->title); ?> </td>
     <td> 	
 
   <?php
@@ -532,17 +532,17 @@ if($user_balance>$new_amount){
                     $role = "Receiver";
                     $email = $row->sender_email;
                 }
-                echo $role;
+                echo esc_attr($role);
 
 ?>
 
 		  </td>
 		   
-		  	   <td> 		   <?php echo $row->amount . " " . $row->currency ?> </td>
-		   <td> 		   <?php echo $row->sender_email; ?> </td>
-		   <td> 		   <?php echo $row->receiver_email; ?> </td>
-		    <td> 		   <?php echo $row->payment_status; ?> </td>
-   <td> 		   <?php echo $row->status; ?> </td>
+		  	   <td> 		   <?php echo esc_attr($row->amount) . " " . esc_attr($row->currency) ?> </td>
+		   <td> 		   <?php echo esc_attr($row->sender_email); ?> </td>
+		   <td> 		   <?php echo esc_attr($row->receiver_email); ?> </td>
+		    <td> 		   <?php echo esc_attr($row->payment_status); ?> </td>
+   <td> 		   <?php echo esc_attr($row->status); ?> </td>
             </tr>
     <?php
             endforeach;
@@ -621,7 +621,7 @@ global $wpdb;
 
 ?>
 <div>
-<strong> <?php echo $dispute_escrow_success_message; ?></strong></div>
+<strong> <?php echo esc_attr($dispute_escrow_success_message); ?></strong></div>
 <?php
             sendNotificationDisputed($eid);
 
@@ -699,7 +699,7 @@ global $wpdb;
 ?>
 <div>
     
-<strong> <?php echo $accept_escrow_success_message; ?></strong></div>
+<strong> <?php echo esc_attr($accept_escrow_success_message); ?></strong></div>
 <?php
 
             sendNotificationAccepted($eid);
@@ -752,7 +752,7 @@ global $wpdb;
             
 ?>
 <div>
-<strong> <?php echo $release_escrow_success_message; ?></strong></div>
+<strong> <?php echo esc_attr($release_escrow_success_message); ?></strong></div>
 <?php
             sendNotificationReleased($eid);
         }
@@ -815,7 +815,7 @@ global $wpdb;
 
 ?>
 <div>
-<strong><?php echo $cancel_escrow_success_message; ?></strong></div>
+<strong><?php echo esc_attr($cancel_escrow_success_message); ?></strong></div>
 
 <?php
             sendNotificationCancelled($eid);
@@ -826,12 +826,12 @@ global $wpdb;
 ?>
 	  <div>
 	      <div class="alert alert-success" role="alert">
- <strong>  Status   <?php echo $escrow->status; ?></strong>
+ <strong>  <?php _e('Status ', 'aistore'); ?>   <?php echo esc_attr($escrow->status); ?></strong>
   </div>
 	  
 	  
 	    <div class="alert alert-success" role="alert">
- <strong>Payment Status   <?php echo $escrow->payment_status; ?></strong>
+ <strong><?php _e('Payment Status ', 'aistore'); ?>   <?php echo esc_attr($escrow->payment_status); ?></strong>
   </div>
   
 	      <?php
@@ -870,7 +870,7 @@ global $wpdb;
 
         }
 
-        echo "<h1>#" . $escrow->id . " " . $escrow->title . "</h1><br>";
+        echo "<h1>#" . esc_attr($escrow->id) . " " . esc_attr($escrow->title) . "</h1><br>";
         
         
         
@@ -930,9 +930,9 @@ global $wpdb;
    
 
 
-  <p><a href="<?php echo $row->documents; ?>" target="_blank">
-	       <b><?php echo $row->documents_name; ?></b></a></p>
-  <h6 > <?php echo $row->created_at; ?></h6>
+  <p><a href="<?php echo esc_attr($row->documents); ?>" target="_blank">
+	       <b><?php echo esc_attr($row->documents_name); ?></b></a></p>
+  <h6 > <?php echo esc_attr($row->created_at); ?></h6>
 </div>
 
 <hr>
@@ -962,7 +962,7 @@ global $wpdb;
 
 $set_file =  get_option('escrow_file_type');
 ?>
-<p> We accept only <?php echo $set_file; ?> files.</p>
+<p> We accept only <?php echo esc_attr($set_file); ?> files.</p>
 
        
      
@@ -1023,7 +1023,7 @@ $set_file =  get_option('escrow_file_type');
 
 ?>
 <input type="hidden" name="action" value="custom_action" />
- <input type="hidden" name="escrow_id"  id="escrow_id" value="<?php echo $escrow->id; ?>" />
+ <input type="hidden" name="escrow_id"  id="escrow_id" value="<?php echo esc_attr($escrow->id); ?>" />
 <input class="input btn btn-small" type="submit" name="submit" value="<?php _e('Submit Message', 'aistore') ?>"/>
 </form> 
 </div>
@@ -1236,8 +1236,7 @@ function aistore_upload_file()
                 {
                     $filename = wp_unique_filename($user_dirname, $_FILES['file']['name']);
 
-                    echo "filename" . $filename;
-
+                    
                     move_uploaded_file(sanitize_text_field($_FILES['file']['tmp_name']) , $user_dirname . '/' . $filename);
 
                     $image = $upload_dir['baseurl'] . '/documents/' . $eid . '/' . $filename;
@@ -1256,7 +1255,7 @@ function aistore_upload_file()
                 else
                 {
                     $set_file =  get_option('escrow_file_type');
-                    echo "We accept only ".$set_file." file";
+                    echo "We accept only ".esc_attr($set_file)." file";
                 }
             }
         }
