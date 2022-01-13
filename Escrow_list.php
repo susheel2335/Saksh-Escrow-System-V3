@@ -469,8 +469,8 @@ $sql .=  Escrow_List::prepareWhereClouse();
 
 function form(){
  
-		$from = ( isset( sanitize_text_field($_GET['EscrowDateFrom']) ) && sanitize_text_field($_GET['EscrowDateFrom']) ) ? sanitize_text_field($_GET['EscrowDateFrom']) : '';
-		$to = ( isset( sanitize_text_field($_GET['EscrowDateTo'] )) && sanitize_text_field($_GET['EscrowDateTo']) ) ? sanitize_text_field($_GET['EscrowDateTo']) : '';
+		$from = ( isset($_GET['EscrowDateFrom'] ) && sanitize_text_field($_GET['EscrowDateFrom']) ) ? sanitize_text_field($_GET['EscrowDateFrom']) : '';
+		$to = ( isset($_GET['EscrowDateTo'] ) && sanitize_text_field($_GET['EscrowDateTo']) ) ? sanitize_text_field($_GET['EscrowDateTo']) : '';
  
 		echo ' 
  
