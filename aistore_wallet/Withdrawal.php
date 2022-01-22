@@ -30,7 +30,7 @@ global  $wpdb;
           <div class="accordion" id="accordionExample">
               
   <div class="accordion-item">
-    <h2 class="accordion-header" id="heading<?php echo $row->id ; ?>">
+    <h2 class="accordion-header" id="heading<?php echo esc_attr($row->id) ; ?>">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo esc_attr($row->id) ; ?>" aria-expanded="true" aria-controls="collapse<?php echo esc_attr($row->id ); ?>">
         #<?php echo esc_attr($row->id) ; ?> :  <?php echo esc_attr($row->username) ; ?>
       </button>

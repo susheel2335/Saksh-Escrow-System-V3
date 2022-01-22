@@ -218,7 +218,7 @@
 sendNotificationDisputed($eid);
 ?>
 <div>
-<strong> <?php echo $dispute_escrow_success_message; ?></strong></div>
+<strong> <?php echo esc_attr($dispute_escrow_success_message); ?></strong></div>
 <?php
         }
 
@@ -314,7 +314,7 @@ sendNotificationDisputed($eid);
             sendNotificationReleased($eid);
 ?>
 <div>
-<strong> <?php echo $release_escrow_success_message; ?></strong></div>
+<strong> <?php echo esc_attr($release_escrow_success_message); ?></strong></div>
 <?php
         }
 
@@ -395,7 +395,7 @@ sendNotificationDisputed($eid);
             }
 ?>
 <div>
-<strong><?php echo $cancel_escrow_success_message; ?></strong></div>
+<strong><?php echo esc_attr($cancel_escrow_success_message); ?></strong></div>
 <?php
         }
 
@@ -448,7 +448,7 @@ sendNotificationDisputed($eid);
     <form method="POST" action="" name="escrow_payment" enctype="multipart/form-data"> 
 
 <?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
-	<input type="hidden" name="ecsrow_id" value="<?php echo $escrow->id; ?>" />
+	<input type="hidden" name="ecsrow_id" value="<?php echo esc_attr($escrow->id); ?>" />
 <input 
  type="submit" name="submit" value="<?php _e('Approve Payment', 'aistore') ?>"/>
 <input type="hidden" name="action" value="escrow_payment" />
@@ -458,7 +458,7 @@ sendNotificationDisputed($eid);
                  <form method="POST" action="" name="reject_payment" enctype="multipart/form-data"> 
 
 <?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
-		<input type="hidden" name="reject_ecsrow_id" value="<?php echo $escrow->id; ?>" />
+		<input type="hidden" name="reject_ecsrow_id" value="<?php echo esc_attr($escrow->id); ?>" />
 <input 
  type="submit" name="submit" value="<?php _e('Reject Payment', 'aistore') ?>"/>
 <input type="hidden" name="action" value="reject_payment" />
@@ -474,7 +474,7 @@ sendNotificationDisputed($eid);
                  <form method="POST" action="" name="remove_escrow_payment" enctype="multipart/form-data"> 
 
 <?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
-		<input type="hidden" name="ecsrow_id" value="<?php echo $escrow->id; ?>" />
+		<input type="hidden" name="ecsrow_id" value="<?php echo esc_attr($escrow->id); ?>" />
 <input 
  type="submit" name="submit" value="<?php _e('Remove Payment', 'aistore') ?>"/>
 <input type="hidden" name="action" value="remove_escrow_payment" />

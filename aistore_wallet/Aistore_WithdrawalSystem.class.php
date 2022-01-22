@@ -353,7 +353,7 @@ $currency=  $row->currency;
 
         $balance = $wallet->aistore_balance($user_id, $currency);
 
-         echo "<br>".$balance . " " . $currency;
+         echo esc_attr($balance) . " " . esc_attr($currency);
        
    endforeach;
 
