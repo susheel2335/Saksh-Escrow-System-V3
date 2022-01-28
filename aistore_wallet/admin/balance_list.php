@@ -32,16 +32,16 @@ public function status_filter( $text, $input_id ) {
         $input_id = $input_id . '-search-input';
  
         if ( ! empty( $_REQUEST['orderby'] ) ) {
-            echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+            echo '<input type="hidden" name="orderby" value="' . esc_attr(sanitize_text_field( $_REQUEST['orderby'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['order'] ) ) {
-            echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+            echo '<input type="hidden" name="order" value="' . esc_attr(sanitize_text_field( $_REQUEST['order'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-            echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '" />';
+            echo '<input type="hidden" name="post_mime_type" value="' . esc_attr(sanitize_text_field( $_REQUEST['post_mime_type'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['detached'] ) ) {
-            echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '" />';
+            echo '<input type="hidden" name="detached" value="' .esc_attr( sanitize_text_field( $_REQUEST['detached'] )) . '" />';
         }
         ?>
 		 
@@ -103,16 +103,16 @@ public function date_filter( $text, $input_id ) {
         $input_id = $input_id . ' ';
  
         if ( ! empty( $_REQUEST['orderby'] ) ) {
-            echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+            echo '<input type="hidden" name="orderby" value="' .esc_attr( sanitize_text_field( $_REQUEST['orderby'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['order'] ) ) {
-            echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+            echo '<input type="hidden" name="order" value="' . esc_attr(sanitize_text_field( $_REQUEST['order'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-            echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '" />';
+            echo '<input type="hidden" name="post_mime_type" value="' .esc_attr( sanitize_text_field( $_REQUEST['post_mime_type'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['detached'] ) ) {
-            echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '" />';
+            echo '<input type="hidden" name="detached" value="' .esc_attr( sanitize_text_field( $_REQUEST['detached'] )) . '" />';
         }
         ?>
 		
@@ -120,9 +120,9 @@ public function date_filter( $text, $input_id ) {
 	 <input type="hidden" name="date_filter" value="1" /> 
 		
 	  
-    <?php  _e( 'Start Date', 'aistore' ) ?>  <input type='date' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo $_POST['fromDate']; ?>'>
+    <?php  _e( 'Start Date', 'aistore' ) ?>  <input type='date' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo esc_attr (sanitize_text_field($_POST['fromDate'])); ?>'>
  
-   <?php  _e( ' End Date', 'aistore' ) ?>  <input type='date' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo $_POST['endDate']; ?>'>
+   <?php  _e( ' End Date', 'aistore' ) ?>  <input type='date' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo esc_attr(sanitize_text_field( $_POST['endDate'])); ?>'>
 
   
      
@@ -140,16 +140,16 @@ public function search_box( $text, $input_id ) {
         $input_id = $input_id . '-search-input';
  
         if ( ! empty( $_REQUEST['orderby'] ) ) {
-            echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+            echo '<input type="hidden" name="orderby" value="' . esc_attr(sanitize_text_field( $_REQUEST['orderby'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['order'] ) ) {
-            echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+            echo '<input type="hidden" name="order" value="' .esc_attr(sanitize_text_field( $_REQUEST['order'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-            echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '" />';
+            echo '<input type="hidden" name="post_mime_type" value="' .esc_attr( sanitize_text_field( $_REQUEST['post_mime_type'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['detached'] ) ) {
-            echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '" />';
+            echo '<input type="hidden" name="detached" value="' .esc_attr( sanitize_text_field( $_REQUEST['detached'] )) . '" />';
         }
         ?>
 		 
@@ -217,16 +217,15 @@ public function search_box( $text, $input_id ) {
 
 		$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_balance  INNER JOIN {$wpdb->prefix}users ON  {$wpdb->prefix}aistore_wallet_balance.user_id={$wpdb->prefix}users.ID WHERE 1=1 ";
 
-	//	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_balance WHERE 1=1 ";
-
+ 
 
 $sql .=  Aistore_Balance_List::prepareWhereClouse();
 
 
 
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			$sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
-			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' DESC';
+			$sql .= ' ORDER BY ' . sanitize_text_field( $_REQUEST['orderby'] );
+			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_attr(sanitize_text_field( $_REQUEST['order'] ))  : ' DESC';
 		}
 
 		$sql .= " LIMIT $per_page";
@@ -247,8 +246,8 @@ $sql .=  Aistore_Balance_List::prepareWhereClouse();
 
 
 		if( ! empty( $_REQUEST['date_filter'] ) ){
-           $fromDate = $_POST["fromDate"];
-      $endDate   = $_POST["endDate"]; 
+           $fromDate =sanitize_text_field( $_POST["fromDate"]);
+      $endDate   = sanitize_text_field($_POST["endDate"]); 
 
     //sql will be 
     $sql .= " and   DATE( `date`) BETWEEN '{$fromDate}' AND '{$endDate}'";
@@ -260,9 +259,9 @@ $sql .=  Aistore_Balance_List::prepareWhereClouse();
 
 
 		if( ! empty( $_REQUEST['s'] ) ){
-         $search = esc_sql( $_REQUEST['s'] );
-		  $search_column=esc_sql( $_REQUEST['search_column'] ); 
-		  $search_operator=esc_sql( $_REQUEST['search_operator'] ); 
+         $search = sanitize_text_field( $_REQUEST['s'] );
+		  $search_column=sanitize_text_field( $_REQUEST['search_column'] ); 
+		  $search_operator=sanitize_text_field( $_REQUEST['search_operator'] ); 
 		 
    if($search_operator=="LIKE")
    { $sql .= " and   ". $search_column."  ".$search_operator." '%{$search}%'  "; }
@@ -320,8 +319,7 @@ $sql .=  Aistore_Balance_List::prepareWhereClouse();
 			case 'created_by':
 			case 'date':
 				return $item[ $column_name ];
-			default:
-				return print_r( $item, true ); //Show the whole array for troubleshooting purposes
+			
 		}
 	}
 
@@ -334,7 +332,7 @@ $sql .=  Aistore_Balance_List::prepareWhereClouse();
 	 */
 	function column_cb( $item ) {
 		return sprintf(
-			'<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['id']
+			'<input type="checkbox" name="bulk-delete[]" value="%s" />', esc_attr($item['id'])
 		);
 	}
 
@@ -386,8 +384,8 @@ $sql .=  Aistore_Balance_List::prepareWhereClouse();
 
 function form(){
  
-		$from = ( isset( $_GET['mishaDateFrom'] ) && $_GET['mishaDateFrom'] ) ? $_GET['mishaDateFrom'] : '';
-		$to = ( isset( $_GET['mishaDateTo'] ) && $_GET['mishaDateTo'] ) ? $_GET['mishaDateTo'] : '';
+		$from = ( isset( $_GET['mishaDateFrom'] ) && $_GET['mishaDateFrom'] ) ? sanitize_text_field($_GET['mishaDateFrom']) : '';
+		$to = ( isset( $_GET['mishaDateTo'] ) && $_GET['mishaDateTo'] ) ? sanitize_text_field($_GET['mishaDateTo'] ): '';
  
 		echo ' 
  
@@ -428,13 +426,13 @@ function form(){
 		if ( 'delete' === $this->current_action() ) {
 
 			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+			$nonce = sanitize_text_field( $_REQUEST['_wpnonce'] );
 
 			if ( ! wp_verify_nonce( $nonce, 'sp_delete_balance' ) ) {
 				die( 'Go get a life script kiddies' );
 			}
 			else {
-				self::delete_balance( absint( $_GET['balance'] ) );
+				self::delete_balance( absint( sanitize_text_field($_GET['balance'] )) );
 
 		                // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
 		                // add_query_arg() return the current url

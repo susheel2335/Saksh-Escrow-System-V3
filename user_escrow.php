@@ -32,7 +32,7 @@ function aistore_user_escrow_list( $val, $column_name, $user_id ) {
                 $url = admin_url('admin.php?page=escrow_list&id='.$user_id, 'https');
                 
                 
-         $link= '<a href="'.$url.'">Escrow List</a>';
+         $link= '<a href="'.esc_url($url).'">Escrow List</a>';
          
          
   

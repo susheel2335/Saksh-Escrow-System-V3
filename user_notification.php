@@ -35,7 +35,7 @@ function aistore_user_notification_list( $val, $column_name, $user_id ) {
                 $url = admin_url('admin.php?page=all_notification&id='.$user_id, 'https');
                 
                 
-         $link= '<a href="'.$url.'">Notification</a>';
+         $link= '<a href="'.esc_url($url).'">Notification</a>';
 
    
        

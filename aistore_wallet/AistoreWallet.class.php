@@ -117,7 +117,7 @@ $currency=  $row->currency;
 
         $balance = $wallet->aistore_balance($user_id, $currency);
 
-         echo esc_attr($balance) . " " .esc_attr($currency);
+         echo "<br>".esc_attr($balance) . " " . esc_attr($currency);
        
    endforeach;
         $wallet = new AistoreWallet();

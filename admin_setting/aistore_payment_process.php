@@ -190,7 +190,7 @@
       <tr>
  
 		   <td> 	 
-		  <a href="<?php echo ($url); ?>">  <?php echo $row->id; ?></a></td>
+		  <a href="<?php echo esc_url($url); ?>">  <?php echo esc_attr($row->id); ?></a></td>
 		  
 		  
 		   

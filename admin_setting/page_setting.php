@@ -29,8 +29,7 @@
                 'post_title' => 'Create Escrow',
                 'post_type' => 'page',
                 'post_content' => '[aistore_escrow_system]',
-                'post_status' => 'publish',
-                'post_author' => 1
+                'post_status' => 'publish' 
             );
 
             // Insert the post into the database
@@ -42,8 +41,7 @@
                 'post_title' => 'Escrow List',
                 'post_type' => 'page',
                 'post_content' => '[aistore_escrow_list] ',
-                'post_status' => 'publish',
-                'post_author' => 1
+                'post_status' => 'publish' 
             );
 
             // Insert the post into the database
@@ -55,8 +53,7 @@
                 'post_type' => 'page',
                 'post_title' => 'Escrow Detail',
                 'post_content' => '[aistore_escrow_detail]',
-                'post_status' => 'publish',
-                'post_author' => 1
+                'post_status' => 'publish' 
             );
 
             // Insert the post into the database
@@ -68,8 +65,7 @@
                 'post_type' => 'page',
                 'post_title' => 'Bank Detail',
                 'post_content' => '[aistore_bank_details]',
-                'post_status' => 'publish',
-                'post_author' => 1
+                'post_status' => 'publish' 
             );
 
             // Insert the post into the database
@@ -81,8 +77,7 @@
                 'post_type' => 'page',
                 'post_title' => 'Escrow Notification',
                 'post_content' => '[aistore_notification]',
-                'post_status' => 'publish',
-                'post_author' => 1
+                'post_status' => 'publish' 
             );
 
             // Insert the post into the database
@@ -94,8 +89,7 @@
                 'post_type' => 'page',
                 'post_title' => 'Transaction History',
                 'post_content' => '[aistore_transaction_history]',
-                'post_status' => 'publish',
-                'post_author' => 1
+                'post_status' => 'publish' 
             );
 
             // Insert the post into the database
@@ -108,8 +102,7 @@
                 'post_type' => 'page',
                 'post_title' => 'Withdrawal',
                 'post_content' => '[aistore_saksh_withdrawal_system]',
-                'post_status' => 'publish',
-                'post_author' => 1
+                'post_status' => 'publish' 
             );
 
             // Insert the post into the database
@@ -121,8 +114,7 @@
                 'post_type' => 'page',
                 'post_title' => 'Bank Account',
                 'post_content' => '[aistore_bank_account]',
-                'post_status' => 'publish',
-                'post_author' => 1
+                'post_status' => 'publish' 
             );
 
             // Insert the post into the database
@@ -182,9 +174,7 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
 
 
-
-
-<h3>For any kind of support please message at aistore2030@gmail.com </h3>
+ 
 
 <p><?php _e('Create 8 pages with short codes and select here  ', 'aistore') ?></p>
 
@@ -207,13 +197,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
             if ($page->ID == get_option('add_escrow_page_id'))
             {
-                echo '	<option selected value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option selected value="' .esc_attr( $page->ID ). '">' .esc_attr( $page->post_title) . '</option>';
 
             }
             else
             {
 
-                echo '	<option value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option value="' . esc_attr($page->ID ). '">' .esc_attr( $page->post_title) . '</option>';
 
             }
         } ?> 
@@ -242,13 +232,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
             if ($page->ID == get_option('list_escrow_page_id'))
             {
-                echo '	<option selected value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option selected value="' . esc_attr($page->ID) . '">' .esc_attr( $page->post_title) . '</option>';
 
             }
             else
             {
 
-                echo '	<option  value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option  value="' .esc_attr( $page->ID) . '">' .esc_attr( $page->post_title) . '</option>';
 
             }
         } ?> 
@@ -279,13 +269,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
             if ($page->ID == get_option('details_escrow_page_id'))
             {
-                echo '	<option selected value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option selected value="' .esc_attr( $page->ID) . '">' . esc_attr($page->post_title) . '</option>';
 
             }
             else
             {
 
-                echo '	<option  value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option  value="' .esc_attr( $page->ID) . '">' . esc_attr($page->post_title) . '</option>';
 
             }
         } ?> 
@@ -319,13 +309,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
             if ($page->ID == get_option('bank_details_page_id'))
             {
-                echo '	<option selected value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option selected value="' . esc_attr($page->ID) . '">' . esc_attr($page->post_title) . '</option>';
 
             }
             else
             {
 
-                echo '	<option  value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option  value="' .esc_attr( $page->ID ). '">' . esc_attr($page->post_title ). '</option>';
 
             }
         } ?> 
@@ -360,13 +350,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
             if ($page->ID == get_option('notification_page_id'))
             {
-                echo '	<option selected value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option selected value="' .esc_attr( $page->ID) . '">' . esc_attr($page->post_title) . '</option>';
 
             }
             else
             {
 
-                echo '	<option  value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option  value="' . esc_attr($page->ID) . '">' . esc_attr($page->post_title ). '</option>';
 
             }
         } ?> 
@@ -393,13 +383,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
             if ($page->ID == get_option('aistore_transaction_history_page_id'))
             {
-                echo '	<option selected value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option selected value="' .esc_attr( $page->ID) . '">' . esc_attr($page->post_title) . '</option>';
 
             }
             else
             {
 
-                echo '	<option  value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option  value="' . esc_attr($page->ID ). '">' . esc_attr($page->post_title) . '</option>';
 
             }
         } ?> 
@@ -426,13 +416,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
             if ($page->ID == get_option('aistore_saksh_withdrawal_system'))
             {
-                echo '	<option selected value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option selected value="' . esc_attr($page->ID ). '">' . esc_attr($page->post_title) . '</option>';
 
             }
             else
             {
 
-                echo '	<option  value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option  value="' .esc_attr( $page->ID) . '">' . esc_attr($page->post_title) . '</option>';
 
             }
         } ?> 
@@ -459,13 +449,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
             if ($page->ID == get_option('aistore_bank_account'))
             {
-                echo '	<option selected value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option selected value="' .esc_attr( $page->ID ). '">' .esc_attr( $page->post_title) . '</option>';
 
             }
             else
             {
 
-                echo '	<option  value="' . $page->ID . '">' . $page->post_title . '</option>';
+                echo '	<option  value="' .esc_attr( $page->ID ). '">' . esc_attr($page->post_title) . '</option>';
 
             }
         } ?> 
@@ -499,7 +489,7 @@ echo "<strong>If no error then task completed successfully.</strong>";
 		 
 		 
 		  <?php
-        $escrow_admin_user_id = get_option('escrow_user_id');
+        $escrow_admin_user_id =esc_attr( get_option('escrow_user_id'));
         $blogusers = get_users(['role__in' => ['administrator']]);
 
         foreach ($blogusers as $user)
@@ -507,13 +497,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
             if ($user->ID == $escrow_admin_user_id)
             {
-                echo '	<option selected value="' . $user->ID . '">' . $user->display_name . '</option>';
+                echo '	<option selected value="' .esc_attr( $user->ID ). '">' . esc_attr($user->display_name ). '</option>';
 
             }
             else
             {
 
-                echo '	<option  value="' . $user->ID . '">' . $user->display_name . '</option>';
+                echo '	<option  value="' . esc_attr($user->ID) . '">' . esc_attr($user->display_name) . '</option>';
 
             }
         } ?> 
@@ -521,7 +511,7 @@ echo "<strong>If no error then task completed successfully.</strong>";
 </select>
 <?php 
  $_new_user_url = admin_url('user-new.php', 'https'); ?>
-<p><?php _e('Add a new admin user with admin roll and then  ', 'aistore') ?><a href="<?php echo $_new_user_url; ?>">Click Here</a></p>
+<p><?php _e('Add a new admin user with admin roll and then  ', 'aistore') ?><a href="<?php echo esc_url($_new_user_url); ?>">Click Here</a></p>
 
 <p><?php _e('Add an user with admin roll and then select its ID here', 'aistore') ?></p>
  <tr valign="top">
@@ -547,7 +537,7 @@ echo "<strong>If no error then task completed successfully.</strong>";
  <tr valign="top">
  <th scope="row"><?php _e('Cancel Escrow fee refund or not ', 'aistore') ?></th>
         <td>
-            <?php $cancel_escrow_fee = get_option('cancel_escrow_fee'); ?>
+            <?php $cancel_escrow_fee =esc_attr( get_option('cancel_escrow_fee')); ?>
             
             <select name="cancel_escrow_fee" id="cancel_escrow_fee">
                
@@ -564,7 +554,7 @@ echo "<strong>If no error then task completed successfully.</strong>";
          <tr valign="top">
  <th scope="row"><?php _e('Upload File type', 'aistore') ?></th>
         <td>
-            <?php $escrow_file_type = get_option('escrow_file_type'); ?>
+            <?php $escrow_file_type = esc_attr(get_option('escrow_file_type')); ?>
             
             <select name="escrow_file_type" id="escrow_file_type">
                 
@@ -601,7 +591,7 @@ echo "<strong>If no error then task completed successfully.</strong>";
          <tr valign="top">
  <th scope="row"><?php _e('when will the escrow fee be deducted  ', 'aistore') ?></th>
         <td>
-            <?php $escrow_fee_deducted = get_option('escrow_fee_deducted'); ?>
+            <?php $escrow_fee_deducted = esc_attr(get_option('escrow_fee_deducted')); ?>
             
             <select name="escrow_fee_deducted" id="escrow_fee_deducted">
                 

@@ -67,7 +67,7 @@ $notification = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}escrow_notificatio
     $wpdb->query($qr);
 	
 	
-return ' <div class="alert alert-'.$notification->type .'" role="alert"> '. $notification->message.'</div>';
+return ' <div class="alert alert-'.esc_attr($notification->type) .'" role="alert"> '.esc_attr( $notification->message).'</div>';
 	 }
 
 else

@@ -157,7 +157,7 @@ else{
 
         foreach ($blogusers as $user)
         {
-                echo '	<option  value="' . $user->ID . '">' . $user->display_name . '</option>';
+                echo '	<option  value="' .esc_attr( $user->ID) . '">' . esc_attr($user->display_name) . '</option>';
         } ?> 
  
 </select></td></tr><br><br>
@@ -188,7 +188,7 @@ else{
             foreach ($results as $c)
             {
 
-                echo '	<option  value="' . $c->symbol . '">' . $c->currency . '</option>';
+                echo '	<option  value="' .esc_attr( $c->symbol) . '">' . esc_attr($c->currency) . '</option>';
 
             }
 ?>

@@ -51,7 +51,7 @@ global $wpdb;
 
 		   
 		   <td> 	 
-		  <a href="<?php echo esc_html($url); ?>">  <?php echo esc_attr($row->id); ?></a></td>
+		  <a href="<?php echo esc_url($url); ?>">  <?php echo esc_attr($row->id); ?></a></td>
 		  
 		   
 		   <td> 		   <?php echo esc_attr($row->title); ?> </td>

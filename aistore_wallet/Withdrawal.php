@@ -135,9 +135,9 @@ $subject ="Withdrawal Approved";
 
  $body="Hello, <br>
  
-     <h2> withdraw approved  successfully for the withdraw ID ".$withdrawal_id." </h2>".
+     <h2> withdraw approved  successfully for the withdraw ID ".esc_attr($withdrawal_id)." </h2>".
      
-     "<br>Withdraw ID is: ".$withdrawal_id.
+     "<br>Withdraw ID is: ".esc_attr($withdrawal_id).
      "<br>Approved Withdraw system to :<br>";
     
   
@@ -195,7 +195,7 @@ $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}widthdrawal_requests
    $widthdrawal = $wpdb->get_row($wpdb->prepare( "SELECT * FROM {$wpdb->prefix}widthdrawal_requests WHERE id=%s ",$withdrawal_id));
    
    
-   $to = $widthdrawal->username;
+   $to = esc_attr($widthdrawal->username);
 $subject ="Withdrawal Request Rejected";
 
 
@@ -203,9 +203,9 @@ $subject ="Withdrawal Request Rejected";
 
  $body="Hello, <br>
  
-     <h2>Your  withdrawal request is Rejected for the withdraw ID ".$withdrawal_id." </h2>".
+     <h2>Your  withdrawal request is Rejected for the withdraw ID ".esc_attr($withdrawal_id)." </h2>".
      
-     "<br>Withdraw ID is: ".$withdrawal_id.
+     "<br>Withdraw ID is: ".esc_attr($withdrawal_id).
      "<br>Rejected Withdraw system to :<br>";
     
   

@@ -79,13 +79,13 @@ $id=sanitize_text_field($_REQUEST['id']);
 ?>
             <tr>
             	   <td> 	 
-		  <a href="<?php echo esc_html($url); ?>">
+		  <a href="<?php echo esc_url($url); ?>">
 		   
 		   <?php echo esc_attr($row->id); ?> </a> </td>
 		  
 		   
 		    <td> 	 
-		  <a href="<?php echo esc_html($url); ?>">
+		  <a href="<?php echo esc_url($url); ?>">
 		   
 		   <?php echo esc_attr($row->title); ?> </a> </td>
 
@@ -94,11 +94,11 @@ $id=sanitize_text_field($_REQUEST['id']);
 		   
 		   <td> 		   <?php echo esc_attr($row->amount) . " " . $row->currency; ?> </td>
 		   
-		  <td> <a href="<?php echo esc_html($urlbyid); ?>">
+		  <td> <a href="<?php echo esc_url($urlbyid); ?>">
 		   
 		   <?php echo esc_attr($row->sender_email); ?> </a> </td>
 		   
-		   	  <td> <a href="<?php echo esc_html($urlbyidreciver); ?>">
+		   	  <td> <a href="<?php echo esc_url($urlbyidreciver); ?>">
 		   
 		   <?php echo esc_attr($row->receiver_email); ?> </a> </td>
 

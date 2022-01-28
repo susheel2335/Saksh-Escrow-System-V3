@@ -169,7 +169,7 @@ public static function aistore_saksh_withdrawal_system()
     
 $user_id=get_current_user_id();
 
-if(isset($_POST['submit']) and $_POST['action']=='withdrawal_request' )
+if(isset($_POST['submit']) and sanitize_text_field($_POST['action'])=='withdrawal_request' )
 {
 
 
@@ -193,7 +193,7 @@ if ( ! isset( $_POST['aistore_nonce'] )
       
 $aistore_currency=sanitize_text_field($_REQUEST['aistore_currency']);
 
-$amount=intval($_REQUEST['amount']);
+$amount=intval(sanitize_text_field($_REQUEST['amount']));
 
 
 $username = get_the_author_meta( 'user_email', get_current_user_id() );
@@ -327,7 +327,7 @@ else{
             foreach ($results as $c)
             {
 
-                echo '	<option  value="' . $c->symbol . '">' . $c->currency . '</option>';
+                echo '	<option  value="' . esc_attr($c->symbol) . '">' . esc_attr($c->currency ). '</option>';
 
             }
 ?>
@@ -353,7 +353,7 @@ $currency=  $row->currency;
 
         $balance = $wallet->aistore_balance($user_id, $currency);
 
-         echo esc_attr($balance) . " " . esc_attr($currency);
+         echo "<br>".esc_attr($balance ). " " . esc_attr($currency);
        
    endforeach;
 
@@ -454,8 +454,8 @@ global $wpdb;
 
    
 		   
-		  	   <td> 		   <?php echo esc_attr($row->amount) . " " . $row->currency;?>  </td>
-		  	   <td> 		   <?php echo esc_attr($row->charges) . " " . $row->currency;?>  </td>
+		  	   <td> 		   <?php echo esc_attr($row->amount) . " " . esc_attr($row->currency);?>  </td>
+		  	   <td> 		   <?php echo esc_attr($row->charges) . " " .esc_attr( $row->currency);?>  </td>
 	
 		    <td> 		   <?php echo esc_attr($row->status) ; ?> </td>
 		    	   <td> 		   <?php echo esc_attr($row->created_at); ?> </td>

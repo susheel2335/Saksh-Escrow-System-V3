@@ -145,7 +145,7 @@ class AistoreEscrowSystem
                     'eid' => $eid,
                 ) , home_url()));
                    ?>
-<meta http-equiv="refresh" content="0; URL=<?php echo esc_html($details_escrow_page_id_url); ?>" />
+<meta http-equiv="refresh" content="0; URL=<?php echo esc_url($details_escrow_page_id_url); ?>" />
 <?php
                 }
                 else
@@ -209,7 +209,7 @@ class AistoreEscrowSystem
 
             $receiver_email = sanitize_email($_REQUEST['receiver_email']);
 
-            $term_condition = sanitize_text_field(htmlentities($_REQUEST['term_condition']));
+            $term_condition = sanitize_textarea_field(htmlentities($_REQUEST['term_condition']));
 
             $escrow_currency = sanitize_text_field($_REQUEST['aistore_escrow_currency']);
 
@@ -330,7 +330,7 @@ if($user_balance>$new_amount){
  
 
 ?>
-<meta http-equiv="refresh" content="0; URL=<?php echo esc_html($bank_details_page_id_url); ?>" />
+<meta http-equiv="refresh" content="0; URL=<?php echo esc_url($bank_details_page_id_url); ?>" />
 
 
 <?php
@@ -363,7 +363,7 @@ if($user_balance>$new_amount){
             foreach ($results as $c)
             {
 
-                echo '	<option  value="' . $c->symbol . '">' . $c->currency . '</option>';
+                echo '	<option  value="' . esc_attr($c->symbol) . '">' . esc_attr($c->currency) . '</option>';
 
             }
 ?>
@@ -377,7 +377,7 @@ if($user_balance>$new_amount){
   <label for="amount"><?php _e('Amount', 'aistore'); ?></label><br>
   <input class="input" type="text" id="amount" name="amount"   required><br>
  
-   <input class="input" type="hidden" id="escrow_create_fee" name="escrow_create_fee" value= "<?php echo get_option('escrow_create_fee'); ?>">
+   <input class="input" type="hidden" id="escrow_create_fee" name="escrow_create_fee" value= "<?php echo esc_attr( get_option('escrow_create_fee')); ?>">
     <div class="feeblock hide" >
   <?php
 
@@ -388,7 +388,7 @@ if($user_balance>$new_amount){
  
   <?php _e('Escrow Fee', 'aistore'); ?>
   
-  :  <b id="escrow_fee" ></b>/- <span id="escrow_currency"></span> (<?php echo get_option('escrow_create_fee'); ?> %)<br>
+  :  <b id="escrow_fee" ></b>/- <span id="escrow_currency"></span> (<?php echo esc_attr(get_option('escrow_create_fee')); ?> %)<br>
   
     
      
@@ -584,7 +584,7 @@ if($user_balance>$new_amount){
 ?>
     
    
-<meta http-equiv="refresh" content="0; URL=<?php echo esc_html($add_escrow_page_url); ?>" /> 
+<meta http-equiv="refresh" content="0; URL=<?php echo esc_url($add_escrow_page_url); ?>" /> 
   
  <?php
         }
@@ -935,7 +935,7 @@ global $wpdb;
    
 
 
-  <p><a href="<?php echo esc_attr($row->documents); ?>" target="_blank">
+  <p><a href="<?php echo esc_url($row->documents); ?>" target="_blank">
 	       <b><?php echo esc_attr($row->documents_name); ?></b></a></p>
   <h6 > <?php echo esc_attr($row->created_at); ?></h6>
 </div>
@@ -953,7 +953,7 @@ global $wpdb;
 
 
 	<label for="documents"> <?php _e('Documents', 'aistore'); ?> : </label>
-<form  method="post"  action="<?php echo admin_url('admin-ajax.php') . '?action=custom_action&eid=' . $eid; ?>" class="dropzone" id="dropzone">
+<form  method="post"  action="<?php echo admin_url('admin-ajax.php') . '?action=custom_action&eid=' . esc_attr($eid); ?>" class="dropzone" id="dropzone">
     <?php
         wp_nonce_field('aistore_nonce_action', 'aistore_nonce');
 ?>

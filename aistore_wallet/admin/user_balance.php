@@ -37,7 +37,7 @@ function aistore_new_modify_user_table_row_balance( $val, $column_name, $user_id
 
 
     $balance = $wallet->aistore_balance($user_id, $currency);
-           $url = admin_url('admin.php'); 
+           $url = esc_url(admin_url('admin.php')); 
          $link= '<a href="'.$url.'?page=wallet_account&id='.$user_id.'">Add Balance</a>';
          
         //  $a=array();

@@ -140,7 +140,7 @@ $users = get_users( );
 ?>
             <tr>
             	   <td> 	 
-		  <a href="<?php echo esc_html($url); ?>">
+		  <a href="<?php echo esc_url($url); ?>">
 		   
 		   <?php echo esc_attr($row->id); ?> </a> </td>
 		  

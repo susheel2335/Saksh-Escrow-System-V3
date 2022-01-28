@@ -51,7 +51,7 @@
             $url = admin_url('admin.php?page=disputed_escrow_list', 'https');
 
 ?>
-	<div><a href="<?php echo esc_html($url); ?>" >
+	<div><a href="<?php echo esc_url($url); ?>" >
 	    <?php _e('Go To Escrow List Page', 'aistore'); ?> 
 	     </a></div>
 <?php
@@ -218,7 +218,7 @@
 sendNotificationDisputed($eid);
 ?>
 <div>
-<strong> <?php echo esc_attr($dispute_escrow_success_message); ?></strong></div>
+<strong> <?php echo esc_html($dispute_escrow_success_message); ?></strong></div>
 <?php
         }
 
@@ -264,7 +264,7 @@ sendNotificationDisputed($eid);
 ?>
 
     
-<strong> <?php echo $accept_escrow_success_message ?></strong>
+<strong> <?php echo esc_html($accept_escrow_success_message); ?></strong>
 <?php
             printf(__("Escrow Fee %d.", 'aistore') , $escrow_fee);
 
@@ -314,7 +314,7 @@ sendNotificationDisputed($eid);
             sendNotificationReleased($eid);
 ?>
 <div>
-<strong> <?php echo esc_attr($release_escrow_success_message); ?></strong></div>
+<strong> <?php echo esc_html($release_escrow_success_message); ?></strong></div>
 <?php
         }
 
@@ -342,7 +342,7 @@ sendNotificationDisputed($eid);
             
    $url = admin_url('admin.php?page=disputed_escrow_details&eid=' . $escrow_id . '', 'https');
    ?>
-   <meta http-equiv="refresh" content="0; URL=<?php echo esc_html($url); ?>" />
+   <meta http-equiv="refresh" content="0; URL=<?php echo esc_url($url); ?>" />
    <?php
              
             wp_die();
@@ -395,7 +395,7 @@ sendNotificationDisputed($eid);
             }
 ?>
 <div>
-<strong><?php echo esc_attr($cancel_escrow_success_message); ?></strong></div>
+<strong><?php echo esc_html($cancel_escrow_success_message); ?></strong></div>
 <?php
         }
 
@@ -458,7 +458,7 @@ sendNotificationDisputed($eid);
                  <form method="POST" action="" name="reject_payment" enctype="multipart/form-data"> 
 
 <?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
-		<input type="hidden" name="reject_ecsrow_id" value="<?php echo esc_attr($escrow->id); ?>" />
+		<input type="hidden" name="reject_ecsrow_id" value="<?php echo $escrow->id; ?>" />
 <input 
  type="submit" name="submit" value="<?php _e('Reject Payment', 'aistore') ?>"/>
 <input type="hidden" name="action" value="reject_payment" />
@@ -500,7 +500,7 @@ sendNotificationDisputed($eid);
    
 
 
-  <p><a href="<?php echo esc_attr($row->documents); ?>" target="_blank">
+  <p><a href="<?php echo esc_url($row->documents); ?>" target="_blank">
 	       <b><?php echo esc_attr($row->documents_name); ?></b></a></p>
   <h6 > <?php echo esc_attr($row->created_at); ?></h6>
 </div>
@@ -518,7 +518,7 @@ sendNotificationDisputed($eid);
 
  
 	<label for="documents"> <?php _e('Documents', 'aistore'); ?> : </label>
-<form  method="post"  action="<?php echo admin_url('admin-ajax.php') . '?action=custom_action&eid=' . $eid; ?>" class="dropzone" id="dropzone">
+<form  method="post"  action="<?php echo admin_url('admin-ajax.php') . '?action=custom_action&eid=' . esc_attr($eid); ?>" class="dropzone" id="dropzone">
     <?php
         wp_nonce_field('aistore_nonce_action', 'aistore_nonce');
 ?>

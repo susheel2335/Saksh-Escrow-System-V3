@@ -54,7 +54,7 @@
 		   
 		   <td> 		   <?php echo esc_attr($row->user_email); ?> </td>
 		  
-		   <td> 		   <?php echo esc_attr($balance) ." ".$currency; ?> </td>
+		   <td> 		   <?php echo esc_attr($balance  ." ".$currency ); ?> </td>
 		   
 		 
 		   </tr>

@@ -32,16 +32,16 @@ public function status_filter( $text, $input_id ) {
         $input_id = $input_id . '-search-input';
  
         if ( ! empty( $_REQUEST['orderby'] ) ) {
-            echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+            echo '<input type="hidden" name="orderby" value="' . esc_attr(sanitize_text_field( $_REQUEST['orderby'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['order'] ) ) {
-            echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+            echo '<input type="hidden" name="order" value="' .esc_attr( sanitize_text_field( $_REQUEST['order'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-            echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '" />';
+            echo '<input type="hidden" name="post_mime_type" value="' .esc_attr(sanitize_text_field( $_REQUEST['post_mime_type'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['detached'] ) ) {
-            echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '" />';
+            echo '<input type="hidden" name="detached" value="' . esc_attr(sanitize_text_field( $_REQUEST['detached'] ) ). '" />';
         }
         ?>
 		 
@@ -90,7 +90,7 @@ public function status_filter( $text, $input_id ) {
 
 
      <input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>" />
-        <?php submit_button( $text, '', '', false, array( 'id' => 'search-submit' ) ); ?>
+        <?php submit_button( esc_attr($text), '', '', false, array( 'id' => 'search-submit' ) ); ?>
 </p>
         <?php
     }
@@ -103,16 +103,16 @@ public function date_filter( $text, $input_id ) {
         $input_id = $input_id . ' ';
  
         if ( ! empty( $_REQUEST['orderby'] ) ) {
-            echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+            echo '<input type="hidden" name="orderby" value="' . esc_attr(sanitize_text_field( $_REQUEST['orderby'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['order'] ) ) {
-            echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+            echo '<input type="hidden" name="order" value="' . esc_attr(sanitize_text_field( $_REQUEST['order'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-            echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '" />';
+            echo '<input type="hidden" name="post_mime_type" value="' .esc_attr( sanitize_text_field( $_REQUEST['post_mime_type'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['detached'] ) ) {
-            echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '" />';
+            echo '<input type="hidden" name="detached" value="' .esc_attr( sanitize_text_field( $_REQUEST['detached'] ) ). '" />';
         }
         ?>
 		
@@ -120,9 +120,9 @@ public function date_filter( $text, $input_id ) {
 	 <input type="hidden" name="date_filter" value="1" /> 
 		
 	  
-     Start Date <input type='date' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo esc_attr($_POST['fromDate']); ?>'>
+     Start Date <input type='date' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo esc_attr(sanitize_text_field($_POST['fromDate'])); ?>'>
  
-     End Date <input type='date' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo esc_attr($_POST['endDate']); ?>'>
+     End Date <input type='date' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo esc_attr(sanitize_text_field($_POST['endDate'])); ?>'>
 
   
      
@@ -140,16 +140,16 @@ public function search_box( $text, $input_id ) {
         $input_id = $input_id . '-search-input';
  
         if ( ! empty( $_REQUEST['orderby'] ) ) {
-            echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+            echo '<input type="hidden" name="orderby" value="' . esc_attr(sanitize_text_field( $_REQUEST['orderby'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['order'] ) ) {
-            echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+            echo '<input type="hidden" name="order" value="' . esc_attr(sanitize_text_field( $_REQUEST['order'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-            echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '" />';
+            echo '<input type="hidden" name="post_mime_type" value="' .esc_attr( sanitize_text_field( $_REQUEST['post_mime_type'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['detached'] ) ) {
-            echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '" />';
+            echo '<input type="hidden" name="detached" value="' .esc_attr( sanitize_text_field( $_REQUEST['detached'] )) . '" />';
         }
         ?>
 		 
@@ -511,7 +511,7 @@ function form(){
 		if ( 'delete' === $this->current_action() ) {
 
 			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+			$nonce = sanitize_text_field( $_REQUEST['_wpnonce'] );
 
 			if ( ! wp_verify_nonce( $nonce, 'sp_delete_escrow' ) ) {
 				die( 'Go get a life script kiddies' );

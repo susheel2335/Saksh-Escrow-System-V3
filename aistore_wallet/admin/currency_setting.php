@@ -53,7 +53,7 @@
             foreach ($currency as $c)
             {
 
-                echo '	<option  value="' . $c->cc . '">' .$c->cc ."   ". $c->name . '</option>';
+                echo '	<option  value="' .esc_attr( $c->cc ). '">' .esc_attr($c->cc )."   ".esc_attr( $c->name ). '</option>';
 
             }
 
