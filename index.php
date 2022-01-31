@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Saksh Escrow System
+Plugin Name: Saksh CSV Import Data System
 Version:  2.1
 Stable tag: 2.1
 Plugin URI: #
@@ -17,113 +17,16 @@ if (!defined('ABSPATH'))
     
 }
 
-add_action('init', 'aistore_wpdocs_load_textdomain');
-
-function aistore_wpdocs_load_textdomain()
-{
-    load_plugin_textdomain('aistore', false, basename(dirname(__FILE__)) . '/languages/');
-}
-
-function aistore_scripts_method()
-{
-
-  
-  
-    wp_enqueue_style('aistore', plugins_url('/css/custom.css', __FILE__) , array());
-    wp_enqueue_script('aistore', plugins_url('/js/custom.js', __FILE__) , array(
-        'jquery'
-    ));
-}
-
-add_action('wp_enqueue_scripts', 'aistore_scripts_method');
-
-function aistore_isadmin()
-{
-
-    $user = wp_get_current_user();
-    $allowed_roles = array(
-        'administrator'
-    );
-    if (array_intersect($allowed_roles, $user->roles))
-    {
-        return true;
-    }
-    else
-    {
-
-        return false;
-
-    }
-}
 
 function aistore_plugin_table_install()
 {
     global $wpdb;
 
-    $table_escrow_discussion = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "escrow_discussion  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  eid int(100) NOT NULL,
-   message  text  NOT NULL,
-   user_login  varchar(100)   NOT NULL,
-  status  varchar(100)   NOT NULL,
-  ipaddress varchar(100)   NOT NULL,
-   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id)
-) ";
-
-    $table_escrow_documents = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "escrow_documents (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  eid  int(100) NOT NULL,
-  documents  varchar(100)  NOT NULL,
-   ipaddress varchar(100)   NOT NULL,
-   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
-   user_id  int(100) NOT NULL,
-  documents_name  varchar(100)  DEFAULT NULL,
-  PRIMARY KEY (id)
-)  ";
-
-    $table_escrow_system = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "escrow_system (
-  id int(100) NOT NULL AUTO_INCREMENT, 
-  title varchar(100)   NOT NULL,
-  term_condition text ,
-  amount double NOT NULL,
-  currency  varchar(100)   NOT NULL,
-  receiver_email varchar(100)  NOT NULL,
-  sender_email varchar(100)   NOT NULL,
-  escrow_fee double NOT NULL,
-  status varchar(100)   NOT NULL DEFAULT 'pending',
-  payment_status varchar(100)   NOT NULL DEFAULT 'Pending',
-  created_at timestamp NOT NULL DEFAULT current_timestamp(),
   
-  
-  PRIMARY KEY (id)
-)  ";
-
-    $table_escrow_notification = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_notification  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  type varchar(100) NOT NULL,
-   message  text  NOT NULL,
-   user_email  varchar(100)   NOT NULL,
-  url varchar(100)   NOT NULL,
-  reference_id bigint(20)   NULL,
-  created_at timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id)
-) ";
-
-$table_escrow_email = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_email  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  type varchar(100) NOT NULL,
-   message  text  NOT NULL,
-   user_email  varchar(100)   NOT NULL,
-  url varchar(100)   NOT NULL,
-   reference_id bigint(20)   NULL,
-   subject varchar(100)  NULL,
-  created_at timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id)
-) ";
 
   $table_aistore_wallet_transactions = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "aistore_wallet_transactions  (
-   	transaction_id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+     	id  bigint(20)  NOT NULL AUTO_INCREMENT,
+   	transaction_id  bigint(20)  NOT NULL,
   user_id bigint(20)  NOT NULL,
    reference bigint(20)   NULL,
    type   varchar(100)  NOT NULL,
@@ -131,181 +34,200 @@ $table_escrow_email = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_
   balance  double    NOT NULL,
     description  text  NOT NULL,
    currency  varchar(100)   NOT NULL,
-   created_by  	bigint(20) NOT NULL,
-   date  timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (transaction_id)
-) ";
-
-    $table_aistore_wallet_balance = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "aistore_wallet_balance  (
-     	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
-   	transaction_id  bigint(20)  NOT NULL,
-  user_id bigint(20)  NOT NULL,
-  balance  double    NOT NULL,
-   currency  varchar(100)   NOT NULL,
-   created_by  	bigint(20) NOT NULL,
+    account  varchar(100)   NOT NULL,
+from_account  varchar(100)   NOT NULL,
+ received_via  varchar(100)   NOT NULL,
+ tags  varchar(100)   NOT NULL,
+ vendor  varchar(100)   NOT NULL,
+  expense_account  varchar(100)   NOT NULL,
+ status  varchar(100)   NOT NULL,
+   bank_name  varchar(100)   NOT NULL,
+  customer  varchar(100)   NOT NULL,
+  created_by  int(100)   NOT NULL,
    date  timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (id)
 ) ";
 
-  
-    $table_withdrawal_requests = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "widthdrawal_requests  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  amount double NOT NULL,
- 
-   method  varchar(100)   NOT NULL,   charges  varchar(100)   NOT NULL,
-   username  varchar(100)   NOT NULL,
-   currency  varchar(100)   NOT NULL,
-  status  varchar(100)   NOT NULL DEFAULT 'pending',
+
+
+  $table_aistore_category = "CREATE TABLE IF NOT EXISTS  " . $wpdb->prefix . "aistore_account  (
+   	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+    user_id bigint(20)  NOT NULL,
+     type   varchar(100)  NOT NULL,
+   account  varchar(100)   NOT NULL,
+   date  timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id)
+) ";
+
+
+
+  $table_aistore_subcategory = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "aistore_subaccount  (
+   	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+    user_id bigint(20)  NOT NULL,
+     type   varchar(100)  NOT NULL,
+   account  varchar(100)   NOT NULL,
+    subaccount  varchar(100)   NOT NULL,
+   date  timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id)
+) ";
+
+
+      $table_aistore_bank = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "bank  (
+   	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+    user_id bigint(20)   NULL,
+     bank_name   varchar(100)  NOT NULL,
+   ifsc_code  varchar(100)   NOT NULL,
+    branch_name  varchar(100)   NOT NULL,
+   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id)
+) ";
+    
+    
+      $table_aistore_vendor = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "vendor  (
+   	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+    user_id bigint(20)   NULL,
+     vendor_name   varchar(100)  NOT NULL,
+   vendor_email  varchar(100)   NOT NULL,
    created_at  timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (id)
 ) ";
 
-  $table_escrow_currency = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_currency  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  currency varchar(100) NOT NULL,
-   symbol  varchar(100)   NOT NULL,
-  created_at timestamp NOT NULL DEFAULT current_timestamp(),
+
+     $table_aistore_invoice = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "invoice  (
+   	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+    user_id bigint(20)   NULL,
+     product_id   int(100)  NOT NULL,
+   vendor_id  int(100)   NOT NULL,
+    bill_to   varchar(100)  NOT NULL,
+   ship_to  varchar(100)   NOT NULL,
+    description   varchar(100)  NOT NULL,
+   amount  int(100)   NOT NULL,
+   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (id)
 ) ";
-   
+
+
+$table_aistore_customer = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "customer  (
+   	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+    user_id bigint(20)   NULL,
+     customer_name   varchar(100)  NOT NULL,
+   customer_email  varchar(100)   NOT NULL,
+    alternate_email   varchar(100)  NOT NULL,
+   cc  varchar(100)   NOT NULL,
+   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id)
+) ";
+
+
+     $table_aistore_estimate = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "estimate  (
+   	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+    user_id bigint(20)   NULL,
+     product_id   int(100)  NOT NULL,
+   customer_id  int(100)   NOT NULL,
+    bill_to   varchar(100)  NOT NULL,
+   ship_to  varchar(100)   NOT NULL,
+    description   varchar(100)  NOT NULL,
+   amount  int(100)   NOT NULL,
+   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id)
+) ";
+
+
+     $table_aistore_product = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "product  (
+   	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+    user_id bigint(20)   NULL,
+     terms_condtion   varchar(100)  NOT NULL,
+   category  int(100)   NOT NULL,
+     name   varchar(100)  NOT NULL,
+   short_description  varchar(100)   NOT NULL,
+    full_description   varchar(100)  NOT NULL,
+     tags  varchar(100)   NOT NULL,
+    product_type   varchar(100)  NOT NULL,
+   amount  int(100)   NOT NULL,
+      price  int(100)   NOT NULL,
+ 
+   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id)
+) ";
+
     require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
 
-    dbDelta($table_escrow_discussion);
-
-    dbDelta($table_escrow_system);
-
-    dbDelta($table_escrow_documents);
-
-    dbDelta($table_escrow_notification);
-    
-    dbDelta($table_escrow_email);
-    
+ 
     
       dbDelta($table_aistore_wallet_transactions);
-
-    dbDelta($table_aistore_wallet_balance);
-    
-    dbDelta($table_withdrawal_requests);
-    
-    dbDelta($table_escrow_currency);
-
-
-
-
-    email_notification_message();
-    
-    
-    
-    
-     update_option('escrow_accept_fee', 5);
-     update_option('escrow_create_fee', 5);
-     update_option('withdraw_fee', 5);
-      update_option('escrow_fee_deducted', 'accepted');
-    
+      dbDelta($table_aistore_category);
+      dbDelta($table_aistore_subcategory);
+      dbDelta($table_aistore_bank);
+      dbDelta($table_aistore_vendor);
+     dbDelta($table_aistore_invoice);
+      dbDelta($table_aistore_customer);
+     dbDelta($table_aistore_estimate);
+       dbDelta($table_aistore_product);
+     
 
 }
 register_activation_hook(__FILE__, 'aistore_plugin_table_install');
 
-include_once dirname(__FILE__) . '/Escrow_list.php';
-include_once dirname(__FILE__) . '/user_notification.php';
-include_once dirname(__FILE__) . '/user_escrow.php';
-include_once dirname(__FILE__) . '/email/sendnotification.php';
+include_once dirname(__FILE__) . '/add_company.php';
+include_once dirname(__FILE__) . '/all_function.php';
+include_once dirname(__FILE__) . '/csv_data.php';
+include_once dirname(__FILE__) . '/update_transaction.php';
+include_once dirname(__FILE__) . '/transaction_list.php';
+include_once dirname(__FILE__) . '/add_account.php';
+include_once dirname(__FILE__) . '/add_subaccount.php';
+include_once dirname(__FILE__) . '/report.php';
+include_once dirname(__FILE__) . '/all_expenses_report.php';
+include_once dirname(__FILE__) . '/all_sales_report.php';
+include_once dirname(__FILE__) . '/add_bank.php';
+include_once dirname(__FILE__) . '/bank_list.php';
+include_once dirname(__FILE__) . '/add_vendor.php';
+include_once dirname(__FILE__) . '/vendor_list.php';
+include_once dirname(__FILE__) . '/edit_vendor.php';
+include_once dirname(__FILE__) . '/setting.php';
+include_once dirname(__FILE__) . '/add_product.php';
+include_once dirname(__FILE__) . '/add_invoice.php';
+include_once dirname(__FILE__) . '/invoice_details.php';
+include_once dirname(__FILE__) . '/invoice_list.php';
+include_once dirname(__FILE__) . '/add_customer.php';
+include_once dirname(__FILE__) . '/customer_list.php';
+include_once dirname(__FILE__) . '/edit_customer.php';
+include_once dirname(__FILE__) . '/transaction_by_vendor.php';
+include_once dirname(__FILE__) . '/add_estimate.php';
+include_once dirname(__FILE__) . '/estimate_list.php';
+include_once dirname(__FILE__) . '/estimate_details.php';
+include_once dirname(__FILE__) . '/transaction_by_customer.php';
+include_once dirname(__FILE__) . '/send_email.php';
+include_once dirname(__FILE__) . '/estimate_send_email.php';
 
+add_shortcode('aistore_csv_data',   'aistore_csv_data');
+add_shortcode('aistore_transaction_history',   'aistore_transaction_history');
+add_shortcode('aistore_update_transaction',   'aistore_update_transaction');
+add_shortcode('aistore_add_account',   'aistore_add_account');
+add_shortcode('aistore_add_subaccount',   'aistore_add_subaccount');
+add_shortcode('aistore_all_expenses_report',   'aistore_all_expenses_report');
+add_shortcode('aistore_all_sales_report',   'aistore_all_sales_report');
+add_shortcode('aistore_transaction_report',   'aistore_transaction_report');
 
+add_shortcode('aistore_add_estimate',   'aistore_add_estimate');
+add_shortcode('aistore_list_estimate',   'aistore_list_estimate');
+add_shortcode('aistore_estimate_details',   'aistore_estimate_details');
 
-include_once dirname(__FILE__) . '/aistore_wallet/index.php';
-include_once dirname(__FILE__) . '/email/notification_api.php';
-include_once dirname(__FILE__) . '/AistoreEscrowSystem.class.php';
+add_shortcode('aistore_add_bank',   'aistore_add_bank');
+add_shortcode('aistore_list_bank',   'aistore_list_bank');
+add_shortcode('aistore_add_vendor',   'aistore_add_vendor');
+add_shortcode('aistore_list_vendor',   'aistore_list_vendor');
+add_shortcode('aistore_edit_vendor',   'aistore_edit_vendor');
+add_shortcode('aistore_add_product',   'aistore_add_product');
+add_shortcode('aistore_add_invoice',   'aistore_add_invoice');
+add_shortcode('aistore_add_customer',   'aistore_add_customer');
+add_shortcode('aistore_list_customer',   'aistore_list_customer');
+add_shortcode('aistore_edit_customer',   'aistore_edit_customer');
+add_shortcode('aistore_list_invoice',   'aistore_list_invoice');
+add_shortcode('aistore_invoice_details',   'aistore_invoice_details');
+add_shortcode('aistore_transaction_by_vendor',   'aistore_transaction_by_vendor');
+add_shortcode('aistore_transaction_by_customer',   'aistore_transaction_by_customer');
 
-include_once dirname(__FILE__) . '/AistoreEscrowSettings.class.php';
-
-add_shortcode('aistore_escrow_system', array(
-    'AistoreEscrowSystem',
-    'aistore_escrow_system'
-));
-
-add_shortcode('aistore_escrow_list', array(
-    'AistoreEscrowSystem',
-    'aistore_escrow_list'
-));
-
-add_shortcode('aistore_escrow_detail', array(
-    'AistoreEscrowSystem',
-    'aistore_escrow_detail'
-));
-
-add_shortcode('aistore_bank_details', array(
-    'AistoreEscrowSystem',
-    'aistore_bank_details'
-));
-
- 
-
-function email_notification_message()
-{
-    
-    //messages
-     update_option('created_escrow_message', 'Payment transaction for the created escrow with escrow id #');
-    update_option('created_escrow_success_message', 'Created Successfully');
-    update_option('accept_escrow_message', 'Payment transaction for the accepted escrow with escrow id #');
-    update_option('accept_escrow_success_message', 'Accepted Successfully');
-
-    update_option('dispute_escrow_message', 'Payment transaction for the disputed escrow with escrow id #');
-    update_option('dispute_escrow_success_message', 'Disputed Successfully');
-    
-    update_option('release_escrow_message', 'Payment transaction for the released escrow with escrow id #');
-    update_option('release_escrow_success_message', 'Released Successfully');
- update_option('cancel_escrow_message', 'Payment transaction for the cancelled escrow with escrow id #');
-    update_option('cancel_escrow_success_message', 'Cancelled Successfully');
-    
-    //notification
-    
-
-    update_option('created_escrow', 'You have successfully created the escrow # [EID]');
-    update_option('partner_created_escrow', 'Your partner have successfully created the escrow # [EID]');
-    update_option('accept_escrow', 'You have successfully  accepted the escrow # [EID]');
-    update_option('partner_accept_escrow', 'Your partner have successfully accepted the escrow # [EID]');
-
-    update_option('dispute_escrow', 'You have successfully  disputed the escrow # [EID]');
-    update_option('partner_dispute_escrow', 'Your partner have successfully disputed the escrow # [EID]');
-    update_option('release_escrow', 'You have successfully  released the escrow # [EID]');
-    update_option('partner_release_escrow', 'Your partner have successfully released the escrow # [EID]');
-
-    update_option('cancel_escrow', 'You have successfully  cancelled the escrow # [EID]');
-    update_option('partner_cancel_escrow', 'Your partner have successfully cancelled the escrow # [EID]');
-    update_option('shipping_escrow', 'you have updated the shipping details for the escrow# [EID]');
-    update_option('partner_shipping_escrow', 'Your partner has updated the shipping details for the escrow# [EID]');
-
-    update_option('buyer_deposit', 'Your payment  has been accepted for the escrow  # [EID]');
-    update_option('seller_deposit', 'You have deposited the payment into  the escrow for  the transaction  escrow # [EID]');
-    update_option('Buyer_Mark_Paid', 'You have successfully  marked escrow # [EID]');
-
-    //email
-    update_option('email_created_escrow', 'You have successfully created the escrow # [EID]');
-    update_option('email_partner_created_escrow', 'Your partner have successfully created the escrow # [EID]');
-    update_option('email_accept_escrow', 'You have successfully  accepted the escrow # [EID]');
-    update_option('email_partner_accept_escrow', 'Your partner have successfully accepted the escrow # [EID]');
-
-    update_option('email_dispute_escrow', 'You have successfully  disputed the escrow # [EID]');
-    update_option('email_partner_dispute_escrow', 'Your partner have successfully disputed the escrow # [EID]');
-    update_option('email_release_escrow', 'You have successfully  released the escrow # [EID]');
-    update_option('email_partner_release_escrow', 'Your partner have successfully released the escrow # [EID]');
-
-    update_option('email_cancel_escrow', 'You have successfully  cancelled the escrow # [EID]');
-    update_option('email_partner_cancel_escrow', 'Your partner have successfully cancelled the escrow # [EID]');
-    update_option('email_shipping_escrow', 'you have updated the shipping details for the escrow# [EID]');
-    update_option('email_partner_shipping_escrow', 'Your partner has updated the shipping details for the escrow# [EID]');
-
-    update_option('email_buyer_deposit', 'Your payment  has been accepted for the escrow  # [EID]');
-    update_option('email_seller_deposit', 'You have deposited the payment into  the escrow for  the transaction  escrow # [EID]');
-    update_option('email_Buyer_Mark_Paid', 'You have successfully  marked escrow # [EID]');
-
-}
-
-function Aistore_process_placeholder_Text($str, $escrow)
-{
-
-    $str = str_replace("[EID]", $escrow->id, $str);
-    return $str;
-}
+add_shortcode('aistore_email_page',   'aistore_email_page');
+add_shortcode('aistore_estimate_email_page',   'aistore_estimate_email_page');
+add_shortcode('aistore_add_company',   'aistore_add_company');
 
