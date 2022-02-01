@@ -1,4 +1,4 @@
-=== Saksh CSV Import Data System ===
+=== Saksh Escrow System ===
 Contributors: susheelhbti
 Tags: Escrow System 
 License: GPLv2 or later
