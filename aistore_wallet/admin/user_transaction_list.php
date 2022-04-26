@@ -27,9 +27,12 @@ function aistore_user_transaction_list( $val, $column_name, $user_id ) {
 
  
         case 'transaction':
- 
-         $link= '<a href="/wp-admin/admin.php?page=all_wallet_transaction&id='.$user_id.'">Transaction List</a>';
-
+            
+              $url = esc_url(admin_url('admin.php')); 
+         $link= '<a href="'.$url.'?page=all_wallet_transaction&id='.$user_id.'">Transaction List</a>';
+         
+         
+  
    
        
  return $link;

@@ -15,7 +15,12 @@
             
 ?>
     <h1> <?php _e('User List', 'aistore') ?> </h1>
-<table id="example" class="display nowrap" style="width:100%">
+    
+     <?php echo AistoregetSupportMsg(); ?>
+     
+<table id="example"  class="widefat striped fixed"   >
+    
+    
         <thead>
             <tr>
                    <th><?php _e('ID', 'aistore'); ?></th>
@@ -82,4 +87,4 @@
       <?php } ?>
     <br><br>
     
-  
+     

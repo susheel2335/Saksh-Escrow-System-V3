@@ -1,5 +1,9 @@
 <?php
 
+
+// function aistore_escrow_admin_notification()
+// {
+
 global $wpdb;
         
             if (isset($_REQUEST['id']))
@@ -27,7 +31,12 @@ $id=sanitize_text_field($_REQUEST['id']);
   
 	     
 	     
-   <h1> <?php _e('All Notification', 'aistore') ?> </h1>  <br>
+   <h1> <?php _e('System Notifications', 'aistore') ?> </h1>  
+   
+   
+    <?php echo AistoregetSupportMsg(); ?>
+    
+    
      <?php
       
 	global $wpdb;
@@ -36,9 +45,11 @@ $id=sanitize_text_field($_REQUEST['id']);
      	 $results = $wpdb->get_results($sql);
      	  if ($results == null)
         {
-            _e("No Notification Found", 'aistore');
+            _e("Notifications list is stil empty", 'aistore');
 
         }
+        else
+        {
         ?>
           <table  id="example" class="table" style="width:100%">
       
@@ -85,5 +96,9 @@ $id=sanitize_text_field($_REQUEST['id']);
         </table>
      <br><br>
      
+    <?php
     
+        }
+// } 
+        
     

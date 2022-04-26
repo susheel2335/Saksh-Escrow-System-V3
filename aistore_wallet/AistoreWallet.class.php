@@ -60,6 +60,8 @@ class AistoreWallet
 
         $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}aistore_wallet_balance
     SET balance = '%s',transaction_id=%d  WHERE user_id = '%d' and currency=%s", $new_amount, $transaction_id, $user_id, $currency));
+    
+    
     }
 
     public function aistore_credit($user_id, $amount, $currency, $description,$reference)
@@ -98,7 +100,9 @@ class AistoreWallet
 
             return "Please login to start";
 
-        }
+        } 
+        
+        ob_start();
 ?>
    <div>
 	 
@@ -136,7 +140,7 @@ $currency=  $row->currency;
         else
         {
 
-            ob_start();
+          
 
 ?>
   

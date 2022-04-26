@@ -1,4 +1,7 @@
  <?php
+//  function aistore_escrow_user_list()
+//  {
+     
  
  global $wpdb;
               $page_id = get_option('details_escrow_page_id');
@@ -70,7 +73,7 @@ $id=sanitize_text_field($_REQUEST['id']);
     $user = get_user_by('email', $row->receiver_email);
             $receiver_id = $user->ID;
             
-   $urlbyid = admin_url('admin.php?page=aistore_user_escrow_list&id=' . $sender_id . '', 'https');
+   $urlbyid = admin_url('admin.php?page=aistore_user_escrow_list&id='. $sender_id . '', 'https');
    
     $urlbyidreciver = admin_url('admin.php?page=aistore_user_escrow_list&id=' . $receiver_id . '', 'https');
    
@@ -126,7 +129,10 @@ $id=sanitize_text_field($_REQUEST['id']);
             </tr>
         </tfoot>
     </table>
-        <?php } ?>
+        <?php }   
+        
+        // }  
+        ?>
       
       
     

@@ -3,14 +3,14 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
-class Aistore_Withdrawal_List extends WP_List_Table {
+class Escrow_List extends WP_List_Table {
 
 	/** Class constructor */
 	public function __construct() {
 
 		parent::__construct( [
-			'singular' => __( 'Withdrawal_List', 'sp' ), //singular name of the listed records
-			'plural'   => __( 'Withdrawal_List', 'sp' ), //plural name of the listed records
+			'singular' => __( 'Escrow', 'sp' ), //singular name of the listed records
+			'plural'   => __( 'Escrow', 'sp' ), //plural name of the listed records
 			'ajax'     => false //does this table support ajax?
 		] );
 
@@ -32,16 +32,16 @@ public function status_filter( $text, $input_id ) {
         $input_id = $input_id . '-search-input';
  
         if ( ! empty( $_REQUEST['orderby'] ) ) {
-            echo '<input type="hidden" name="orderby" value="' .esc_attr( sanitize_text_field( $_REQUEST['orderby'] )) . '" />';
+            echo '<input type="hidden" name="orderby" value="' . esc_attr(sanitize_text_field( $_REQUEST['orderby'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['order'] ) ) {
-            echo '<input type="hidden" name="order" value="' . esc_attr(sanitize_text_field( $_REQUEST['order'] ) ). '" />';
+            echo '<input type="hidden" name="order" value="' .esc_attr( sanitize_text_field( $_REQUEST['order'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-            echo '<input type="hidden" name="post_mime_type" value="' . esc_attr(sanitize_text_field( $_REQUEST['post_mime_type'] )) . '" />';
+            echo '<input type="hidden" name="post_mime_type" value="' .esc_attr(sanitize_text_field( $_REQUEST['post_mime_type'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['detached'] ) ) {
-            echo '<input type="hidden" name="detached" value="' .esc_attr( sanitize_text_field( $_REQUEST['detached'] )) . '" />';
+            echo '<input type="hidden" name="detached" value="' . esc_attr(sanitize_text_field( $_REQUEST['detached'] ) ). '" />';
         }
         ?>
 		 
@@ -52,12 +52,12 @@ public function status_filter( $text, $input_id ) {
  
  
 <select name="search_column"  >
-  <option value="username"><?php   _e( 'User', 'aistore' ); ?></option>
+  <option value="id">ID</option>
  
-  <option value="amount"><?php   _e( 'Amount', 'aistore' ); ?></option>
-  <option value="gateway_charge"><?php   _e( 'Gateway Charge', 'aistore' ); ?></option>
+  <option value="sender_email">Sender Email</option>
+  <option value="receiver_email">Receiver Email</option>
   
-    <option value="status"><?php   _e( 'Status', 'aistore' ); ?></option>
+    <option value="amount">Amount</option>
   
   
   
@@ -68,19 +68,19 @@ public function status_filter( $text, $input_id ) {
 
 <select name="search_operator"  >
 
-    <option value="="><?php  _e( 'Equal', 'aistore' ) ?> </option>
+    <option value="=">Equal </option>
 	
-    <option value="!="><?php  _e( 'Not equal ', 'aistore' ) ?></option>
+    <option value="!=">Not equal </option>
 	
-    <option value="LIKE"><?php  _e( 'Contains ', 'aistore' ) ?></option>
-    <option value="NOT LIKE"><?php  _e( 'Not Contains', 'aistore' ) ?> </option> 
+    <option value="LIKE">Contains </option>
+    <option value="NOT LIKE">Not Contains </option> 
 	
-  <option value=">"><?php  _e( 'Greater than', 'aistore' ) ?></option>
+  <option value=">">Greater than</option>
  
-  <option value=">="><?php  _e( 'Greater than or equal', 'aistore' ) ?> </option>
-  <option value="<"><?php  _e( 'Less than', 'aistore' ) ?> </option>
+  <option value=">=">Greater than or equal </option>
+  <option value="<">Less than </option>
   
-   <option value="<="><?php  _e( 'Less than or equal', 'aistore' ) ?></option> 
+   <option value="<=">Less than or equal</option> 
   
   
   
@@ -88,8 +88,9 @@ public function status_filter( $text, $input_id ) {
   
 </select>
 
+
      <input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>" />
-        <?php submit_button( $text, '', '', false, array( 'id' => 'search-submit' ) ); ?>
+        <?php submit_button( esc_attr($text), '', '', false, array( 'id' => 'search-submit' ) ); ?>
 </p>
         <?php
     }
@@ -102,16 +103,16 @@ public function date_filter( $text, $input_id ) {
         $input_id = $input_id . ' ';
  
         if ( ! empty( $_REQUEST['orderby'] ) ) {
-            echo '<input type="hidden" name="orderby" value="' . esc_attr(sanitize_text_field( $_REQUEST['orderby'] )) . '" />';
+            echo '<input type="hidden" name="orderby" value="' . esc_attr(sanitize_text_field( $_REQUEST['orderby'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['order'] ) ) {
-            echo '<input type="hidden" name="order" value="' .esc_attr( sanitize_text_field( $_REQUEST['order'] )) . '" />';
+            echo '<input type="hidden" name="order" value="' . esc_attr(sanitize_text_field( $_REQUEST['order'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
             echo '<input type="hidden" name="post_mime_type" value="' .esc_attr( sanitize_text_field( $_REQUEST['post_mime_type'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['detached'] ) ) {
-            echo '<input type="hidden" name="detached" value="' . esc_attr(sanitize_text_field( $_REQUEST['detached'] )) . '" />';
+            echo '<input type="hidden" name="detached" value="' .esc_attr( sanitize_text_field( $_REQUEST['detached'] ) ). '" />';
         }
         ?>
 		
@@ -119,9 +120,9 @@ public function date_filter( $text, $input_id ) {
 	 <input type="hidden" name="date_filter" value="1" /> 
 		
 	  
-  <?php   _e( 'Start Date', 'aistore' ); ?>   <input type='date' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo esc_attr( sanitize_text_field($_POST['fromDate'])); ?>'>
+     Start Date <input type='date' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo esc_attr(sanitize_text_field($_POST['fromDate'])); ?>'>
  
-    <?php   _e( 'End Date', 'aistore' ); ?>  <input type='date' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo esc_attr( sanitize_text_field($_POST['endDate'])); ?>'>
+     End Date <input type='date' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo esc_attr(sanitize_text_field($_POST['endDate'])); ?>'>
 
   
      
@@ -139,16 +140,16 @@ public function search_box( $text, $input_id ) {
         $input_id = $input_id . '-search-input';
  
         if ( ! empty( $_REQUEST['orderby'] ) ) {
-            echo '<input type="hidden" name="orderby" value="' .esc_attr( sanitize_text_field( $_REQUEST['orderby'] )) . '" />';
+            echo '<input type="hidden" name="orderby" value="' . esc_attr(sanitize_text_field( $_REQUEST['orderby'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['order'] ) ) {
-            echo '<input type="hidden" name="order" value="' .esc_attr( sanitize_text_field( $_REQUEST['order'] )) . '" />';
+            echo '<input type="hidden" name="order" value="' . esc_attr(sanitize_text_field( $_REQUEST['order'] )) . '" />';
         }
         if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-            echo '<input type="hidden" name="post_mime_type" value="' .esc_attr( sanitize_text_field( $_REQUEST['post_mime_type'] ) ) . '" />';
+            echo '<input type="hidden" name="post_mime_type" value="' .esc_attr( sanitize_text_field( $_REQUEST['post_mime_type'] ) ). '" />';
         }
         if ( ! empty( $_REQUEST['detached'] ) ) {
-            echo '<input type="hidden" name="detached" value="' .esc_attr( sanitize_text_field( $_REQUEST['detached'] ) ). '" />';
+            echo '<input type="hidden" name="detached" value="' .esc_attr( sanitize_text_field( $_REQUEST['detached'] )) . '" />';
         }
         ?>
 		 
@@ -158,34 +159,36 @@ public function search_box( $text, $input_id ) {
  
  
 <select name="search_column"  >
-  <option value="username"><?php   _e( 'User', 'aistore' ); ?></option>
+  <option value="id">ID</option>
  
-  <option value="amount"><?php   _e( 'Amount', 'aistore' ); ?></option>
-  <option value="charges"><?php   _e( 'Charge', 'aistore' ); ?></option>
+  <option value="sender_email">Sender Email</option>
+  <option value="receiver_email">Receiver Email</option>
   
-    <option value="status"><?php   _e( 'Status', 'aistore' ); ?></option>
+    <option value="amount">Amount</option>
+  
   
   
   
   
   
 </select>
+
 
 <select name="search_operator"  >
 
-    <option value="="><?php  _e( 'Equal', 'aistore' ) ?> </option>
+    <option value="=">Equal </option>
 	
-    <option value="!="><?php  _e( 'Not equal ', 'aistore' ) ?></option>
+    <option value="!=">Not equal </option>
 	
-    <option value="LIKE"><?php  _e( 'Contains ', 'aistore' ) ?></option>
-    <option value="NOT LIKE"><?php  _e( 'Not Contains', 'aistore' ) ?> </option> 
+    <option value="LIKE">Contains </option>
+    <option value="NOT LIKE">Not Contains </option> 
 	
-  <option value=">"><?php  _e( 'Greater than', 'aistore' ) ?></option>
+  <option value=">">Greater than</option>
  
-  <option value=">="><?php  _e( 'Greater than or equal', 'aistore' ) ?> </option>
-  <option value="<"><?php  _e( 'Less than', 'aistore' ) ?> </option>
+  <option value=">=">Greater than or equal </option>
+  <option value="<">Less than </option>
   
-   <option value="<="><?php  _e( 'Less than or equal', 'aistore' ) ?></option> 
+   <option value="<=">Less than or equal</option> 
   
   
   
@@ -193,8 +196,9 @@ public function search_box( $text, $input_id ) {
   
 </select>
 
+
      <input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>" />
-        <?php submit_button( esc_attr($text), '', '', false, array( 'id' => 'search-submit' ) ); ?>
+        <?php submit_button( $text, '', '', false, array( 'id' => 'search-submit' ) ); ?>
 </p>
         <?php
     }
@@ -207,22 +211,24 @@ public function search_box( $text, $input_id ) {
 	 *
 	 * @return mixed
 	 */
-	public static function get_withdrawal( $per_page = 5, $page_number = 1 ) {
+	public static function get_escrow( $per_page = 5, $page_number = 1 ) {
 
 		global $wpdb;
 
 			if( empty( $_REQUEST['id'] ) ){
-		$sql = "SELECT * FROM {$wpdb->prefix}widthdrawal_requests  WHERE 1=1 ";
+		$sql = "SELECT * FROM {$wpdb->prefix}escrow_system  WHERE 1=1 ";
 			}
 		
 		else{
 		  
+$id=sanitize_text_field($_REQUEST['id']);
+
+$user_email = get_the_author_meta( 'user_email', $id );
 
 
-
-		$sql = "SELECT * FROM {$wpdb->prefix}widthdrawal_requests";
+		$sql = "SELECT * FROM {$wpdb->prefix}escrow_system  WHERE (sender_email='$user_email' or receiver_email='$user_email' ) ";
 }
-$sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
+$sql .=  Escrow_List::prepareWhereClouse();
 
 
 
@@ -255,10 +261,10 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 
 		if( ! empty( $_REQUEST['date_filter'] ) ){
            $fromDate = sanitize_text_field($_POST["fromDate"]);
-      $endDate   = sanitize_text_field($_POST["endDate"]); 
+      $endDate   =sanitize_text_field($_POST["endDate"]); 
 
     //sql will be 
-    $sql .= " and  DATE('created_at') BETWEEN '{$fromDate}' AND '{$endDate}'  ";
+    $sql .= "and  DATE('created_at') BETWEEN '{$fromDate}' AND '{$endDate}'  ";
  
 
   }
@@ -289,11 +295,11 @@ else
 	 *
 	 * @param int $id customer ID
 	 */
-	public static function delete_withdrawal( $id ) {
+	public static function delete_escrow( $id ) {
 		global $wpdb;
 
 		$wpdb->delete(
-			"{$wpdb->prefix}widthdrawal_requests",
+			"{$wpdb->prefix}escrow_system",
 			[ 'ID' => $id ],
 			[ '%d' ]
 		);
@@ -301,7 +307,16 @@ else
 
 
 
-	
+		public static function remove_payment_escrow( $id ) {
+		global $wpdb;
+
+		$wpdb->delete(
+			"{$wpdb->prefix}escrow_system",
+			[ 'ID' => $id ],
+			[ '%d' ]
+		);
+	}
+
 
 	/**
 	 * Returns the count of records in the database.
@@ -311,9 +326,9 @@ else
 	public static function record_count() {
 		global $wpdb;
 
-		$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}widthdrawal_requests where 1 =1   ";
+		$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}escrow_system where 1 =1   ";
 
-$sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
+$sql .=  Escrow_List::prepareWhereClouse();
 
 		return $wpdb->get_var( $sql );
 	}
@@ -321,7 +336,7 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 
 	/** Text displayed when no customer data is available */
 	public function no_items() {
-		_e( 'No withdrawal  avaliable.', 'sp' );
+		_e( 'No escrow  avaliable.', 'sp' );
 	}
 
 
@@ -335,11 +350,13 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 	 */
 	public function column_default( $item, $column_name ) {
 		switch ( $column_name ) {
-			case 'username':
-			case 'amount':
-			case 'currency':
-			case 'charges':
-			case 'status':	
+			case 'id':
+			case 'title':
+			case 'sender_email':
+			case 'receiver_email':	
+			case 'amount':	
+			case 'payment_status':
+			case 'status':
 			case 'created_at':
 				return $item[ $column_name ];
 			default:
@@ -358,6 +375,9 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 		return sprintf(
 			'<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['id']
 		);
+			return sprintf(
+			'<input type="checkbox" name="bulk-remove_payment[]" value="%s" />', $item['id']
+		);
 	}
 
 
@@ -371,14 +391,20 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 	function column_name( $item ) {
 
 		$delete_nonce = wp_create_nonce( 'sp_delete_escrow' );
+		$remove_payment_nonce = wp_create_nonce( 'sp_remove_payment_escrow' );
 
 		$title = '<strong>' . $item['title'] . '</strong>';
 
 		$actions = [
 		'delete' => sprintf( '<a href="?page=%s&action=%s&escrow=%s&_wpnonce=%s">Delete</a>', sanitize_text_field( $_REQUEST['page'] ), 'delete', absint( $item['id'] ), $delete_nonce )
 		];
+		
+			$actions_payment = [
+		'remove_payment' => sprintf( '<a href="?page=%s&action=%s&escrow=%s&_wpnonce=%s">Remove Payment</a>', sanitize_text_field( $_REQUEST['page'] ), 'remove_payment', absint( $item['id'] ), $remove_payment_nonce )
+		];
 
 		return $title . $this->row_actions( $actions );
+		return $title . $this->row_actions( $actions_payment );
 	}
 
 
@@ -390,12 +416,13 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 	function get_columns() {
 		$columns = [
 			'cb'      => '<input type="checkbox" />',
-			'username' => __( 'User', 'sp' ),
+			'id' => __( 'Id', 'sp' ),
+			'title' => __( 'Title', 'sp' ),
+			'sender_email'    => __( 'Sender', 'sp' ),
+			'receiver_email'    => __( 'Receiver', 'sp' ),
 			'amount'    => __( 'Amount', 'sp' ),
-			'currency'    => __( 'Currency', 'sp' ),
-			'charges' => __( 'Charges', 'sp' ),
-			'status'    => __( 'Status', 'sp' ),
-	
+ 		    'payment_status'    => __( 'Payment Status', 'sp' ),
+			'status' => __( 'Status', 'sp' ),
 			'created_at'    => __( 'Date', 'sp' )
 		];
 
@@ -410,14 +437,13 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 	 */
 	public function get_sortable_columns() {
 		$sortable_columns = array(
-			'username' => array( 'username', true ),
-			'amount' => array( 'amount', true ),
-				'currency'    => __( 'currency', 'sp' ),
-			'charges' => array( 'charges', false ),
-			'status' => array( 'status', false ),
-		
-
-		
+			'id' => array( 'id', true ),
+			'title' => array( 'title', true ),
+			'sender_email' => array( 'sender_email', false ),
+			'receiver_email' => array( 'receiver_email', false ),
+			'amount' => array( 'amount', false ),
+            'payment_status' => array( 'payment_status', true ),
+			'status' => array( 'status', true ),
 			'created_at' => array( 'created_at', false ),
 		
 		);
@@ -434,7 +460,8 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 	public function get_bulk_actions() {
 		$actions = [
 			'bulk-delete' => 'Delete',
-		//	'bulk-removepayment' => 'Remove payment'
+	     'bulk-removepayment' => 'Remove payment',
+	      'bulk-approvepayment' => 'Approve payment'
 		];
 
 		return $actions;
@@ -442,13 +469,13 @@ $sql .=  Aistore_Withdrawal_List::prepareWhereClouse();
 
 function form(){
  
-		$from = ( isset($_GET['mishaDateFrom'] ) && sanitize_text_field($_GET['mishaDateFrom'] )) ? $_GET['mishaDateFrom'] : '';
-		$to = ( isset( $_GET['mishaDateTo'] ) && sanitize_text_field($_GET['mishaDateTo'] )) ? sanitize_text_field($_GET['mishaDateTo']) : '';
+		$from = ( isset($_GET['EscrowDateFrom'] ) && sanitize_text_field($_GET['EscrowDateFrom']) ) ? sanitize_text_field($_GET['EscrowDateFrom']) : '';
+		$to = ( isset($_GET['EscrowDateTo'] ) && sanitize_text_field($_GET['EscrowDateTo']) ) ? sanitize_text_field($_GET['EscrowDateTo']) : '';
  
 		echo ' 
  
-		<input type="date" name="mishaDateFrom" placeholder="Date From" value="' . esc_attr( $from ) . '" />
-		<input type="date" name="mishaDateTo" placeholder="Date To" value="' . esc_attr( $to ) . '" />
+		<input type="date" name="EscrowDateFrom" placeholder="Date From" value="' . esc_attr( $from ) . '" />
+		<input type="date" name="EscrowDateTo" placeholder="Date To" value="' . esc_attr( $to ) . '" />
  
 		 ';
  
@@ -475,7 +502,7 @@ function form(){
 			'per_page'    => $per_page //WE have to determine how many items to show on a page
 		] );
 
-		$this->items = self::get_withdrawal( $per_page, $current_page );
+		$this->items = self::get_escrow( $per_page, $current_page );
 	}
 
 	public function process_bulk_action() {
@@ -486,11 +513,11 @@ function form(){
 			// In our file that handles the request, verify the nonce.
 			$nonce = sanitize_text_field( $_REQUEST['_wpnonce'] );
 
-			if ( ! wp_verify_nonce( $nonce, 'sp_delete_withdrawal' ) ) {
+			if ( ! wp_verify_nonce( $nonce, 'sp_delete_escrow' ) ) {
 				die( 'Go get a life script kiddies' );
 			}
 			else {
-				self::delete_withdrawal( absint(sanitize_text_field( $_GET['withdrawal'] )) );
+				self::delete_escrow( absint( $_GET['customer'] ) );
 
 		                // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
 		                // add_query_arg() return the current url
@@ -501,15 +528,15 @@ function form(){
 		}
 
 		// If the delete bulk action is triggered
-		if ( ( isset( $_POST['action'] ) &&sanitize_text_field( $_POST['action'] )== 'bulk-delete' )
-		     || ( isset( $_POST['action2'] ) &&sanitize_text_field( $_POST['action2'] )== 'bulk-delete' )
+		if ( ( isset( $_POST['action'] ) && $_POST['action'] == 'bulk-delete' )
+		     || ( isset( $_POST['action2'] ) && $_POST['action2'] == 'bulk-delete' )
 		) {
 
-			$delete_ids = esc_sql( $_POST['bulk-delete'] );
+			$delete_ids = sanitize_text_field( $_POST['bulk-delete'] );
 
 			// loop over the array of record IDs and delete them
 			foreach ( $delete_ids as $id ) {
-				self::delete_withdrawal( $id );
+				self::delete_escrow( $id );
 
 			}
 
@@ -522,19 +549,59 @@ function form(){
 		
 		
 		
+// payment
 
+//Detect when a bulk action is being triggered...
+		if ( 'remove_payment' === $this->current_action() ) {
+
+			// In our file that handles the request, verify the nonce.
+			$nonce = sanitize_text_field( $_REQUEST['_wpnonce'] );
+
+			if ( ! wp_verify_nonce( $nonce, 'sp_remove_payment_escrow' ) ) {
+				die( 'Go get a life script kiddies' );
+			}
+			else {
+				self::remove_payment_escrow( absint( $_GET['customer'] ) );
+
+		                // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
+		                // add_query_arg() return the current url
+		                wp_redirect( esc_url_raw(add_query_arg()) );
+				exit;
+			}
+
+		}
+
+		// If the delete bulk action is triggered
+		if ( ( isset( $_POST['action'] ) && $_POST['action'] == 'bulk-removepayment' )
+		     || ( isset( $_POST['action2'] ) && $_POST['action2'] == 'bulk-removepayment' )
+		) {
+
+			$delete_ids = sanitize_text_field( $_POST['bulk-removepayment'] );
+
+			// loop over the array of record IDs and delete them
+			foreach ( $delete_ids as $id ) {
+				self::remove_payment_escrow( $id );
+
+			}
+
+			// esc_url_raw() is used to prevent converting ampersand in url to "#038;"
+		        // add_query_arg() return the current url
+		        wp_redirect( esc_url_raw(add_query_arg()) );
+			exit;
+		}
+		
 	}
 
 }
 
 
-class Aistore_Withdrawal_Plugin {
+class Escrow_Plugin {
 
 	// class instance
 	static $instance;
 
 	// customer WP_List_Table object
-	public $withdrawal_obj;
+	public $escrow_obj;
 
 	// class constructor
 	public function __construct() {
@@ -550,10 +617,10 @@ class Aistore_Withdrawal_Plugin {
 	public function plugin_menu() {
 
 		$hook = add_menu_page(
-			'All Withdrawal List',
-			'Withdrawal List',
+			'All Escrow List',
+			'Escrow List',
 			'manage_options',
-			'withdrawal_list',
+			'escrow_list',
 			[ $this, 'plugin_settings_page' ]
 		);
 
@@ -568,60 +635,31 @@ class Aistore_Withdrawal_Plugin {
 	public function plugin_settings_page() {
 		?>
 		<div class="wrap">
-			<h2><?php _e( 'Withdrawal Requests', 'aistore' ); ?></h2>
+			<h2>Escrows Report</h2>
+
  <?php echo AistoregetSupportMsg(); ?>
-<?php
-  $user_id=get_current_user_id();
-$bank_account= ( get_the_author_meta( 'user_bank_detail', $user_id ) );
-$instructions= ( get_the_author_meta( 'user_deposit_instruction', $user_id ) );
-
-if (strlen($bank_account)>3) {
-
-?><br>
- <table class="table table-sm">
  
-  <tbody>
-    <tr>
-      <th scope="row"><?php _e( 'Bank Account Details', 'aistore' ); ?></th>
-      <td><?php echo esc_attr($bank_account); ?></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e( 'Instructions', 'aistore' ); ?></th>
-      <td><?php echo esc_attr($instructions); ?></td>
-    </tr>
-  </tbody>
-  </table>
-    <br>
-  <?php
-  
-}
-else
-{
-    
-    echo "<strong>Bank account details are not set. Kindly set from the escrow setting page.  </strong> ";
-}
-?>
-
+ 
 			<div id="poststuff">
 				<div id="post-body" class="metabox-holder columns-2">
 					<div id="post-body-content">
 						<div class="meta-box-sortables ui-sortable">
 							<form method="post">
 								<?php
-								$this->withdrawal_obj->prepare_items();
+								$this->escrow_obj->prepare_items();
 		
 
  
 	
-	   $this->withdrawal_obj->status();
+	   $this->escrow_obj->status();
 	   
 	   
-	   $this->withdrawal_obj->date_filter('Search', 'search');
+	   $this->escrow_obj->date_filter('Search', 'search');
 	   
 	   
 	
-	   $this->withdrawal_obj->search_box('Search', 'search');
-	$this->withdrawal_obj->display(); 
+	   $this->escrow_obj->search_box('Search', 'search');
+	$this->escrow_obj->display(); 
 								
 								 ?>
 									
@@ -644,14 +682,14 @@ else
 
 		$option = 'per_page';
 		$args   = [
-			'label'   => 'withdrawal_requests',
+			'label'   => 'escrow_system',
 			'default' => 5,
-			'option'  => 'withdrawal_per_page'
+			'option'  => 'escrows_per_page'
 		];
 
 		add_screen_option( $option, $args );
 
-		$this->withdrawal_obj = new Aistore_Withdrawal_List();
+		$this->escrow_obj = new Escrow_List();
 	}
 
 
@@ -668,5 +706,5 @@ else
 
 
 add_action( 'plugins_loaded', function () {
-	Aistore_Withdrawal_Plugin::get_instance();
+	Escrow_Plugin::get_instance();
 } );

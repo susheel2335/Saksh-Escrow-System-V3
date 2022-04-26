@@ -9,7 +9,7 @@ if (!defined('ABSPATH'))
 
 
 
-
+include_once dirname(__FILE__) . '/transactions/aistore_transaction_report.php';
 
 include_once dirname(__FILE__) . '/admin/user_transaction_list.php';
 include_once dirname(__FILE__) . '/admin/transaction_list.php';

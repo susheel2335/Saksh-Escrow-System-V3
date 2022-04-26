@@ -29,13 +29,27 @@ function aistore_scripts_method()
 
   
   
-    wp_enqueue_style('aistore', plugins_url('/css/custom.css', __FILE__) , array());
-    wp_enqueue_script('aistore', plugins_url('/js/custom.js', __FILE__) , array(
+    wp_enqueue_style('aistore', plugins_url('/aistore_assets/css/custom.css', __FILE__) , array());
+    wp_enqueue_script('aistore', plugins_url('/aistore_assets/js/custom.js', __FILE__) , array(
         'jquery'
     ));
 }
 
 add_action('wp_enqueue_scripts', 'aistore_scripts_method');
+
+
+add_action('admin_head', 'saksh_escrow_system_css');
+
+function saksh_escrow_system_css() {  
+
+
+ wp_enqueue_style( 'saksh_escrow_system', plugin_dir_url( __FILE__ ) . 'css/custom.css' );
+ 
+ 
+  
+}
+
+
 
 function aistore_isadmin()
 {
@@ -206,18 +220,23 @@ $table_escrow_email = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_
 }
 register_activation_hook(__FILE__, 'aistore_plugin_table_install');
 
-include_once dirname(__FILE__) . '/Escrow_list.php';
-include_once dirname(__FILE__) . '/user_notification.php';
-include_once dirname(__FILE__) . '/user_escrow.php';
-include_once dirname(__FILE__) . '/email/sendnotification.php';
+include_once dirname(__FILE__) . '/aistore_email/email_report.php';
 
+include_once dirname(__FILE__) . '/aistore_email/send_email.php';
 
+include_once dirname(__FILE__) . '/aistore_escrow/Escrow_list.php';
+include_once dirname(__FILE__) . '/aistore_notifications/user_notification.php';
+include_once dirname(__FILE__) . '/aistore_escrow/user_escrow.php';
+include_once dirname(__FILE__) . '/aistore_notifications/sendnotification.php';
 
+// include_once dirname(__FILE__) . '/chat.php';
+
+include_once dirname(__FILE__) . '/aistore_chat_system/index.php';
 include_once dirname(__FILE__) . '/aistore_wallet/index.php';
-include_once dirname(__FILE__) . '/email/notification_api.php';
-include_once dirname(__FILE__) . '/AistoreEscrowSystem.class.php';
+include_once dirname(__FILE__) . '/aistore_notifications/notification_api.php';
+include_once dirname(__FILE__) . '/aistore_escrow/AistoreEscrowSystem.class.php';
 
-include_once dirname(__FILE__) . '/AistoreEscrowSettings.class.php';
+include_once dirname(__FILE__) . '/aistore_escrow/AistoreEscrowSettings.class.php';
 
 add_shortcode('aistore_escrow_system', array(
     'AistoreEscrowSystem',
@@ -308,4 +327,48 @@ function Aistore_process_placeholder_Text($str, $escrow)
     $str = str_replace("[EID]", $escrow->id, $str);
     return $str;
 }
+
+
+
+function  AistoregetSupportMsg()
+{ $url = admin_url('admin.php?page=aistore_page_escrow_setting', 'https');
+                
+               
+    $msg  ="<p> For support plz email wordpress@aistore2030.com </p>";
+    
+    $msg   .="<p>Complete Escrow settings from this link  <a href='".esc_url($url)."'>Escrow Settings</a> </p>";
+    
+    
+             
+         
+         
+         
+    return $msg;
+    
+ 
+}
+
+
+ 
+
+
+// Add some text after the header
+add_action( 'saksh_escrow_list_before_header' , 'add_promotional_text' );
+function add_promotional_text() {
+  
+  echo "<div>Special offer! June only: Free chocolate for everyone!</div>";
+} 
+
+
+
+// Add some text after the header
+add_action( 'saksh_escrow_list_before_header' , 'add_promotional_text33333333333' );
+function add_promotional_text33333333333() {
+  
+  echo "<div>Special offer! June only: Free chocolate for everyone!</div>";
+} 
+
+
+
+
 

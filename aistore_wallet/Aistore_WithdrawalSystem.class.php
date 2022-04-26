@@ -6,7 +6,7 @@ class Aistore_WithdrawalSystem {
       public  static function aistore_bank_account()
 { 
    
-   
+     ob_start();
     
     $user_id=get_current_user_id();
 
@@ -145,6 +145,8 @@ else
     
     
 <?php
+
+ return ob_get_clean();
 } 
 
 
@@ -160,7 +162,7 @@ public static function aistore_saksh_withdrawal_system()
     
  
 }
-
+    ob_start();
 
  global $wpdb;   
   
@@ -428,7 +430,7 @@ global $wpdb;
 	}
 	else{
    
-  ob_start();
+
      
   ?>
   
@@ -468,21 +470,8 @@ global $wpdb;
     </table>
 <?php
 
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+ return ob_get_clean();
 }
 }
 

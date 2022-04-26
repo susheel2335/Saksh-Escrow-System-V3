@@ -26,8 +26,8 @@
         }
       
 
-?>
-<table class=" table form-table">
+?> <?php echo AistoregetSupportMsg(); ?>
+  <table class="widefat striped fixed">
          <form method="POST" action="" name="create_currency" enctype="multipart/form-data"> 
     <?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
     
@@ -86,7 +86,7 @@
 
 ?>
   
-    <table class="table  ">
+  <table class="widefat striped fixed">
      
         <tr>
       

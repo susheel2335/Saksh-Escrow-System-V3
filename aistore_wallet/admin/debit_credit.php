@@ -62,11 +62,11 @@ else{
 
 ?>
 
-    
+     <?php echo AistoregetSupportMsg(); ?>
           
 <h3><?php  _e( 'Transaction Report', 'aistore' ) ?></h3>
 
-  <table  id="example" class="display nowrap" style="width:100%">
+  <table  id="example" class="widefat striped fixed">
          <thead>
         <tr>
       
@@ -121,7 +121,7 @@ else{
 ?>
       
 <h3><?php  _e( 'Debit/ Credit', 'aistore' ) ?></h3>
-
+ <?php echo AistoregetSupportMsg(); ?>
  <form method="POST" action="" name="deposit_type" enctype="multipart/form-data"> 
     <?php wp_nonce_field( 'aistore_nonce_action', 'aistore_nonce' ); ?>
     
@@ -143,8 +143,8 @@ else{
 // printf(__( 'Account Balance %s.', 'aistore'),$balance); 
 
 
- ?>
-  <table class="form-table">
+ ?> <div class = "wrap"><div class = " aistore_half_page">
+  <table class="widefat striped fixed">
       	 <tr valign="top">  <th scope="row">
   <label><?php _e( 'Users:', 'aistore' ) ;?></label></th>
   <td>
@@ -160,7 +160,7 @@ else{
                 echo '	<option  value="' .esc_attr( $user->ID) . '">' . esc_attr($user->display_name) . '</option>';
         } ?> 
  
-</select></td></tr><br><br>
+</select></td></tr> 
 
 
 	 <tr valign="top">  <th scope="row">
@@ -170,7 +170,7 @@ else{
   <option value="debit"><?php _e( 'Debit', 'aistore' ) ;?></option>
   <option value="credit"><?php _e( 'Credit', 'aistore' ) ;?></option>
 
-</select></td></tr><br><br>
+</select></td></tr> 
 
 
 
@@ -194,13 +194,13 @@ else{
 ?>
            
   
-</select></td><br><br>
+</select></td> 
 
 
  <tr valign="top">  <th scope="row">
   <label><?php _e( 'Amount:', 'aistore' ) ;?></label></th>
 
-<td><input class="input" type="text" name="amount" /></td></tr><br><br>
+<td><input class="input" type="text" name="amount" /></td></tr> 
 
  <tr valign="top">  <th scope="row">
   <label><?php _e( 'Description:', 'aistore' ) ;?></label></th>
@@ -208,7 +208,7 @@ else{
 
 <td>
 <textarea id="description" name="description" rows="4" cols="30">
-</textarea></td></tr> <br><br>
+</textarea></td></tr> 
 
 <tr>
 <td>
@@ -216,7 +216,7 @@ else{
 <input class="input" type="submit" name="submit" value="<?php  _e( 'Submit', 'aistore' ) ?>"/>
 <input type="hidden" name="action"  value="deposit_type"/>
 </tr></td>
- </table>
+ </table> </div> </div>
     </form>
    
 <?php

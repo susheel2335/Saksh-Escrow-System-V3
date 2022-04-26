@@ -1,5 +1,5 @@
 
-       <div class="container">
+       <div class="wrap">
 
 
 		
@@ -40,7 +40,7 @@ global  $wpdb;
       <table class="widefat fixed striped">
         
    
-<table>
+  <table class="widefat striped fixed">
     
       <tr>
       <th scope="row"><?php _e( 'Username', 'aistore' ); ?> :</th>
@@ -295,8 +295,7 @@ else{
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
- 
-       <table class="table table-sm">
+   <table class="widefat striped fixed">
  
   <tbody>
     <tr>

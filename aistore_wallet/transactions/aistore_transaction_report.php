@@ -1,22 +1,25 @@
 <?php
+ add_filter( 'after_aistore_escrow_transaction', 'aistore_transaction_report' );
+  
+     function  aistore_transaction_report($eid){
+         
+  
 
-
-function escrow_admin_report()
-{
 	global $wpdb;
+
            	
-           	        $escrow_admin_user_id = get_option('escrow_user_id');
+           	        // $escrow_admin_user_id = get_option('escrow_user_id');
            	        
-     	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions  INNER JOIN {$wpdb->prefix}users ON  {$wpdb->prefix}aistore_wallet_transactions.user_id={$wpdb->prefix}users.ID WHERE {$wpdb->prefix}users.ID= ".$escrow_admin_user_id;
+     	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions  t  INNER JOIN {$wpdb->prefix}users u ON  t.user_id=u.ID WHERE t.reference=".$eid. "  ORDER BY transaction_id desc";
      	
-     //	echo $sql;
+  
+ 
      	
      	 $results = $wpdb->get_results($sql);
            ?>
-       <h1> <?php _e('Escrow Admin Report', 'aistore') ?> </h1>
+       <h1> <?php _e('Transaction Report', 'aistore') ?> </h1>
    
-   <?php echo AistoregetSupportMsg(); ?>
-   
+    
     
 
             <?php
@@ -31,7 +34,7 @@ function escrow_admin_report()
         {
             ?>
             
-<table id="example" class="display nowrap" style="width:100%">
+<table id="example" class="widefat striped fixed" >
         <thead>
             <tr>
                    <th><?php _e('ID', 'aistore'); ?></th>
@@ -75,23 +78,14 @@ function escrow_admin_report()
     
         </tbody>
         
-       
-        
-        <tfoot>
-            <tr>
-         <th><?php _e('ID', 'aistore'); ?></th>
-        <th><?php _e('Username', 'aistore'); ?></th>
-		    <th><?php _e('Email', 'aistore'); ?></th>
-          <th><?php _e('Balance', 'aistore'); ?></th> 
-          	  
-	    <th><?php _e('Amount', 'aistore'); ?></th> 
-	    <th><?php _e('Type', 'aistore'); ?></th> 
-	    <th><?php _e('Description', 'aistore'); ?></th> 
-            </tr>
-        </tfoot>
+ 
     </table>
     
-       <?php } ?>
-      
     
-       <?php } 
+        <?php 
+        
+        
+        }
+    
+     
+     }  

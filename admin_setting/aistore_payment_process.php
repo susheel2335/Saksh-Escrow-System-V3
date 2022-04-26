@@ -1,4 +1,12 @@
- <div id="row ">
+<?php
+
+// function aistore_escrow_admin_process_payment()
+// {
+
+
+    ?>
+    
+    <div id="row ">
 <div id="col-md-6"   >
     
     <?php
@@ -285,5 +293,5 @@ endforeach;
   
 	<?php
     }
-
+// }
 

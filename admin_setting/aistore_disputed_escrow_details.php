@@ -1,9 +1,15 @@
 <?php
-        global $wpdb;
+
+
+// function aistore_escrow_details_page()
+// {
+//         global $wpdb;
 
         $eid = sanitize_text_field($_REQUEST['eid']);
 
         $object_escrow = new AistoreEscrowSystem();
+        
+        
         $aistore_escrow_currency = $object_escrow->get_escrow_currency();
         $escrow_admin_user_id = $object_escrow->get_escrow_admin_user_id();
 
@@ -418,13 +424,13 @@ sendNotificationDisputed($eid);
 	      <?php
         echo "<h1>#" . esc_attr($escrow->id) . " " . esc_attr($escrow->title) . "</h1><br>";
 
-        printf(__("Term Condition : %s", 'aistore') , html_entity_decode($escrow->term_condition) . "<br>");
+
         printf(__("Sender :  %s", 'aistore') , $escrow->sender_email . "<br>");
         printf(__("Receiver : %s", 'aistore') , $escrow->receiver_email . "<br>");
          printf(__("Payment Status : %s", 'aistore') , $escrow->payment_status . "<br>");
         printf(__("Status : %s", 'aistore') , $escrow->status . "<br><br>");
 
-        $object = new AistoreEscrowSystem();
+        $object = new AistoreEscrowBTN();
 
         $object->accept_escrow_btn($escrow);
 
@@ -450,7 +456,7 @@ sendNotificationDisputed($eid);
 <?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
 	<input type="hidden" name="ecsrow_id" value="<?php echo esc_attr($escrow->id); ?>" />
 <input 
- type="submit" name="submit" value="<?php _e('Approve Payment', 'aistore') ?>"/>
+ type="submit" name="submit"   class="button button-primary  btn  btn-primary "    value="<?php _e('Approve Payment', 'aistore') ?>"/>
 <input type="hidden" name="action" value="escrow_payment" />
                 </form>
              
@@ -460,7 +466,7 @@ sendNotificationDisputed($eid);
 <?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
 		<input type="hidden" name="reject_ecsrow_id" value="<?php echo $escrow->id; ?>" />
 <input 
- type="submit" name="submit" value="<?php _e('Reject Payment', 'aistore') ?>"/>
+ type="submit" name="submit"  class="button button-primary  btn  btn-primary "  value="<?php _e('Reject Payment', 'aistore') ?>"/>
 <input type="hidden" name="action" value="reject_payment" />
                 </form>
                    <?php
@@ -490,7 +496,7 @@ sendNotificationDisputed($eid);
 
 ?> 
   
-    <table class="table">
+    <table class="table widefat striped fixed">
     <?php
         foreach ($escrow_documents as $row):
 
@@ -642,9 +648,10 @@ sendNotificationDisputed($eid);
            	
            	        // $escrow_admin_user_id = get_option('escrow_user_id');
            	        
-     	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions  INNER JOIN {$wpdb->prefix}users ON  {$wpdb->prefix}aistore_wallet_transactions.user_id={$wpdb->prefix}users.ID WHERE  {$wpdb->prefix}aistore_wallet_transactions.reference=".$eid;
+     	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions  t  INNER JOIN {$wpdb->prefix}users u ON  t.user_id=u.ID WHERE t.reference=".$eid. "  ORDER BY transaction_id desc";
      	
-     //	echo $sql;
+  
+ 
      	
      	 $results = $wpdb->get_results($sql);
            ?>
@@ -665,7 +672,7 @@ sendNotificationDisputed($eid);
         {
             ?>
             
-<table id="example" class="display nowrap" style="width:100%">
+<table id="example" class="widefat striped fixed" >
         <thead>
             <tr>
                    <th><?php _e('ID', 'aistore'); ?></th>
@@ -748,7 +755,7 @@ sendNotificationDisputed($eid);
         {
             ?>
             
-          <table  id="example1" class="display nowrap" style="width:100%">
+          <table  id="example1" class="widefat striped fixed"  >
       
         <thead>
      <tr>
@@ -812,7 +819,7 @@ sendNotificationDisputed($eid);
         }
         else{
         ?>
-          <table  id="example2" class="display nowrap" style="width:100%">
+          <table  id="example2" class="widefat striped fixed" >
       
         <thead>
      <tr>
@@ -870,3 +877,8 @@ sendNotificationDisputed($eid);
   
 <!--</div>-->
 </div>
+
+
+<?php
+
+// }

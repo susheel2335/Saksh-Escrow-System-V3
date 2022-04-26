@@ -6,7 +6,7 @@
 	  <div class="wrap">
 	  
 	  <div class="card">
-	  
+	   <?php echo AistoregetSupportMsg(); ?>
 <h3><?php _e('Escrow Setting', 'aistore') ?></h3>
  
 	                    

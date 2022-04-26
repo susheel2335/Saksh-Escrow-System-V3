@@ -1,4 +1,12 @@
+
 <?php 
+
+// function aistore_escrow_dashboard()
+
+// {
+    
+    // echo "Fds";
+    
   $wallet = new AistoreWallet();
  $user_id = get_current_user_id();
                      
@@ -20,19 +28,21 @@ $escrow_user_id_balance = $wallet->aistore_balance($escrow_user_id, $currency);
             
 $users = get_users( );
 
-//print_r($users);
+echo  AistoregetSupportMsg() ;
+
+ 
         if ($users === null)
         {
-           // _e("No User Found", 'aistore');
+            _e("No User Found", 'aistore');
 
         }
         else
         {
             
-            
+    
 ?>
     <h1> <?php _e('User List', 'aistore') ?> </h1>
-<table id="example5" class="display nowrap" style="width:100%">
+<table id="example5" class="widefat striped fixed"  >
         <thead>
             <tr>
                    <th><?php _e('ID', 'aistore'); ?></th>
@@ -62,7 +72,7 @@ $users = get_users( );
             
   $balance = $wallet->aistore_balance($row->ID, $currency);
   
-  if($balance>0){
+ 
 ?>
             <tr>
             	   <td>  <?php echo esc_attr($row->ID); ?></td>
@@ -76,7 +86,7 @@ $users = get_users( );
 		 
 		   </tr>
 		   <?php
-  }
+ 
   }
   
         
@@ -107,14 +117,14 @@ $users = get_users( );
         $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}escrow_system order by id desc limit 5");
       if ($results == null)
         {
-            // _e("No Escrow Found", 'aistore');
+  //     _e("No Escrow Found", 'aistore');
 
         }
         else
         {
     ?>
       <h1> <?php _e('Recent 5 Escrow', 'aistore') ?> </h1>
-    <table id="example1" class="display nowrap" style="width:100%">
+    <table id="example1" class="widefat striped fixed"  >
         <thead>
             <tr>
                    <th><?php _e('Id', 'aistore'); ?></th>
@@ -193,14 +203,14 @@ $users = get_users( );
      	 $results = $wpdb->get_results($sql);
       if ($results == null)
         {
-            // _e("No transactions Found", 'aistore');
+      //      _e("No transactions Found", 'aistore');
 
         }
         else
         {
     ?>
     <h1> <?php _e('Admin Top 15 Transaction', 'aistore') ?> </h1>
-<table id="example2" class="display nowrap" style="width:100%">
+<table id="example2" class="widefat striped fixed"  >
         <thead>
             <tr>
                    <th><?php _e('ID', 'aistore'); ?></th>
@@ -282,12 +292,15 @@ $users = get_users( );
 
  	  if ($results == null)
         {
-            // _e("No Notification Found", 'aistore');
+        //     _e("No Notification Found", 'aistore');
 
         }
+        
+        else
+        {
         ?>
          <h1> <?php _e('Top 15 Notification', 'aistore') ?> </h1>  <br>
-          <table  id="example6" class="display nowrap" style="width:100%">
+          <table  id="example6" class="widefat striped fixed" >
       
         <thead>
      <tr>
@@ -330,7 +343,11 @@ $users = get_users( );
         </table>
      <br><br>
      
+     <?php
+     
+        }
+     
     
     
-    
+// }
     
