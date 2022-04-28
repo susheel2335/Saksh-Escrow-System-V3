@@ -62,6 +62,13 @@ class AistoreWallet
     SET balance = '%s',transaction_id=%d  WHERE user_id = '%d' and currency=%s", $new_amount, $transaction_id, $user_id, $currency));
     
     
+    
+    
+                
+            do_action( 'aistore_wallet_debit',$transaction_id);
+            
+            
+    
     }
 
     public function aistore_credit($user_id, $amount, $currency, $description,$reference)
@@ -89,6 +96,8 @@ class AistoreWallet
         $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}aistore_wallet_balance
     SET balance = '%s',transaction_id=%d  WHERE user_id = '%d' and currency=%s", $new_amount, $transaction_id, $user_id, $currency));
 
+                
+            do_action( 'aistore_wallet_credit',$transaction_id);
     }
 
     // transaction List

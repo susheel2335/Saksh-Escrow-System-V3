@@ -4,7 +4,10 @@ if (!defined('ABSPATH'))
     exit; // Exit if accessed directly.
     
 }
+
 include_once "AistoreEscrowBTN.class.php";
+
+include_once "AistoreEscrow.class.php";
 
 
 class AistoreEscrowSystem
@@ -78,6 +81,9 @@ class AistoreEscrowSystem
         $eid = $wpdb->insert_id;
 
         sendNotificationCreated($eid);
+      //  sendEmailCreated($eid);
+          do_action( 'aistore_escro_created',$eid);
+          
          $created_escrow_success_message = get_option('created_escrow_success_message');
 
         $ar['Error'] = true;
@@ -206,15 +212,30 @@ class AistoreEscrowSystem
         if (isset($_POST['submit']) and $_POST['action'] == 'escrow_system')
         {
             
-            
-                       
+           
+
+
+
+
+
 
             if (!isset($_POST['aistore_nonce']) || !wp_verify_nonce($_POST['aistore_nonce'], 'aistore_nonce_action'))
             {
                 return _e('Sorry, your nonce did not verify', 'aistore');
                 exit;
             }
+            
+            
+               $es = new AistoreEscrow();
+              
+              $_REQUEST['user_email']= get_the_author_meta('user_email', get_current_user_id());
+              
+            $escrow=     $es->create_escrow($_REQUEST)  ;
+            
+            
 
+
+/*
             $title = sanitize_text_field($_REQUEST['title']);
             $amount = sanitize_text_field($_REQUEST['amount']);
 
@@ -242,13 +263,19 @@ class AistoreEscrowSystem
             ));
             
          
-            
+            aistore_escrow_created
                $wpdb->query($qr);
             
     
 
             $eid = $wpdb->insert_id;
-
+            
+         */
+         
+         
+          $eid =$escrow['id'];
+          
+/*
   $escrow_wallet = new AistoreWallet();
  $user_balance=$escrow_wallet->aistore_balance($user_id,$escrow_currency);
 
@@ -279,58 +306,12 @@ if($user_balance>$new_amount){
     
 
 }
-            // check if user have uploaded file or not  then do this
-            
-              $set_file =  get_option('escrow_file_type');
-                
-            $fileType = $_FILES['file']['type'];
-
-            if ($fileType == "application/".$set_file)
-            {
-                $upload_dir = wp_upload_dir();
-
-                if (!empty($upload_dir['basedir']))
-                {
-
-                    $user_dirname = $upload_dir['basedir'] . '/documents/' . $eid;
-                    if (!file_exists($user_dirname))
-                    {
-                        wp_mkdir_p($user_dirname);
-                    }
-
-                    $filename = wp_unique_filename($user_dirname, $_FILES['file']['name']);
-                    move_uploaded_file(sanitize_text_field($_FILES['file']['tmp_name']) , $user_dirname . '/' . $filename);
-
-                    $image = $upload_dir['baseurl'] . '/documents/' . $eid . '/' . $filename;
-
-                    // save into database  $image
-                      $object_escrow = new AistoreEscrowSystem();
-        $ipaddress = $object_escrow->aistore_ipaddress();
-
-
-
-                    $wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}escrow_documents ( eid, documents,user_id,documents_name,ipaddress) VALUES ( %d,%s,%d,%s,%s)", array(
-                        $eid,
-                        $image,
-                        $user_id,
-                        $filename,
-                        $ipaddress
-                    )));
-                  
-
-
-
-                }
-            }
-            
-            
-            
-           
-           
-
-          //  sendNotificationCreated($eid);
-            
+       */
+       
+       
+   
                  do_action( 'aistore_escrow_created',$eid);
+    
             
             $bank_details_page_id_url = esc_url(add_query_arg(array(
                 'page_id' => get_option('bank_details_page_id') ,
@@ -339,16 +320,16 @@ if($user_balance>$new_amount){
             
           
 
- 
- 
-
+ echo $bank_details_page_id_url;
+  
 ?>
 <meta http-equiv="refresh" content="0; URL=<?php echo esc_url($bank_details_page_id_url); ?>" />
 
 
 <?php
-
  
+    
+    
         }
         else
         {
@@ -445,16 +426,17 @@ if($user_balance>$new_amount){
 ?>
   
 
+  <?php
+  
+  apply_filters( "after_aistore_escrow_form" ,$_REQUEST);
+  
+  ?>
+     
 
-
-<br><br><?php 
-    $set_file =  get_option('escrow_file_type');
-    ?>
-
-	<label for="documents"><?php _e('Documents', 'aistore') ?>: </label>
-     <input type="file" name="file"    /><br>
-     <div><p> <?php _e('Note : We accept only '.$set_file.' file and
-	You can upload many pdf file then go to next escrow details page.', 'aistore') ?></p></div>
+ 
+	
+	
+	
 <input 
  type="submit" class="button button-primary  btn  btn-primary "   name="submit" value="<?php _e('Create Escrow', 'aistore') ?>"/>
 <input type="hidden" name="action" value="escrow_system" />
@@ -478,6 +460,9 @@ if($user_balance>$new_amount){
         {
             return "<div class='loginerror'>Kindly login and then visit this page</div>";
         }
+        
+        
+        
 
         $object_escrow_currency = new AistoreEscrowSystem();
         $aistore_escrow_currency = $object_escrow_currency->get_escrow_currency();
@@ -486,9 +471,22 @@ if($user_balance>$new_amount){
 
         global $wpdb;
 
-        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE receiver_email=%s or sender_email=%s order by id desc ", $current_user_email_id, $current_user_email_id));
+  /*      $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE receiver_email=%s or sender_email=%s order by id desc ", $current_user_email_id, $current_user_email_id));
+    */    
+           $es = new AistoreEscrow();
+               
+               $results=$es->aistore_escrow_list($current_user_email_id);
+               
+               
     ob_start();
-?>
+    
+  
+ 
+  
+  apply_filters( "aistore_escrow_list_top" ,$current_user_email_id);
+  
+  ?>
+     
 <h3><u><?php _e('Top  Escrow', 'aistore'); ?></u> </h3>
 <?php
         if ($results == null)
@@ -502,6 +500,9 @@ if($user_balance>$new_amount){
         {
 
         
+            
+               
+               
 
 ?>
   
@@ -579,6 +580,13 @@ if($user_balance>$new_amount){
 	
 
     <?php
+    
+    
+  
+  apply_filters( "aistore_escrow_list_bottom" ,$current_user_email_id);
+  
+  
+  
         return ob_get_clean();
 
     }
@@ -639,9 +647,19 @@ global $wpdb;
     
 
 
-
+/*
 
         $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system  WHERE (  receiver_email = %s   or  sender_email = %s    )  and  id =  %d ", $email_id, $email_id, $eid));
+        
+        */
+        
+        
+              $es = new AistoreEscrow();
+               
+               $escrow=$es->aistore_escrow_detail($eid,$email_id) ;
+               
+               
+        
 
  
 ?>
@@ -703,8 +721,7 @@ global $wpdb;
          
          
          
-        printf(__("Term Condition : %s", 'aistore') , html_entity_decode($escrow->term_condition) . "<br>");
-        
+       
       
 
         $aistore_escrow_btns->accept_escrow_btn($escrow);
@@ -737,6 +754,12 @@ global $wpdb;
   <li class="nav-item">
     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Transaction</a>
   </li>
+   <li class="nav-item">
+    <a class="nav-link" id="term-tab" data-toggle="tab" href="#term" role="tab" aria-controls="term" aria-selected="false">Term and condition</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" id="file-tab" data-toggle="tab" href="#file" role="tab" aria-controls="file" aria-selected="false">Upload File</a>
+  </li>
 </ul>
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">  
@@ -759,6 +782,24 @@ global $wpdb;
   ?>
       
   </div>
+  <div class="tab-pane fade" id="term" role="tabpanel" aria-labelledby="term-tab">
+       <?php
+  
+  printf(__("Term Condition : %s", 'aistore') , html_entity_decode($escrow->term_condition) . "<br>");
+        
+  ?>
+      
+  </div>
+  
+  <div class="tab-pane fade" id="file" role="tabpanel" aria-labelledby="file-tab">
+       <?php
+         $object_escrow->escrow_file_uploads($escrow);
+  
+//   apply_filters( "after_aistore_escrow_transaction", $escrow->id );
+  
+  ?>
+      
+  </div>
 </div>
 </div>
 
@@ -766,7 +807,69 @@ global $wpdb;
         return ob_get_clean();
     }
   
+      private function escrow_file_uploads($escrow)
+    {
+
+        $eid = $escrow->id;
+
+        global $wpdb;
+
+        $escrow_documents = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_documents WHERE eid=%d", $eid));
+
+?> 
+  
+    <table class="table">
+    <?php
+        foreach ($escrow_documents as $row):
+
+?> 
+	
+	<div class="document_list">
+   
+
+
+  <p><a href="<?php echo esc_url($row->documents); ?>" target="_blank">
+	       <b><?php echo esc_attr($row->documents_name); ?></b></a></p>
+  <h6 > <?php echo esc_attr($row->created_at); ?></h6>
+</div>
+
+<hr>
+    
+    <?php
+        endforeach;
+
+?>
+    </table>
+<br>
+	   <div>  
+    
+
+
+	<label for="documents"> <?php _e('Documents', 'aistore'); ?> : </label>
+<form  method="post"  action="<?php echo admin_url('admin-ajax.php') . '?action=custom_action&eid=' . esc_attr($eid); ?>" class="dropzone" id="dropzone">
+    <?php
+        wp_nonce_field('aistore_nonce_action', 'aistore_nonce');
+?>
+  <div class="fallback">
+    <input id="file" name="file" type="file"  multiple   />
+    <input type="hidden" name="action" value="custom_action" type="submit"  />
+  </div>
+
+</form>
+<?php
+
+$set_file =  get_option('escrow_file_type');
+?>
+<p> We accept only <?php echo esc_attr($set_file); ?> files.</p>
+
+       
      
+     </div>
+     <br>
+     
+     <?php
+    }
+
       
  
 function aistore_ipaddress(){

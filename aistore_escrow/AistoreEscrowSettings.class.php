@@ -29,7 +29,18 @@ class AistoreEscrowSettings
         ));
         
         
-
+ 
+         add_action('admin_init', array(
+            $this,
+            'aistore_email_register_setting'
+        ));
+        
+          add_action('admin_init', array(
+            $this,
+            'aistore_notification_register_setting'
+        ));
+        
+        
     }
 
     /**
@@ -245,6 +256,27 @@ class AistoreEscrowSettings
         register_setting('aistore_email_page', 'email_buyer_deposit');
         register_setting('aistore_email_page', 'email_seller_deposit');
         register_setting('aistore_email_page', 'email_Buyer_Mark_Paid');
+        
+        
+        
+         register_setting('aistore_email_page', 'email_body_created_escrow');
+        register_setting('aistore_email_page', 'email_body_partner_created_escrow');
+        register_setting('aistore_email_page', 'email_body_accept_escrow');
+        register_setting('aistore_email_page', 'email_body_partner_accept_escrow');
+
+        register_setting('aistore_email_page', 'email_body_dispute_escrow');
+        register_setting('aistore_email_page', 'email_body_partner_dispute_escrow');
+        register_setting('aistore_email_page', 'email_body_release_escrow');
+        register_setting('aistore_email_page', 'email_body_partner_release_escrow');
+
+        register_setting('aistore_email_page', 'email_body_cancel_escrow');
+        register_setting('aistore_email_page', 'email_body_partner_cancel_escrow');
+        register_setting('aistore_email_page', 'email_body_shipping_escrow');
+        register_setting('aistore_email_page', 'email_body_partner_shipping_escrow');
+
+        register_setting('aistore_email_page', 'email_body_buyer_deposit');
+        register_setting('aistore_email_page', 'email_body_seller_deposit');
+        register_setting('aistore_email_page', 'email_body_Buyer_Mark_Paid');
     }
     
     

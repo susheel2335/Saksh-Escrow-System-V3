@@ -1,16 +1,9 @@
 <?php
 
-  
-    
- 
 add_action( 'aistore_escrow_cancelled', 'sendNotificationCancelled', 10, 3 );
 
 add_action( 'aistore_escrow_accepted', 'sendNotificationPaymentAccepted', 10, 3 );
-
-
-
 add_action( 'aistore_escrow_disputed', 'sendNotificationDisputed', 10, 3 );
-
 
 add_action( 'aistore_escrow_released', 'sendNotificationReleased', 10, 3 ); 
 
@@ -19,7 +12,7 @@ add_action( 'aistore_escrow_created', 'sendNotificationCreated', 10, 3 );
 
 
  
- add_filter( 'after_aistore_escrow_notification', 'aistore_echo_notification_of_escrow' );
+add_filter( 'after_aistore_escrow_notification', 'aistore_echo_notification_of_escrow' );
 
 
  
@@ -27,7 +20,6 @@ add_action( 'aistore_escrow_created', 'sendNotificationCreated', 10, 3 );
      
 
   function sendNotificationPaymentRefund($eid){
-      $headers = array('Content-Type: text/html; charset=UTF-8');
 
     $user_id = get_current_user_id();
     $user_email = get_the_author_meta('user_email', $user_id);
@@ -63,7 +55,6 @@ add_action( 'aistore_escrow_created', 'sendNotificationCreated', 10, 3 );
     
      $n['subject'] = $subject;
     aistore_notification_new($n);
-    aistore_send_email($n);
     
     
       $subject = $Seller_Deposit;
@@ -79,7 +70,6 @@ add_action( 'aistore_escrow_created', 'sendNotificationCreated', 10, 3 );
     
     
     aistore_notification_new($n);
-    aistore_send_email($n);
 
   }
   
@@ -87,7 +77,6 @@ add_action( 'aistore_escrow_created', 'sendNotificationCreated', 10, 3 );
  function sendNotificationPaymentAccepted($eid)
 {
 
-$headers = array('Content-Type: text/html; charset=UTF-8');
 
     $user_id = get_current_user_id();
     $user_email = get_the_author_meta('user_email', $user_id);
@@ -123,7 +112,7 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     
     
     aistore_notification_new($n);
-    aistore_send_email($n);
+ 
     
     
       $subject = $Seller_Deposit;
@@ -139,34 +128,7 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     
     
     aistore_notification_new($n);
-    aistore_send_email($n);
-
-    // ob_start();
-
-    // include dirname(__FILE__) . "/notification/partner_created_escrow.php";
-
-    // $message = ob_get_clean();
-    // wp_mail($party_email, $subject, $message ,$headers  );
-
-    // //send email to self
-    // $message = "You have successfully created the escrow #" . $eid;
-    // $subject = $created_escrow;
-
-
-
-    // wp_mail($user_email, $subject, $message,$headers );
-
-    
-      
-    
-    // $n = array();
-    // $n['message'] = $created_escrow;
-
-    // $n['type'] = "success";
-    // $n['url'] = $details_escrow_page_id_url ;
-
-    // $n['user_email'] = $user_email;
-    // aistore_notification_new($n);
+   
  
 }
 
@@ -174,7 +136,7 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
 function sendNotificationCreated($eid)
 {
 
-$headers = array('Content-Type: text/html; charset=UTF-8');
+
 
     $user_id = get_current_user_id();
     $user_email = get_the_author_meta('user_email', $user_id);
@@ -211,51 +173,52 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
 
     
     $subject = $partner_created_escrow;
-
     $n = array();
-    $n['message'] = $partner_created_escrow;
+      $n['message'] = $partner_created_escrow;
 
     $n['type'] = "success";
      $n['subject'] = $subject;
+    $n['escrow'] = $escrow;
     
-    
-	   $n['reference_id'] = $eid;
+	 $n['reference_id'] = $eid;
 
     $n['url'] = $details_escrow_page_id_url ;
-
-    $n['user_email'] = $party_email;
-    
+     $n['user_email'] = $user_email;
+     $n['party_email'] = $party_email;
     
     aistore_notification_new($n);
-    aistore_send_email($n);
+   
 
     ob_start();
 
     include dirname(__FILE__) . "/notification/partner_created_escrow.php";
 
     $message = ob_get_clean();
-    wp_mail($party_email, $subject, $message ,$headers  );
+   
 
     //send email to self
     $message = "You have successfully created the escrow #" . $eid;
-    $subject = $created_escrow;
+    $subject = $message;
 
-
-
-    wp_mail($user_email, $subject, $message,$headers );
 
     
       
     
     $n = array();
-    $n['message'] = $created_escrow;
+    $n['message'] = $message;
   $n['reference_id'] = $eid;
+     $n['escrow'] = $escrow;
     $n['type'] = "success";
     $n['url'] = $details_escrow_page_id_url ;
  $n['subject'] = $subject;
     $n['user_email'] = $user_email;
+    
+     $n['party_email'] = $party_email;
+    
     aistore_notification_new($n);
-    aistore_send_email($n);
+    
+    
+  
  
 }
 
@@ -266,7 +229,6 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
 function sendNotificationPaymentDepositSuccess($eid)
 {
 
-$headers = array('Content-Type: text/html; charset=UTF-8');
 
     $user_email = "";
     global $wpdb;
@@ -290,9 +252,8 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
 
     $message = ob_get_clean();
 
-    wp_mail($escrow->sender_email, $subject, $message ,$headers);
 
-    //aistore_notification($subject ,"success",$escrow->sender_email);
+
     $n = array();
     $n['message'] = $Buyer_Deposit;
   $n['reference_id'] = $eid;
@@ -311,14 +272,13 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     
     $n['user_email'] = $escrow->sender_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
+  
     //send email to seller
     
 
     // send email to seller
     $subject = $Seller_Deposit;
      $n['subject'] = $subject;
-    // $escrow->sender_email  ." has deposited the payment ". $escrow->total_buyer_fee  ." into  the escrow for  the transaction   #".$eid;
     
 
     $message = $escrow->sender_email . " has deposited the payment " . $escrow->total_buyer . " into  the escrow for  the transaction   #" . $eid;
@@ -337,12 +297,6 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     include dirname(__FILE__) . "/notification/seller_admin_accept_payment.php";
 
     $message = ob_get_clean();
-
- 
-
-
-
-    wp_mail($escrow->receiver_email, $subject, $message ,$headers);
 
     $n = array();
     $n['message'] = $Seller_Deposit;
@@ -363,13 +317,12 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     
     $n['user_email'] = $escrow->receiver_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
    
 }
 
 function sendNotificationMarkPaid($eid)
 {   
-$headers = array('Content-Type: text/html; charset=UTF-8');
+
 
 
     $user_id = get_current_user_id();
@@ -393,13 +346,9 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
 
 
     $n['url'] = $details_escrow_page_id_url ;
-    
-    
-    
-    
+  
     $n['user_email'] = $user_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
 
 }
 function sendNotificationAccepted($eid)
@@ -427,7 +376,9 @@ function sendNotificationAccepted($eid)
         $party_email = $escrow->sender_email;
 
     }
-
+    
+    
+    
     $n = array();
     $n['message'] = $partner_accept_escrow;
       $n['reference_id'] = $eid;
@@ -447,7 +398,7 @@ function sendNotificationAccepted($eid)
     
     $n['user_email'] = $party_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
+
 
     $subject = $partner_accept_escrow;
 
@@ -456,12 +407,6 @@ function sendNotificationAccepted($eid)
     include dirname(__FILE__) . "/notification/partner_accept_escrow.php";
 
     $message = ob_get_clean();
-
-
-$headers = array('Content-Type: text/html; charset=UTF-8');
-
-
-    wp_mail($party_email, $subject, $message,$headers );
 
  
  
@@ -476,8 +421,6 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     $message = ob_get_clean();
 
     $subject = "You have successfully accepted the escrow ";
-
-    wp_mail($user_email, $subject, $message,$headers );
 
      
 
@@ -501,14 +444,12 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     
     $n['user_email'] = $user_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
 
 }
 
 function sendNotificationDisputed($eid)
 {
    
-$headers = array('Content-Type: text/html; charset=UTF-8');
 
 
     $user_email = "";
@@ -544,6 +485,7 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
 
     $message = ob_get_clean();
 
+      
     wp_mail($party_email, $subject, $message ,$headers);
 
     $n = array();
@@ -566,7 +508,7 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     
     $n['user_email'] = $party_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
+ 
 
     //send email to self
     $message = $dispute_escrow;
@@ -578,7 +520,7 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
 
     $message = ob_get_clean();
 
-    wp_mail($user_email, $subject, $message,$headers );
+ 
 
     $n = array();
     $n['message'] = $dispute_escrow;
@@ -600,13 +542,12 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     
     $n['user_email'] = $user_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
+ 
 
 }
 
 function sendNotificationReleased($eid)
 {
-$headers = array('Content-Type: text/html; charset=UTF-8');
 
 
     $user_id = get_current_user_id();
@@ -640,8 +581,6 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
 
     $message = ob_get_clean();
 
-    wp_mail($party_email, $subject, $message,$headers  );
-
     $n = array();
     $n['message'] = $partner_release_escrow;
 
@@ -665,7 +604,7 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     
     
     aistore_notification_new($n);
-    aistore_send_email($n);
+
 
     //send email to self
     $message = $release_escrow;
@@ -676,8 +615,6 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     include dirname(__FILE__) . "/notification/release_escrow.php";
 
     $message = ob_get_clean();
-
-    wp_mail($user_email, $subject, $message ,$headers );
 
     $n = array();
     $n['message'] = $release_escrow;
@@ -699,13 +636,12 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     
     $n['user_email'] = $user_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
 
 }
 
 function sendNotificationCancelled($eid)
 {
-    $headers = array('Content-Type: text/html; charset=UTF-8');
+
 
 
     $user_id = get_current_user_id();
@@ -758,18 +694,12 @@ function sendNotificationCancelled($eid)
     
     $n['user_email'] = $party_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
+ 
 
-   /* ob_start();
-
-    include dirname(__FILE__) . "/notification/partner_cancel_escrow.php";
-
-    $message = ob_get_clean();
-    
-    */
+  
        $message = $partner_cancel_escrow;
-    
-    wp_mail($party_email, $subject, $message ,$headers);
+   
+
 
     //send email to self
     $message = "You have successfully cancelled the escrow #" . $eid;
@@ -777,10 +707,6 @@ function sendNotificationCancelled($eid)
 
 $headers = array('Content-Type: text/html; charset=UTF-8');
 
-
-
-
-    wp_mail($user_email, $subject, $message,$headers  );
 
     $n = array();
     $n['message'] = $cancel_escrow;
@@ -802,16 +728,11 @@ $headers = array('Content-Type: text/html; charset=UTF-8');
     
     $n['user_email'] = $user_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
 
 }
 
 function sendNotificationShippingDetailsUpdated($eid)
 {
-    $headers = array('Content-Type: text/html; charset=UTF-8');
-
-
-     
 
     $user_id = get_current_user_id();
     $user_email = get_the_author_meta('user_email', $user_id);
@@ -858,15 +779,13 @@ function sendNotificationShippingDetailsUpdated($eid)
     
     $n['user_email'] = $party_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
-
     ob_start();
 
     include dirname(__FILE__) . "/notification/partner_shipping_escrow.php";
 
     $message = ob_get_clean();
 
-    wp_mail($party_email, $subject, $message,$headers  );
+  
 
     //send email to self
     $message = "You have updated the shipping details for the escrow #" . $eid;
@@ -875,10 +794,8 @@ function sendNotificationShippingDetailsUpdated($eid)
     ob_start();
 
     include dirname(__FILE__) . "/notification/shipping_escrow.php";
-
- 
-    $message = ob_get_clean();
-    wp_mail($user_email, $subject, $message ,$headers );
+  $message = ob_get_clean();
+  
 
     $n = array();
     $n['message'] = $shipping_escrow;
@@ -891,15 +808,9 @@ function sendNotificationShippingDetailsUpdated($eid)
     'eid' => $eid,
 ), home_url() ) ); 
 
-
-
     $n['url'] = $details_escrow_page_id_url ;
-    
-    
-    
-    $n['user_email'] = $user_email;
+      $n['user_email'] = $user_email;
     aistore_notification_new($n);
-    aistore_send_email($n);
 
 }
 

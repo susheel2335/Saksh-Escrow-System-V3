@@ -1,21 +1,420 @@
 <?php
+add_action('aistore_escrow_created', 'sendEmailCreated', 10, 3);
+add_action('aistore_escrow_accepted', 'sendEmailAccepted', 10, 3);
+add_action('aistore_escrow_cancelled', 'sendEmailCancelled', 10, 3);
+add_action('aistore_escrow_disputed', 'sendEmailDisputed', 10, 3);
+add_action('aistore_escrow_released', 'sendEmailReleased', 10, 3);
 
 
-function aistore_send_email($n  ){
+//   why we bring eid why not full escrow
+function sendEmailCreated($eid)
+{
+
+   
+    $user_id = get_current_user_id();
+    $user_email = get_the_author_meta('user_email', $user_id);
+
+
+//   why we bring eid why not full escrow
+
+    global $wpdb;
+    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
+
+    $details_escrow_page_id_url = esc_url(add_query_arg(array(
+        'page_id' => get_option('details_escrow_page_id') ,
+        'eid' => $eid,
+    ) , home_url()));
     
-	 if ( !is_user_logged_in() ) {
-    return "" ;
-}
-	
-   global $wpdb;
+    
+
+    if ($user_email == $escrow->sender_email)
+    {
+        $party_email = $escrow->receiver_email;
+    }
+    else
+    {
+        $party_email = $escrow->sender_email;
+    }
+
+    // send email to party
+    
+    $subject  =get_option('email_created_escrow') ;
+     $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
+    
+   $msg= get_option('email_body_created_escrow') ;
+    
+    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+    
+    
+
+    $n = array();
+    $n['message'] = $msg;
+    $n['type'] = "success";
+    $n['subject'] = $subject;
+    $n['escrow'] = $escrow;
+    $n['reference_id'] = $eid;
+    $n['url'] = $details_escrow_page_id_url;
+    $n['user_email'] = $party_email;
+    $n['party_email'] = $user_email;
+
+    aistore_send_email($n);
+
+    ob_start();
+
  
-   $q1=$wpdb->prepare("INSERT INTO {$wpdb->prefix}escrow_email (message,type, user_email,url ,reference_id,subject) VALUES ( %s, %s, %s, %s, %s ,%s) ", array( $n['message'],$n['type'], $n['user_email'], $n['url'], $n['reference_id'],$n['subject']));
+ 
+    $msg= get_option('email_body_partner_created_escrow') ;
    
-   // qr_to_log($q1);
-	
-	
-     $wpdb->query($q1);
+    $subject  =get_option('email_partner_created_escrow') ;
+    $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
     
-   
+    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+    
+
+    $n = array();
+    $n['message'] = $msg;
+    $n['reference_id'] = $eid;
+    $n['escrow'] = $escrow;
+    $n['type'] = "success";
+    $n['url'] = $details_escrow_page_id_url;
+    $n['subject'] = $subject;
+    $n['user_email'] = $user_email;
+    $n['party_email'] = $party_email;
+
+    aistore_send_email($n);
+
 }
+
+function sendEmailAccepted($eid)
+{
+    
+    $user_id = get_current_user_id();
+    $user_email = get_the_author_meta('user_email', $user_id);
+
+    global $wpdb;
+    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
+
+    $details_escrow_page_id_url = esc_url(add_query_arg(array(
+        'page_id' => get_option('details_escrow_page_id') ,
+        'eid' => $eid,
+    ) , home_url()));
+
+    if ($user_email == $escrow->sender_email)
+    {
+        $party_email = $escrow->receiver_email;
+    }
+    else
+    {
+        $party_email = $escrow->sender_email;
+    }
+
+
+   // send email to party
+    
+     $subject  =get_option('email_accept_escrow') ;
+     $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
+    
+   $msg= get_option('email_body_accept_escrow') ;
+    
+    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+    
+    
+
+    $n = array();
+    $n['message'] = $msg;
+    $n['type'] = "success";
+    $n['subject'] = $subject;
+    $n['escrow'] = $escrow;
+    $n['reference_id'] = $eid;
+    $n['url'] = $details_escrow_page_id_url;
+    $n['user_email'] = $party_email;
+    $n['party_email'] = $user_email;
+
+    aistore_send_email($n);
+
+    ob_start();
+
+ 
+ 
+    $msg= get_option('email_body_partner_accept_escrow') ;
+   
+   
+    
+    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+       $subject  =get_option('email_partner_accept_escrow') ;
+     $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
+
+    $n = array();
+    $n['message'] = $msg;
+    $n['reference_id'] = $eid;
+    $n['escrow'] = $escrow;
+    $n['type'] = "success";
+    $n['url'] = $details_escrow_page_id_url;
+    $n['subject'] = $subject;
+    $n['user_email'] = $user_email;
+    $n['party_email'] = $party_email;
+
+    aistore_send_email($n);
+
+}
+
+function sendEmailCancelled($eid)
+{
+  
+    $user_id = get_current_user_id();
+    $user_email = get_the_author_meta('user_email', $user_id);
+
+    global $wpdb;
+    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
+
+    $details_escrow_page_id_url = esc_url(add_query_arg(array(
+        'page_id' => get_option('details_escrow_page_id') ,
+        'eid' => $eid,
+    ) , home_url()));
+
+    if ($user_email == $escrow->sender_email)
+    {
+        $party_email = $escrow->receiver_email;
+    }
+    else
+    {
+        $party_email = $escrow->sender_email;
+    }
+
+
+    // send email to party
+    
+     $subject  =get_option('email_cancel_escrow') ;
+     $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
+    
+   $msg= get_option('email_body_cancel_escrow') ;
+    
+    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+    
+    
+
+    $n = array();
+    $n['message'] = $msg;
+    $n['type'] = "success";
+    $n['subject'] = $subject;
+    $n['escrow'] = $escrow;
+    $n['reference_id'] = $eid;
+    $n['url'] = $details_escrow_page_id_url;
+    $n['user_email'] = $party_email;
+    $n['party_email'] = $user_email;
+
+    aistore_send_email($n);
+
+    ob_start();
+
+ 
+ 
+    $msg= get_option('email_body_partner_cancel_escrow') ;
+   
+   
+    
+    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+       $subject  =get_option('email_partner_cancel_escrow') ;
+     $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
+
+    $n = array();
+    $n['message'] = $msg;
+    $n['reference_id'] = $eid;
+    $n['escrow'] = $escrow;
+    $n['type'] = "success";
+    $n['url'] = $details_escrow_page_id_url;
+    $n['subject'] = $subject;
+    $n['user_email'] = $user_email;
+    $n['party_email'] = $party_email;
+
+    aistore_send_email($n);
+}
+
+function sendEmailDisputed($eid)
+{
+    
+    $user_id = get_current_user_id();
+    $user_email = get_the_author_meta('user_email', $user_id);
+
+    global $wpdb;
+    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
+
+    $details_escrow_page_id_url = esc_url(add_query_arg(array(
+        'page_id' => get_option('details_escrow_page_id') ,
+        'eid' => $eid,
+    ) , home_url()));
+
+    if ($user_email == $escrow->sender_email)
+    {
+        $party_email = $escrow->receiver_email;
+    }
+    else
+    {
+        $party_email = $escrow->sender_email;
+    }
+
+    // send email to party
+    
+     $subject  =get_option('email_dispute_escrow') ;
+     $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
+    
+   $msg= get_option('email_body_dispute_escrow') ;
+    
+    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+    
+    
+
+    $n = array();
+    $n['message'] = $msg;
+    $n['type'] = "success";
+    $n['subject'] = $subject;
+    $n['escrow'] = $escrow;
+    $n['reference_id'] = $eid;
+    $n['url'] = $details_escrow_page_id_url;
+    $n['user_email'] = $party_email;
+    $n['party_email'] = $user_email;
+
+    aistore_send_email($n);
+
+    ob_start();
+
+ 
+ 
+    $msg= get_option('email_body_partner_dispute_escrow') ;
+   
+   
+    
+    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+       $subject  =get_option('email_partner_dispute_escrow') ;
+     $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
+
+    $n = array();
+    $n['message'] = $msg;
+    $n['reference_id'] = $eid;
+    $n['escrow'] = $escrow;
+    $n['type'] = "success";
+    $n['url'] = $details_escrow_page_id_url;
+    $n['subject'] = $subject;
+    $n['user_email'] = $user_email;
+    $n['party_email'] = $party_email;
+
+    aistore_send_email($n);
+
+}
+
+function sendEmailReleased($eid)
+{
+
+   
+    $user_id = get_current_user_id();
+    $user_email = get_the_author_meta('user_email', $user_id);
+
+    global $wpdb;
+    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
+
+    $details_escrow_page_id_url = esc_url(add_query_arg(array(
+        'page_id' => get_option('details_escrow_page_id') ,
+        'eid' => $eid,
+    ) , home_url()));
+
+    if ($user_email == $escrow->sender_email)
+    {
+        $party_email = $escrow->receiver_email;
+    }
+    else
+    {
+        $party_email = $escrow->sender_email;
+    }
+
+     // send email to party
+    
+     $subject  =get_option('email_release_escrow') ;
+     $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
+   $msg= get_option('email_body_release_escrow') ;
+    
+    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+    
+    
+
+    $n = array();
+    $n['message'] = $msg;
+    $n['type'] = "success";
+    $n['subject'] = $subject;
+    $n['escrow'] = $escrow;
+    $n['reference_id'] = $eid;
+    $n['url'] = $details_escrow_page_id_url;
+    $n['user_email'] = $party_email;
+    $n['party_email'] = $user_email;
+
+    aistore_send_email($n);
+
+    ob_start();
+
+ 
+ 
+    $msg= get_option('email_body_partner_release_escrow') ;
+   
+   
+    
+    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+    
+   $subject  =get_option('email_partner_release_escrow') ;
+     $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
+    $n = array();
+    $n['message'] = $msg;
+    $n['reference_id'] = $eid;
+    $n['escrow'] = $escrow;
+    $n['type'] = "success";
+    $n['url'] = $details_escrow_page_id_url;
+    $n['subject'] = $subject;
+    $n['user_email'] = $user_email;
+    $n['party_email'] = $party_email;
+
+    aistore_send_email($n);
+}
+
+function aistore_send_email($n)
+{
+
+    if (!is_user_logged_in())
+    {
+        return "";
+    }
+
+    global $wpdb;
+    
+     $headers = array(
+        'Content-Type: text/html; charset=UTF-8'
+    );
+    
+    
+      ob_start();
+        include dirname(__FILE__) . "/email_template.php";
+    $message = ob_get_clean();
+   
+   
+    $body = str_replace("[message]",$n['message'], $message);
+    
+    
+    
+    
+    
+       wp_mail($n['user_email'],  $n['subject'], $body, $headers);
+
+    $q1 = $wpdb->prepare("INSERT INTO {$wpdb->prefix}escrow_email (message,type, user_email,url ,reference_id,subject) VALUES ( %s, %s, %s, %s, %s ,%s) ", array(
+        $n['message'],
+        $n['type'],
+        $n['user_email'],
+        $n['url'],
+        $n['reference_id'],
+        $n['subject']
+    ));
+
+    // qr_to_log($q1);
+    
+
+    $wpdb->query($q1);
+
+}
+
 ?>

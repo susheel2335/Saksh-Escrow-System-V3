@@ -229,7 +229,7 @@ include_once dirname(__FILE__) . '/aistore_notifications/user_notification.php';
 include_once dirname(__FILE__) . '/aistore_escrow/user_escrow.php';
 include_once dirname(__FILE__) . '/aistore_notifications/sendnotification.php';
 
-// include_once dirname(__FILE__) . '/chat.php';
+include_once dirname(__FILE__) . '/chat.php';
 
 include_once dirname(__FILE__) . '/aistore_chat_system/index.php';
 include_once dirname(__FILE__) . '/aistore_wallet/index.php';
@@ -237,6 +237,11 @@ include_once dirname(__FILE__) . '/aistore_notifications/notification_api.php';
 include_once dirname(__FILE__) . '/aistore_escrow/AistoreEscrowSystem.class.php';
 
 include_once dirname(__FILE__) . '/aistore_escrow/AistoreEscrowSettings.class.php';
+
+
+include_once dirname(__FILE__) . '/aistore_file_upload/file_upload.php';
+
+
 
 add_shortcode('aistore_escrow_system', array(
     'AistoreEscrowSystem',
@@ -324,14 +329,40 @@ function email_notification_message()
 function Aistore_process_placeholder_Text($str, $escrow)
 {
 
+ 
+$html ='<h1>Escrow Details </h1><br>
+    <table><tr><td>Escrow Id :</td><td>'.$escrow->id.'</td></tr>
+      <tr><td>Title :</td><td>'.$escrow->title.'</td></tr>
+    <tr><td>Amount :</td><td>'.$escrow->amount.'</td></tr>
+      <tr><td>Escrow Fee :</td><td>'.$escrow->escrow_fee.'</td></tr>
+          <tr><td>Sender :</td><td>'.$escrow->sender_email.'</td></tr>
+              <tr><td>Receiver :</td><td>'.$escrow->receiver_email.'</td></tr>
+               <tr><td>Status :</td><td>'.$escrow->status.'</td></tr>
+        <tr><td>Date :</td><td>'.$escrow->created_at.'</td></tr></table><br>';
+        
+            $html.='<h1>Sender Details </h1><br>
+    <table><tr><td>Email :</td><td>'.$escrow->sender_email.'</td></tr>
+      <tr><td>Name :</td><td>'.$escrow->sender_email.'</td></tr>
+   </table><br>';
+        
+        
+        $html.='<h1>Receiver Details </h1><br>
+    <table><tr><td>Email :</td><td>'.$escrow->receiver_email.'</td></tr>
+      <tr><td>Name :</td><td>'.$escrow->receiver_email.'</td></tr></table><br>
+    ';
+    
+    
     $str = str_replace("[EID]", $escrow->id, $str);
-    return $str;
+      $str = str_replace("[ESCROWDATA]", $html, $str);
+    return ($str);
 }
 
 
 
 function  AistoregetSupportMsg()
-{ $url = admin_url('admin.php?page=aistore_page_escrow_setting', 'https');
+
+{
+    $url = admin_url('admin.php?page=aistore_page_escrow_setting', 'https');
                 
                
     $msg  ="<p> For support plz email wordpress@aistore2030.com </p>";

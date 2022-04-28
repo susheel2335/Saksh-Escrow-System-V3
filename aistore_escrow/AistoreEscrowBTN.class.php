@@ -5,6 +5,10 @@ if (!defined('ABSPATH'))
     
 }
 
+
+include_once "AistoreEscrow.class.php";
+
+
 class AistoreEscrowBTN
 {
   
@@ -14,7 +18,7 @@ class AistoreEscrowBTN
       
       
 
-
+     $es = new AistoreEscrow();
  
   
         
@@ -44,6 +48,20 @@ global $wpdb;
                 return _e('Sorry, your nonce did not verify', 'aistore');
 
             }
+            
+            
+            
+    
+  
+
+
+
+$res= $es-> dispute_escrow($escrow)  ;  
+
+
+
+
+           /* 
 
             if ($escrow->payment_status <>  "paid") return "";
 
@@ -68,6 +86,8 @@ global $wpdb;
             $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
     SET status = '%s'  WHERE id = '%d' and payment_status='paid'", 'disputed', $eid));
     
+    */
+    
     
       $dispute_escrow_success_message = get_option('dispute_escrow_success_message');
 
@@ -82,7 +102,7 @@ global $wpdb;
            // sendNotificationDisputed($eid);
             
             
-               
+           do_action( 'aistore_escrow_email_created',$eid);
             do_action( 'aistore_escrow_disputed',$eid);
             
             
@@ -101,6 +121,11 @@ global $wpdb;
                 return _e('Sorry, your nonce did not verify', 'aistore');
 
             }
+            
+            
+            
+            
+            
 
             $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE receiver_email = %s  and id=%s ", $email_id, $eid));
 
@@ -158,7 +183,7 @@ global $wpdb;
 
           //  sendNotificationAccepted($eid);
             
-                
+                  do_action( 'aistore_escrow_email_accepted',$eid);
             do_action( 'aistore_escrow_accepted',$eid);
 
         }
@@ -171,6 +196,11 @@ global $wpdb;
                 return _e('Sorry, your nonce did not verify', 'aistore');
 
             }
+
+
+
+
+
 
             $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE payment_status='paid' and sender_email = %s  and id=%s ", $email_id, $eid));
 
@@ -203,8 +233,19 @@ global $wpdb;
 
             $escrow_wallet->aistore_credit($escrow_user_id, $escrow_amount, $aistore_escrow_currency, $escrow_details,$eid);
 
-            $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
-    SET status = 'released'  WHERE  payment_status='paid' and  sender_email =%s and id = %d ", $email_id, $eid));
+           
+           
+           
+            $email_id = get_user_by('email', $escrow_reciever_email_id);
+           $res= $es-> release_escrow($escrow,$email_id)  ;  
+
+
+
+           // $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
+    //SET status = 'released'  WHERE  payment_status='paid' and  sender_email //=%s and id = %d ", $email_id, $eid));
+    
+    
+    
    $release_escrow_success_message = get_option('release_escrow_success_message');
             
 ?>
@@ -212,7 +253,7 @@ global $wpdb;
 <strong> <?php echo esc_attr($release_escrow_success_message); ?></strong></div>
 <?php
           //  sendNotificationReleased($eid);
-            
+               do_action( 'aistore_escrow_email_released',$eid);
                  do_action( 'aistore_escrow_released',$eid);
         }
 
@@ -278,7 +319,7 @@ global $wpdb;
 
 <?php
         //    sendNotificationCancelled($eid);
-            
+             do_action( 'aistore_escrow_email_cancelled',$eid);
                do_action( 'aistore_escrow_cancelled',$eid);
         }
 
@@ -300,37 +341,28 @@ global $wpdb;
     
 
   
-
     // Accept Button
+
+    
+
+
     function accept_escrow_btn($escrow)
     {
-// print_r($escrow);
+
+ 
+
+ $es = new AistoreEscrow();
+  
+   $user_email = get_the_author_meta('user_email', get_current_user_id());
 
 
-        $user_email = get_the_author_meta('user_email', get_current_user_id());
+if(  $es->accept_escrow_btn_visible($escrow,$user_email)   )
 
-        if ($escrow->payment_status <> "paid") return "";
 
-        if ($escrow->sender_email == $user_email) return "";
-
-        if ($escrow->status == "closed") return "";
-
-        else
-
-        if ($escrow->status == "released") return "";
-
-        else
-
-        if ($escrow->status == "cancelled") return "";
-
-        else
-
-        if ($escrow->status == "disputed") return "";
-
-        else
-
-        if ($escrow->status == "accepted") return "";
-
+{
+    
+    
+ 
 ?>
 
  <form method="POST" action="" name="accepted" enctype="multipart/form-data"> 
@@ -339,33 +371,36 @@ global $wpdb;
   <input type="submit"  class="button button-primary  btn  btn-primary "   name="submit" value="<?php _e('Accept', 'aistore') ?>">
   <input type="hidden" name="action" value="accepted" />
 </form> <?php
+
+}
     }
 
+
+
+ // cancel button
+
+    
+    
     // cancel button
     function cancel_escrow_btn($escrow)
     {
+        
+        
+        
+        
+        
+         $es = new AistoreEscrow();
+  
+   $user_email = get_the_author_meta('user_email', get_current_user_id());
 
-        if ($escrow->status == "closed") return "";
 
-        else
+if(  $es->cancel_escrow_btn_visible($escrow,$user_email)   )
 
-        if ($escrow->status == "released") return "";
 
-        else
-
-        if ($escrow->status == "cancelled") return "";
-
-        $user_email = get_the_author_meta('user_email', get_current_user_id());
-
-        if ($escrow->sender_email == $user_email)
-
-        {
-            if ($escrow->payment_status == "paid") return "";
-
-        }
-
-        global $wpdb;
-        $user_email = get_the_author_meta('user_email', get_current_user_id());
+{
+    
+    
+ 
 ?>
 
  <form method="POST" action="" name="cancelled" enctype="multipart/form-data"> 
@@ -374,33 +409,30 @@ global $wpdb;
   <input type="submit"  name="submit"   class="button button-primary  btn  btn-primary "    value="<?php _e('Cancel Escrow', 'aistore') ?>">
   <input type="hidden" name="action" value="cancelled" />
 </form> <?php
+
+}
     }
+
+
+
+
+
 
     // release button
    public function release_escrow_btn($escrow)
     {
 
         $user_email = get_the_author_meta('user_email', get_current_user_id());
-// 
-        if ($escrow->payment_status <> "paid") return "";
 
-        if ($escrow->sender_email <> $user_email  and  !is_admin()) return "";
-        
-        //  if (aistore_isadmin() == $user_email) return "";
-         
+    $es = new AistoreEscrow();
+  
+   $user_email = get_the_author_meta('user_email', get_current_user_id());
 
-        if ($escrow->status == "closed") return "";
 
-        else
+if(  $es->release_escrow_btn_visible($escrow,$user_email)   )
 
-        if ($escrow->status == "released") return "";
 
-        else
-
-        if ($escrow->status == "cancelled") return "";
-        else
-
-        if ($escrow->status == "pending") return "";
+{
 
 ?>
 
@@ -413,29 +445,26 @@ global $wpdb;
 </form> <?php
     }
 
+}
     // dispute button
+    
+    
+
+
+
     function dispute_escrow_btn($escrow)
     {
+    $es = new AistoreEscrow();
+  
+   $user_email = get_the_author_meta('user_email', get_current_user_id());
 
-        if ($escrow->payment_status <> "paid") return "";
 
-        if ($escrow->status == "closed") return "";
+if(  $es->dispute_escrow_btn_visible($escrow,$user_email)   )
 
-        else
 
-        if ($escrow->status == "released") return "";
-
-        else
-
-        if ($escrow->status == "cancelled") return "";
-
-        else
-
-        if ($escrow->status == "disputed") return "";
-
-        else
-
-        if ($escrow->status == "pending") return "";
+{
+    
+         
 
 ?>
 
@@ -448,7 +477,7 @@ global $wpdb;
     }
 
 
- 
+    }
 
 }
 
