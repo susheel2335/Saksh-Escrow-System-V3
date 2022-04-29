@@ -232,7 +232,7 @@ global $wpdb;
     
     
     
-   public function release_escrow_btn_visible($escrow)
+   public function release_escrow_btn_visible($escrow,$user_email)
     {
 
   

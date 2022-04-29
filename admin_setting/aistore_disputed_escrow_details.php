@@ -639,239 +639,46 @@ sendNotificationDisputed($eid);
 
 <!--<div class="card col-12">-->
   
-  
-    <?php
-    
+  <br><br>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-	global $wpdb;
-		$eid=  $escrow->id;
-           	
-           	        // $escrow_admin_user_id = get_option('escrow_user_id');
-           	        
-     	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions  t  INNER JOIN {$wpdb->prefix}users u ON  t.user_id=u.ID WHERE t.reference=".$eid. "  ORDER BY transaction_id desc";
-     	
-  
- 
-     	
-     	 $results = $wpdb->get_results($sql);
-           ?>
-       <h1> <?php _e('Transaction Report', 'aistore') ?> </h1>
-   
-    
-    
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Notification</button>
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Email</button>
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Transaction</button>
+  </div>
+</nav>
 
-            <?php
-            
-  
-        if ($results == null)
-        {
-            _e("No transactions Found", 'aistore');
-
-        }
-        else
-        {
-            ?>
-            
-<table id="example" class="widefat striped fixed" >
-        <thead>
-            <tr>
-                   <th><?php _e('ID', 'aistore'); ?></th>
-      
-		    <th><?php _e('Email', 'aistore'); ?></th>
-          <th><?php _e('Balance', 'aistore'); ?></th> 
-		  
-	    <th><?php _e('Amount', 'aistore'); ?></th> 
-	    <th><?php _e('Type', 'aistore'); ?></th> 
-	    <th><?php _e('Description', 'aistore'); ?></th> 
-	      <th><?php _e('Date', 'aistore'); ?></th> 
-            </tr>
-            
-        </thead>
+<br>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         
-        <tbody>
-            <?php
-             foreach ($results as $row):
-             
-?>
-            <tr>
-            	   <td>  <?php echo esc_attr($row->transaction_id); ?></td>
-	
-		  
-		   
-		   <td> 		   <?php echo esc_attr($row->user_email); ?> </td>
-		  
-		   <td> 		   <?php echo esc_attr($row->balance); ?> </td>
-		   
-		   <td> 		   <?php echo esc_attr($row->amount." ".$row->currency); ?> </td>
-		   
-		  <td> 		   <?php echo esc_attr($row->type); ?> </td>
-		  
-		   <td> 		   <?php echo esc_attr($row->description); ?> </td>
-		   
-		   	   <td> 		   <?php echo esc_attr($row->date); ?> </td>
-		   </tr>
-		   <?php
-            endforeach;
+  <?php
+  
+  apply_filters( "after_aistore_escrow_notification", $escrow->id );
+  
+  ?>
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <?php
+  
+        apply_filters( "after_aistore_escrow", $escrow->id );
         ?>
-    
-        </tbody>
-        
-        
-        <tfoot>
-            <tr>
-         <th><?php _e('ID', 'aistore'); ?></th>
-        <th><?php _e('Username', 'aistore'); ?></th>
-		    <th><?php _e('Email', 'aistore'); ?></th>
-          <th><?php _e('Balance', 'aistore'); ?></th> 
-          	  
-	    <th><?php _e('Amount', 'aistore'); ?></th> 
-	    <th><?php _e('Type', 'aistore'); ?></th> 
-	    <th><?php _e('Description', 'aistore'); ?></th> 
-            </tr>
-        </tfoot>
-    </table>
-    
-    
-        <?php } ?>
-    
-    
-    
-    
-    <br><br>
-     <h1> <?php _e('All Notification', 'aistore') ?> </h1>  <br>
-     <?php
-      
-	global $wpdb;
-           		$eid=  $escrow->id;
- $sql = "SELECT * FROM {$wpdb->prefix}escrow_notification WHERE  {$wpdb->prefix}escrow_notification.reference_id=".$eid." order by id desc";
- 
-     	 $results = $wpdb->get_results($sql);
-     	  if ($results == null)
-        {
-            _e("No Notification Found", 'aistore');
-
-        }
-        else
-        {
-            ?>
-            
-          <table  id="example1" class="widefat striped fixed"  >
-      
-        <thead>
-     <tr>
-            <th><?php _e('ID', 'aistore'); ?></th>
-          <th><?php _e('Email', 'aistore'); ?></th>
-     <th><?php _e('Message', 'aistore'); ?></th>
-      <th><?php _e('Date', 'aistore'); ?></th>
-   
-    
-     </tr>
-      </thead>
-<tbody>
-     <?php
- 	foreach ($results as $row):
-            
-?> 
+      </div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"> <?php
   
-    <tr>
-        <td> 	 
-		   <?php echo esc_attr($row->id); ?></td>
-           <td> 	 
-		   <?php echo esc_attr($row->user_email); ?></td>
-		   <td> <?php echo html_entity_decode($row->message); ?></td>
-		     <td><?php echo esc_attr($row->created_at); ?></td>
-
-    </tr>
-            
-            </tbody>
-    <?php
-        endforeach;
-    ?>
-    
-      <tfoot>
-            <tr>
-       <th><?php _e('ID', 'aistore'); ?></th>
-          <th><?php _e('Email', 'aistore'); ?></th>
-     <th><?php _e('Message', 'aistore'); ?></th>
-      <th><?php _e('Date', 'aistore'); ?></th>
-            </tr>
-        </tfoot>
-        </table>    <?php } ?>
-     <br><br>
-    
-    
-    
-    
-    
-    
-     <h1> <?php _e('All Email', 'aistore') ?> </h1>  <br>
-     <?php
-      
-	global $wpdb;
-           		$eid=  $escrow->id;
- $sql = "SELECT * FROM {$wpdb->prefix}escrow_email WHERE  {$wpdb->prefix}escrow_email.reference_id=".$eid." order by id desc";
- 
-     	 $results = $wpdb->get_results($sql);
-     	  if ($results == null)
-        {
-            _e("No Email Found", 'aistore');
-
-        }
-        else{
-        ?>
-          <table  id="example2" class="widefat striped fixed" >
-      
-        <thead>
-     <tr>
-         
-           <th><?php _e('ID', 'aistore'); ?></th>
-          <th><?php _e('Email', 'aistore'); ?></th>
-            <th><?php _e('Subject', 'aistore'); ?></th>
-     <th><?php _e('Message', 'aistore'); ?></th>
-      <th><?php _e('Date', 'aistore'); ?></th>
-      
-   
-   
-    
-     </tr>
-      </thead>
-<tbody>
-     <?php
- 	foreach ($results as $row):
-            
-?> 
+  apply_filters( "after_aistore_escrow_transaction", $escrow->id );
   
-    <tr>
-        <td> 	 
-		   <?php echo esc_attr($row->id); ?></td>
-           <td> 	 
-		   <?php echo esc_attr($row->user_email); ?></td>
-		    <td> 	 
-		   <?php echo esc_attr($row->subject); ?></td>
-		   <td> <?php echo html_entity_decode($row->message); ?></td>
-		     <td><?php echo esc_attr($row->created_at); ?></td>
+  ?></div>
+</div>
 
-    </tr>
-            
-            </tbody>
-    <?php
-        endforeach;
-    ?>
-    
-      <tfoot>
-            <tr>
-       <th><?php _e('ID', 'aistore'); ?></th>
-          <th><?php _e('Email', 'aistore'); ?></th>
-            <th><?php _e('Subject', 'aistore'); ?></th>
-     <th><?php _e('Message', 'aistore'); ?></th>
-      <th><?php _e('Date', 'aistore'); ?></th>
-      
-            </tr>
-        </tfoot>
-        </table>
-        
-        <?php } ?>
-     <br><br>
+
+  
+
     
   
   

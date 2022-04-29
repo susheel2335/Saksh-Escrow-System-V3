@@ -1,8 +1,6 @@
 <?php
 
 
-function escrow_admin_report()
-{
 	global $wpdb;
            	
            	        $escrow_admin_user_id = get_option('escrow_user_id');
@@ -93,5 +91,3 @@ function escrow_admin_report()
     
        <?php } ?>
       
-    
-       <?php } 

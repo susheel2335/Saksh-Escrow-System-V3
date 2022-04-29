@@ -278,9 +278,9 @@ function aistore_st_ticket_message_discussion_list()
 
 
 
-add_action('wp_ajax_aistore_st_ticket_list_chat', 'aistore_st_ticket_list_chat');
+add_action('wp_ajax_aistore_st_ticket_list_chat', 'aistore_escrow_list_chat');
 
-function aistore_st_ticket_list_chat()
+function aistore_escrow_list_chat()
 {
            $user_id= get_current_user_id();
  $current_user_email_id = get_the_author_meta('user_email', $user_id);

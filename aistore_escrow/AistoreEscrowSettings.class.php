@@ -80,15 +80,15 @@ class AistoreEscrowSettings
 
      
       
-        add_submenu_page('aistore_escrow_dashboard', __('Notification Setting', 'aistore') , __('Notification Setting', 'aistore') , 'administrator', 'notification_setting', array(
-            $this,
-            'aistore_notification_setting'
-        ));
+        // add_submenu_page('aistore_escrow_dashboard', __('Notification Setting', 'aistore') , __('Notification Setting', 'aistore') , 'administrator', 'notification_setting', array(
+        //     $this,
+        //     'aistore_notification_setting'
+        // ));
 
-        add_submenu_page('aistore_escrow_dashboard', __('Email Setting', 'aistore') , __('Email Setting', 'aistore') , 'administrator', 'email_setting', array(
-            $this,
-            'aistore_email_setting'
-        ));
+        // add_submenu_page('aistore_escrow_dashboard', __('Email Setting', 'aistore') , __('Email Setting', 'aistore') , 'administrator', 'email_setting', array(
+        //     $this,
+        //     'aistore_email_setting'
+        // ));
         
         add_submenu_page('aistore_escrow_dashboard', __('Escrow Message Setting', 'aistore') , __('Escrow Message Setting', 'aistore') , 'administrator', 'message_setting', array(
             $this,
@@ -109,10 +109,10 @@ class AistoreEscrowSettings
         ));
         
         
-        add_submenu_page('aistore_escrow_dashboard', __('All Notification', 'aistore') , __('All Notification', 'aistore') , 'administrator', 'all_notification', array(
-            $this,
-            'aistore_escrow_all_notification'
-        ));
+        // add_submenu_page('aistore_escrow_dashboard', __('All Notification', 'aistore') , __('All Notification', 'aistore') , 'administrator', 'all_notification', array(
+        //     $this,
+        //     'aistore_escrow_all_notification'
+        // ));
         
         
         

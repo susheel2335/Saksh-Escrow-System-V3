@@ -740,135 +740,68 @@ global $wpdb;
 
 
 ?>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Notification</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Email</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Transaction</a>
-  </li>
-   <li class="nav-item">
-    <a class="nav-link" id="term-tab" data-toggle="tab" href="#term" role="tab" aria-controls="term" aria-selected="false">Term and condition</a>
-  </li>
-    <li class="nav-item">
-    <a class="nav-link" id="file-tab" data-toggle="tab" href="#file" role="tab" aria-controls="file" aria-selected="false">Upload File</a>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">  
+
+<br><br>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Notification</button>
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Email</button>
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Transaction</button>
+     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-term" type="button" role="tab" aria-controls="nav-term" aria-selected="false">Term and Condition</button>
+  </div>
+</nav>
+
+<br>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        
   <?php
   
   apply_filters( "after_aistore_escrow_notification", $escrow->id );
   
-  ?></div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-       <?php
+  ?>
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <?php
   
         apply_filters( "after_aistore_escrow", $escrow->id );
         ?>
-  </div>
-  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-       <?php
+      </div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"> <?php
   
   apply_filters( "after_aistore_escrow_transaction", $escrow->id );
   
-  ?>
-      
-  </div>
-  <div class="tab-pane fade" id="term" role="tabpanel" aria-labelledby="term-tab">
-       <?php
+  ?></div>
+    <div class="tab-pane fade" id="nav-term" role="tabpanel" aria-labelledby="nav-term-tab"> <?php
   
-  printf(__("Term Condition : %s", 'aistore') , html_entity_decode($escrow->term_condition) . "<br>");
-        
-  ?>
-      
-  </div>
+   printf(__("<br>Term Condition : %s", 'aistore') , html_entity_decode($escrow->term_condition) . "<br><br>");
   
-  <div class="tab-pane fade" id="file" role="tabpanel" aria-labelledby="file-tab">
-       <?php
-         $object_escrow->escrow_file_uploads($escrow);
+    apply_filters( "AistorEscrowFiles", $escrow );
   
-//   apply_filters( "after_aistore_escrow_transaction", $escrow->id );
-  
-  ?>
-      
-  </div>
-</div>
+  ?></div>
 </div>
 
+
+      
+
+  
+
+
 <?php
+$eschat = new Aistorechat();
+ $eschat->aistore_escrow_chat();
+ 
+ 
         return ob_get_clean();
     }
   
-      private function escrow_file_uploads($escrow)
-    {
-
-        $eid = $escrow->id;
-
-        global $wpdb;
-
-        $escrow_documents = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_documents WHERE eid=%d", $eid));
-
-?> 
-  
-    <table class="table">
-    <?php
-        foreach ($escrow_documents as $row):
-
-?> 
-	
-	<div class="document_list">
    
-
-
-  <p><a href="<?php echo esc_url($row->documents); ?>" target="_blank">
-	       <b><?php echo esc_attr($row->documents_name); ?></b></a></p>
-  <h6 > <?php echo esc_attr($row->created_at); ?></h6>
-</div>
-
-<hr>
-    
-    <?php
-        endforeach;
-
-?>
-    </table>
-<br>
-	   <div>  
-    
-
-
-	<label for="documents"> <?php _e('Documents', 'aistore'); ?> : </label>
-<form  method="post"  action="<?php echo admin_url('admin-ajax.php') . '?action=custom_action&eid=' . esc_attr($eid); ?>" class="dropzone" id="dropzone">
-    <?php
-        wp_nonce_field('aistore_nonce_action', 'aistore_nonce');
-?>
-  <div class="fallback">
-    <input id="file" name="file" type="file"  multiple   />
-    <input type="hidden" name="action" value="custom_action" type="submit"  />
-  </div>
-
-</form>
-<?php
-
-$set_file =  get_option('escrow_file_type');
-?>
-<p> We accept only <?php echo esc_attr($set_file); ?> files.</p>
-
-       
-     
-     </div>
-     <br>
-     
-     <?php
-    }
 
       
  

@@ -229,10 +229,12 @@ include_once dirname(__FILE__) . '/aistore_notifications/user_notification.php';
 include_once dirname(__FILE__) . '/aistore_escrow/user_escrow.php';
 include_once dirname(__FILE__) . '/aistore_notifications/sendnotification.php';
 
-include_once dirname(__FILE__) . '/chat.php';
 
 include_once dirname(__FILE__) . '/aistore_chat_system/index.php';
 include_once dirname(__FILE__) . '/aistore_wallet/index.php';
+include_once dirname(__FILE__) . '/aistore_notifications/index.php';
+include_once dirname(__FILE__) . '/aistore_email/index.php';
+
 include_once dirname(__FILE__) . '/aistore_notifications/notification_api.php';
 include_once dirname(__FILE__) . '/aistore_escrow/AistoreEscrowSystem.class.php';
 
@@ -323,22 +325,116 @@ function email_notification_message()
     update_option('email_buyer_deposit', 'Your payment  has been accepted for the escrow  # [EID]');
     update_option('email_seller_deposit', 'You have deposited the payment into  the escrow for  the transaction  escrow # [EID]');
     update_option('email_Buyer_Mark_Paid', 'You have successfully  marked escrow # [EID]');
+    
+    
+    
+    //email body
+    update_option('email_body_created_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    update_option('email_body_partner_created_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    update_option('email_body_accept_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    update_option('email_body_partner_accept_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+
+    update_option('email_body_dispute_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    update_option('email_body_partner_dispute_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    
+    update_option('email_body_release_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    update_option('email_body_partner_release_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+
+    update_option('email_body_cancel_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    update_option('email_body_partner_cancel_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    
+    update_option('email_body_shipping_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    update_option('email_body_partner_shipping_escrow', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+
+    update_option('email_body_buyer_deposit', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    update_option('email_body_seller_deposit', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    update_option('email_body_Buyer_Mark_Paid', 'Hi,
+
+[ESCROWDATA]
+
+Thanks');
+    
+    
 
 }
 
 function Aistore_process_placeholder_Text($str, $escrow)
 {
-
+ $details_escrow_page_id_url = esc_url(add_query_arg(array(
+        'page_id' => get_option('details_escrow_page_id') ,
+        'eid' => $escrow->id,
+    ) , home_url()));
+    
+    $date = $escrow->created_at;
+date_default_timezone_set('America/Los_Angeles');
+$datetime= date('l F j Y g:i:s A I', strtotime($date));
+    
  
 $html ='<h1>Escrow Details </h1><br>
     <table><tr><td>Escrow Id :</td><td>'.$escrow->id.'</td></tr>
       <tr><td>Title :</td><td>'.$escrow->title.'</td></tr>
-    <tr><td>Amount :</td><td>'.$escrow->amount.'</td></tr>
+    <tr><td>Amount :</td><td>'.$escrow->amount.' '.$escrow->currency.'</td></tr>
       <tr><td>Escrow Fee :</td><td>'.$escrow->escrow_fee.'</td></tr>
           <tr><td>Sender :</td><td>'.$escrow->sender_email.'</td></tr>
               <tr><td>Receiver :</td><td>'.$escrow->receiver_email.'</td></tr>
                <tr><td>Status :</td><td>'.$escrow->status.'</td></tr>
-        <tr><td>Date :</td><td>'.$escrow->created_at.'</td></tr></table><br>';
+        <tr><td>Date :</td><td>'.$datetime.'</td></tr></table><br>';
         
             $html.='<h1>Sender Details </h1><br>
     <table><tr><td>Email :</td><td>'.$escrow->sender_email.'</td></tr>
@@ -351,6 +447,8 @@ $html ='<h1>Escrow Details </h1><br>
       <tr><td>Name :</td><td>'.$escrow->receiver_email.'</td></tr></table><br>
     ';
     
+     $html.='Escrow Details Page to <a href='.$details_escrow_page_id_url.'> Click here</a><br><br>
+    ';
     
     $str = str_replace("[EID]", $escrow->id, $str);
       $str = str_replace("[ESCROWDATA]", $html, $str);
