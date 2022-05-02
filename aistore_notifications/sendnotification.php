@@ -1,14 +1,14 @@
 <?php
 
-add_action( 'aistore_escrow_cancelled', 'sendNotificationCancelled', 10, 3 );
 
-add_action( 'aistore_escrow_accepted', 'sendNotificationPaymentAccepted', 10, 3 );
-add_action( 'aistore_escrow_disputed', 'sendNotificationDisputed', 10, 3 );
+add_action('AistorEscrowCreated', 'sendNotificationCreated', 10, 3);
+add_action('AistorEscrowAccepted', 'sendNotificationPaymentAccepted', 10, 3);
+add_action('AistorEscrowCancelled', 'sendNotificationCancelled', 10, 3);
+add_action('AistorEscrowDisputed', 'sendNotificationDisputed', 10, 3);
+add_action('AistorEscrowReleased', 'sendNotificationReleased', 10, 3);
 
-add_action( 'aistore_escrow_released', 'sendNotificationReleased', 10, 3 ); 
 
-add_action( 'aistore_escrow_created', 'sendNotificationCreated', 10, 3 ); 
-
+ 
 
 
  
@@ -59,12 +59,12 @@ add_filter( 'after_aistore_escrow_notification', 'aistore_echo_notification_of_e
     
       $subject = $Seller_Deposit;
 
-    $n = array();
+   // $n = array();
     $n['message'] = $Buyer_Deposit;
-    $n['reference_id'] = $eid;
-    $n['type'] = "success";
+  //  $n['reference_id'] = $eid;
+  //  $n['type'] = "success";
     
-    $n['url'] = $details_escrow_page_id_url ;
+   // $n['url'] = $details_escrow_page_id_url ;
      $n['subject'] = $subject;
     $n['user_email'] = $sender_email;
     
@@ -117,12 +117,12 @@ add_filter( 'after_aistore_escrow_notification', 'aistore_echo_notification_of_e
     
       $subject = $Seller_Deposit;
 
-    $n = array();
+  //  $n = array();
     $n['message'] = $Buyer_Deposit;
     $n['subject'] = $subject;
-    $n['type'] = "success";
-      $n['reference_id'] = $eid;
-    $n['url'] = $details_escrow_page_id_url ;
+  //  $n['type'] = "success";
+  //    $n['reference_id'] = $eid;
+  //  $n['url'] = $details_escrow_page_id_url ;
 
     $n['user_email'] = $sender_email;
     
@@ -133,10 +133,10 @@ add_filter( 'after_aistore_escrow_notification', 'aistore_echo_notification_of_e
 }
 
 
-function sendNotificationCreated($eid)
+function sendNotificationCreated($request)
 {
 
-
+  $eid= $request['id'] ;
 
     $user_id = get_current_user_id();
     $user_email = get_the_author_meta('user_email', $user_id);
@@ -144,8 +144,11 @@ function sendNotificationCreated($eid)
     global $wpdb;
 
      
-
+// use get escrow function istead of this
     $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
+    
+    
+    
     
     $details_escrow_page_id_url =  esc_url( add_query_arg( array(
     'page_id' => get_option('details_escrow_page_id'),
@@ -168,52 +171,39 @@ function sendNotificationCreated($eid)
 
     }
 
-    // send email to party
+    // send email llto party
   
 
+     
     
-    $subject = $partner_created_escrow;
     $n = array();
       $n['message'] = $partner_created_escrow;
 
     $n['type'] = "success";
-     $n['subject'] = $subject;
-    $n['escrow'] = $escrow;
-    
-	 $n['reference_id'] = $eid;
+    $n['reference_id'] = $eid;
 
     $n['url'] = $details_escrow_page_id_url ;
-     $n['user_email'] = $user_email;
-     $n['party_email'] = $party_email;
+     $n['user_email'] = $party_email; 
     
     aistore_notification_new($n);
    
 
-    ob_start();
-
-    include dirname(__FILE__) . "/notification/partner_created_escrow.php";
-
-    $message = ob_get_clean();
    
 
-    //send email to self
-    $message = "You have successfully created the escrow #" . $eid;
-    $subject = $message;
-
-
-    
+    $message = $created_escrow;
+   
+ 
       
     
-    $n = array();
+    //$n = array();
     $n['message'] = $message;
-  $n['reference_id'] = $eid;
-     $n['escrow'] = $escrow;
-    $n['type'] = "success";
-    $n['url'] = $details_escrow_page_id_url ;
- $n['subject'] = $subject;
+  //$n['reference_id'] = $eid;
+   
+   // $n['type'] = "success";
+   // $n['url'] = $details_escrow_page_id_url ;
+ 
     $n['user_email'] = $user_email;
-    
-     $n['party_email'] = $party_email;
+     
     
     aistore_notification_new($n);
     
@@ -298,10 +288,10 @@ function sendNotificationPaymentDepositSuccess($eid)
 
     $message = ob_get_clean();
 
-    $n = array();
+  //  $n = array();
     $n['message'] = $Seller_Deposit;
-  $n['reference_id'] = $eid;
-    $n['type'] = "success";
+ // $n['reference_id'] = $eid;
+  //  $n['type'] = "success";
      $n['subject'] = $subject;
 
 
@@ -312,7 +302,7 @@ function sendNotificationPaymentDepositSuccess($eid)
 
 
 
-    $n['url'] = $details_escrow_page_id_url ;
+  //  $n['url'] = $details_escrow_page_id_url ;
     
     
     $n['user_email'] = $escrow->receiver_email;

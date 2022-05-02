@@ -57,38 +57,53 @@ echo  AistoregetSupportMsg() ;
         
         <tbody>
             <?php
+               $currencies = $wallet->aistore_wallet_currency();
+               
+               
             
-  
+  $i=0;
              foreach ($users as $row):
                //  print_r($users);
-               
-               $currencies = $wallet->aistore_wallet_currency();
-    
+      $i++;         
+      
+     
+       $bal="";
             foreach ($currencies as $c)
             {
      $currency=$c->currency;
  
     
-            
+       
   $balance = $wallet->aistore_balance($row->ID, $currency);
   
+ if($balance <>  0 )
+$bal .=  esc_attr($balance) ." ".$currency."<br />"; 
+
  
-?>
+  }
+  
+  if(strlen($bal) >0 )
+  {
+  ?>
             <tr>
             	   <td>  <?php echo esc_attr($row->ID); ?></td>
 		  		   <td> 		   <?php echo esc_attr($row->user_login); ?> </td>
 		  
 		   
 		   <td> 		   <?php echo esc_attr($row->user_email); ?> </td>
-		  
-		   <td> 		   <?php echo esc_attr($balance) ." ".$currency; ?> </td>
+		
+		  <td>  <?php echo $bal; ?>
+      </td>
 		   
 		 
 		   </tr>
-		   <?php
- 
+		   
+		   <?php 
+		   
   }
   
+  
+ // if($i>15) break;
         
             endforeach;
         ?>
@@ -222,6 +237,9 @@ echo  AistoregetSupportMsg() ;
 	    <th><?php _e('Type', 'aistore'); ?></th> 
 	    <th><?php _e('Description', 'aistore'); ?></th> 
 	      <th><?php _e('Date', 'aistore'); ?></th> 
+	      
+	          <th><?php _e('Escrow/Reference No', 'aistore'); ?></th> 
+	          
             </tr>
             
         </thead>
@@ -235,7 +253,9 @@ echo  AistoregetSupportMsg() ;
              
 ?>
             <tr>
-            	   <td>  <?php echo esc_attr($row->transaction_id); ?></td>
+            	   <td>  <?php
+            //	   print_r($row);
+            	   echo esc_attr($row->transaction_id); ?></td>
 	
 		  
 		   
@@ -249,7 +269,7 @@ echo  AistoregetSupportMsg() ;
 		  
 		   <td> 		   <?php echo esc_attr($row->description); ?> </td>
 		   
-		   	   <td> 		   <?php echo esc_attr($row->date); ?> </td>
+		   	   <td> 		   <?php echo esc_attr($row->date); ?> </td>	   <td> 		   <?php echo esc_attr($row->reference); ?> </td>
 		   </tr>
 		   <?php
             endforeach;
@@ -285,21 +305,21 @@ echo  AistoregetSupportMsg() ;
  $escrow_admin_user_id = get_option('escrow_user_id');
    $user_email = get_the_author_meta('user_email', $escrow_admin_user_id);
    
- $sql = "SELECT * FROM {$wpdb->prefix}escrow_notification  limit 15";
+ $sql = "SELECT * FROM {$wpdb->prefix}escrow_notification  order by id desc  limit 15";
      	
      	 $results = $wpdb->get_results($sql);
      
 
  	  if ($results == null)
         {
-        //     _e("No Notification Found", 'aistore');
+         _e("No Notification Found", 'aistore');
 
         }
         
         else
         {
         ?>
-         <h1> <?php _e('Top 15 Notification', 'aistore') ?> </h1>  <br>
+         <h1> <?php _e('Top 15 Notifications', 'aistore') ?> </h1>  <br>
           <table  id="example6" class="widefat striped fixed" >
       
         <thead>

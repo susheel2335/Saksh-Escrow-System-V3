@@ -149,7 +149,7 @@
 <?php
         global $wpdb;
 
-        $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}escrow_system  order by id desc");
+        $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}escrow_system where payment_status <> 'Pending' order by id desc");
 
 ?>
 
@@ -175,7 +175,8 @@
             
             ?>
               
-  <table  id="example" class="display nowrap" style="width:100%">
+
+  <table  id="example" class="widefat striped fixed" style="width:100%">
          <thead>
      <tr>
          <th> <?php _e('Id', 'aistore') ?> </th>
@@ -184,8 +185,9 @@
         <th> <?php _e('Amount', 'aistore') ?> </th>
       <th> <?php _e('Sender', 'aistore') ?>  </th>
        <th> <?php _e('Receiver', 'aistore') ?> </th>  
-        <th> <?php _e('Payment Status', 'aistore') ?></th>
-       <th> <?php _e('Datet', 'aistore') ?> </th>
+     
+       <th> <?php _e('Date', 'aistore') ?> </th>   <th> <?php _e('Payment Status', 'aistore') ?></th>
+           
        <th> <?php _e('Action', 'aistore') ?> </th>
      </tr>
       </thead>
@@ -209,14 +211,14 @@
 		   <td> 		   <?php echo esc_attr($row->amount) . " " . esc_attr($row->currency); ?> </td>
 		   <td> 		   <?php echo esc_attr($row->sender_email); ?> </td>
 		   <td> 		   <?php echo esc_attr($row->receiver_email); ?> </td>
-		      <td> 		   <?php echo esc_attr($row->payment_status); ?> </td>
+	 
 		     <td> 		   <?php echo esc_attr($row->created_at); ?> </td>
-       
+         <td> 		   <?php echo esc_attr($row->payment_status); ?> </td>
                 <td>
 
 <?php
 
-// echo $row->payment_status;
+ 
 if($row->payment_status=='processing'){
     ?>
     <form method="POST" action="" name="escrow_payment" enctype="multipart/form-data"> 
@@ -241,8 +243,8 @@ if($row->payment_status=='processing'){
                    
     
 } 
-                   
-                   if($row->payment_status=='paid' && $row->status=='pending' ){
+                
+ if( $row->payment_status =='paid'  ){
     ?>
                    
                  <form method="POST" action="" name="remove_escrow_payment" enctype="multipart/form-data"> 
@@ -258,7 +260,7 @@ if($row->payment_status=='processing'){
     <?php
             
         } 
-        
+         
         ?>  
         
         </td>
@@ -271,19 +273,7 @@ endforeach;
 
 
 </tbody>
-    <tfoot>
-             <tr>
-        <th> <?php _e('Id', 'aistore') ?> </th>
-      <th> <?php _e('Title', 'aistore') ?> </th>
-    
-        <th> <?php _e('Amount', 'aistore') ?> </th>
-      <th> <?php _e('Sender', 'aistore') ?>  </th>
-       <th> <?php _e('Receiver', 'aistore') ?> </th>  
-        <th> <?php _e('Payment Status', 'aistore') ?></th>
-       <th> <?php _e('Datet', 'aistore') ?> </th>
-       <th> <?php _e('Action', 'aistore') ?> </th>
-     </tr>
-        </tfoot>
+   
     </table>
     
     </div>

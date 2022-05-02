@@ -68,6 +68,7 @@ function aistore_escrow_files($escrow)
 
 function process_file_upload($escrow)
 {
+   
      global $wpdb;
       $user_id = get_current_user_id();
     

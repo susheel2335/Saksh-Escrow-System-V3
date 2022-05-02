@@ -1,49 +1,49 @@
 <?php
-add_action('aistore_escrow_created', 'sendEmailCreated', 10, 3);
-add_action('aistore_escrow_accepted', 'sendEmailAccepted', 10, 3);
-add_action('aistore_escrow_cancelled', 'sendEmailCancelled', 10, 3);
-add_action('aistore_escrow_disputed', 'sendEmailDisputed', 10, 3);
-add_action('aistore_escrow_released', 'sendEmailReleased', 10, 3);
+add_action('AistorEscrowCreated', 'sendEmailCreated', 10, 3);
+add_action('AistorEscrowAccepted', 'sendEmailAccepted', 10, 3);
+add_action('AistorEscrowCancelled', 'sendEmailCancelled', 10, 3);
+add_action('AistorEscrowDisputed', 'sendEmailDisputed', 10, 3);
+add_action('AistorEscrowReleased', 'sendEmailReleased', 10, 3);
 
 
 //   why we bring eid why not full escrow
-function sendEmailCreated($eid)
+function sendEmailCreated($request)
 {
+    
+     
 
+
+  global $wpdb;
+  $eid= $request['id'] ;
    
+ 
     $user_id = get_current_user_id();
     $user_email = get_the_author_meta('user_email', $user_id);
+ 
+  
+    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%d ", $eid));
+    
+     
 
 
-//   why we bring eid why not full escrow
-
-    global $wpdb;
-    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
 
     $details_escrow_page_id_url = esc_url(add_query_arg(array(
         'page_id' => get_option('details_escrow_page_id') ,
         'eid' => $eid,
     ) , home_url()));
     
+      
+
+     $party_email = $escrow->receiver_email;
     
-
-    if ($user_email == $escrow->sender_email)
-    {
-        $party_email = $escrow->receiver_email;
-    }
-    else
-    {
-        $party_email = $escrow->sender_email;
-    }
-
-    // send email to party
+ 
     
     $subject  =get_option('email_created_escrow') ;
      $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
     
    $msg= get_option('email_body_created_escrow') ;
     
-    $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
+  $msg=  Aistore_process_placeholder_Text($msg, $escrow)    ;
     
     
 
@@ -53,13 +53,14 @@ function sendEmailCreated($eid)
     $n['subject'] = $subject;
     $n['escrow'] = $escrow;
     $n['reference_id'] = $eid;
-    $n['url'] = $details_escrow_page_id_url;
-    $n['user_email'] = $party_email;
-    $n['party_email'] = $user_email;
+  $n['url'] = $details_escrow_page_id_url;
+    $n['email'] =  $user_email   ;
+   
+   
 
     aistore_send_email($n);
 
-    ob_start();
+  
 
  
  
@@ -71,15 +72,12 @@ function sendEmailCreated($eid)
     $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
     
 
-    $n = array();
+    
     $n['message'] = $msg;
-    $n['reference_id'] = $eid;
-    $n['escrow'] = $escrow;
-    $n['type'] = "success";
-    $n['url'] = $details_escrow_page_id_url;
-    $n['subject'] = $subject;
-    $n['user_email'] = $user_email;
-    $n['party_email'] = $party_email;
+  
+     $n['subject'] = $subject;
+  
+    $n['email'] = $party_email;
 
     aistore_send_email($n);
 
@@ -127,12 +125,12 @@ function sendEmailAccepted($eid)
     $n['escrow'] = $escrow;
     $n['reference_id'] = $eid;
     $n['url'] = $details_escrow_page_id_url;
-    $n['user_email'] = $party_email;
-    $n['party_email'] = $user_email;
+    $n['email'] = $party_email;
+    //$n['party_email'] = $user_email;
 
     aistore_send_email($n);
 
-    ob_start();
+ 
 
  
  
@@ -144,15 +142,15 @@ function sendEmailAccepted($eid)
        $subject  =get_option('email_partner_accept_escrow') ;
      $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
 
-    $n = array();
+  //  $n = array();
     $n['message'] = $msg;
-    $n['reference_id'] = $eid;
-    $n['escrow'] = $escrow;
-    $n['type'] = "success";
-    $n['url'] = $details_escrow_page_id_url;
+   // $n['reference_id'] = $eid;
+   // $n['escrow'] = $escrow;
+   // $n['type'] = "success";
+   // $n['url'] = $details_escrow_page_id_url;
     $n['subject'] = $subject;
-    $n['user_email'] = $user_email;
-    $n['party_email'] = $party_email;
+    $n['email'] = $party_email;
+    //$n['party_email'] = $party_email;
 
     aistore_send_email($n);
 
@@ -200,12 +198,12 @@ function sendEmailCancelled($eid)
     $n['escrow'] = $escrow;
     $n['reference_id'] = $eid;
     $n['url'] = $details_escrow_page_id_url;
-    $n['user_email'] = $party_email;
+    $n['email'] = $party_email;
     $n['party_email'] = $user_email;
 
     aistore_send_email($n);
 
-    ob_start();
+ 
 
  
  
@@ -217,15 +215,15 @@ function sendEmailCancelled($eid)
        $subject  =get_option('email_partner_cancel_escrow') ;
      $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
 
-    $n = array();
+  //  $n = array();
     $n['message'] = $msg;
-    $n['reference_id'] = $eid;
-    $n['escrow'] = $escrow;
-    $n['type'] = "success";
-    $n['url'] = $details_escrow_page_id_url;
+   // $n['reference_id'] = $eid;
+  //  $n['escrow'] = $escrow;
+  //  $n['type'] = "success";
+  //  $n['url'] = $details_escrow_page_id_url;
     $n['subject'] = $subject;
-    $n['user_email'] = $user_email;
-    $n['party_email'] = $party_email;
+    $n['email'] = $party_email;
+  //  $n['party_email'] = $party_email;
 
     aistore_send_email($n);
 }
@@ -271,12 +269,12 @@ function sendEmailDisputed($eid)
     $n['escrow'] = $escrow;
     $n['reference_id'] = $eid;
     $n['url'] = $details_escrow_page_id_url;
-    $n['user_email'] = $party_email;
+    $n['email'] = $party_email;
     $n['party_email'] = $user_email;
 
     aistore_send_email($n);
 
-    ob_start();
+ 
 
  
  
@@ -288,15 +286,15 @@ function sendEmailDisputed($eid)
        $subject  =get_option('email_partner_dispute_escrow') ;
      $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
 
-    $n = array();
+  //  $n = array();
     $n['message'] = $msg;
-    $n['reference_id'] = $eid;
-    $n['escrow'] = $escrow;
-    $n['type'] = "success";
-    $n['url'] = $details_escrow_page_id_url;
+  //  $n['reference_id'] = $eid;
+  //  $n['escrow'] = $escrow;
+  //  $n['type'] = "success";
+  //  $n['url'] = $details_escrow_page_id_url;
     $n['subject'] = $subject;
-    $n['user_email'] = $user_email;
-    $n['party_email'] = $party_email;
+    $n['email'] = $party_email;
+  //  $n['party_email'] = $party_email;
 
     aistore_send_email($n);
 
@@ -343,7 +341,7 @@ function sendEmailReleased($eid)
     $n['escrow'] = $escrow;
     $n['reference_id'] = $eid;
     $n['url'] = $details_escrow_page_id_url;
-    $n['user_email'] = $party_email;
+    $n['email'] = $party_email;
     $n['party_email'] = $user_email;
 
     aistore_send_email($n);
@@ -360,15 +358,15 @@ function sendEmailReleased($eid)
     
    $subject  =get_option('email_partner_release_escrow') ;
      $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
-    $n = array();
+   // $n = array();
     $n['message'] = $msg;
-    $n['reference_id'] = $eid;
-    $n['escrow'] = $escrow;
-    $n['type'] = "success";
-    $n['url'] = $details_escrow_page_id_url;
+  //  $n['reference_id'] = $eid;
+  //  $n['escrow'] = $escrow;
+  //  $n['type'] = "success";
+  //  $n['url'] = $details_escrow_page_id_url;
     $n['subject'] = $subject;
-    $n['user_email'] = $user_email;
-    $n['party_email'] = $party_email;
+    $n['email'] = $user_email;
+ 
 
     aistore_send_email($n);
 }
@@ -399,12 +397,12 @@ function aistore_send_email($n)
     
     
     
-       wp_mail($n['user_email'],  $n['subject'], $body, $headers);
+       wp_mail($n['email'],  $n['subject'], $body, $headers);
 
     $q1 = $wpdb->prepare("INSERT INTO {$wpdb->prefix}escrow_email (message,type, user_email,url ,reference_id,subject) VALUES ( %s, %s, %s, %s, %s ,%s) ", array(
        $n['message'],
         $n['type'],
-        $n['user_email'],
+        $n['email'],
         $n['url'],
         $n['reference_id'],
         $n['subject']

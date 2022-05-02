@@ -1,6 +1,5 @@
  <?php
-//  function aistore_escrow_user_list()
-//  {
+ 
      
  
  global $wpdb;
@@ -20,7 +19,7 @@ $id=sanitize_text_field($_REQUEST['id']);
         }  
         else{
    
-        $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}escrow_system");
+        $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}escrow_system order by id desc");
 }
 
 ?>
@@ -42,7 +41,7 @@ $id=sanitize_text_field($_REQUEST['id']);
         {
             
             ?>
-<table id="example" class="display nowrap" style="width:100%">
+  <table  id="example" class="widefat striped fixed" style="width:100%">
         <thead>
             <tr>
                    <th><?php _e('Id', 'aistore'); ?></th>
@@ -67,18 +66,18 @@ $id=sanitize_text_field($_REQUEST['id']);
   
     $user = get_user_by('email', $row->sender_email);
     
-  //  print_r($user);
+ 
             $sender_id = $user->ID;
-           // echo $sender_id;
-    $user = get_user_by('email', $row->receiver_email);
-            $receiver_id = $user->ID;
+       
+    $receiver = get_user_by('email', $row->receiver_email);
+     
+            $receiver_id = $receiver->ID;
             
    $urlbyid = admin_url('admin.php?page=aistore_user_escrow_list&id='. $sender_id . '', 'https');
    
     $urlbyidreciver = admin_url('admin.php?page=aistore_user_escrow_list&id=' . $receiver_id . '', 'https');
    
-        
-// https://www.blogentry.in/est/wp-admin/admin.php?page=aistore_user_escrow_list
+         
 ?>
             <tr>
             	   <td> 	 
@@ -130,9 +129,5 @@ $id=sanitize_text_field($_REQUEST['id']);
         </tfoot>
     </table>
         <?php }   
-        
-        // }  
-        ?>
-      
-      
-    
+       
+       

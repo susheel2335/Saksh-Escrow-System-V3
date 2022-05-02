@@ -6,10 +6,12 @@ if (!defined('ABSPATH'))
 }
 
 
+this file to be deleted
+
 include_once "AistoreEscrow.class.php";
 
 
-class AistoreEscrowBTN
+class AistoreEscrowBTN2222222222222222
 {
   
     // Escrow Details

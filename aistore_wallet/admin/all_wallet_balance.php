@@ -2,7 +2,10 @@
 
             
   $users = get_users( );
+  
   $wallet = new AistoreWallet();
+  
+  
 //print_r($users);
         if ($users === null)
         {
@@ -84,7 +87,6 @@
             </tr>
         </tfoot>
     </table>
-      <?php } ?>
-    <br><br>
-    
+      <?php } 
+      
      

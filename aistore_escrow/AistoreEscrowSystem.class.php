@@ -4,115 +4,40 @@ if (!defined('ABSPATH'))
     exit; // Exit if accessed directly.
     
 }
-
-include_once "AistoreEscrowBTN.class.php";
+ 
 
 include_once "AistoreEscrow.class.php";
 
 
-class AistoreEscrowSystem
+class AistoreEscrowSystem extends  AistoreEscrow
 {
 
-    // get escrow feecccc
-    public function get_escrow_admin_user_id()
-    {
-        $escrow_admin_user_id = get_option('escrow_user_id');
-        return $escrow_admin_user_id;
 
-    }
 
-    public function get_escrow_currency()
-    {
-        $aistore_escrow_currency = get_option('aistore_escrow_currency');
-        return $aistore_escrow_currency;
-
-    }
-
-    public function create_escrow_fee($amount)
+     public  function aistore_bank_details()
     {
 
-        $escrow_create_fee = get_option('escrow_create_fee');
-
-        $escrow_fee = ($escrow_create_fee / 100) * $amount;
-        return $escrow_fee;
-
-    }
-
-    public function accept_escrow_fee($amount)
-    {
-
-        $escrow_accept_fee = get_option('escrow_accept_fee');
-
-        $escrow_fee = ($escrow_accept_fee / 100) * $amount;
-        return $escrow_fee;
-    }
-
-    //it take parameters and create escrow
-    
-
-    public function add_escrow($amount, $user_id, $receiver_email, $title, $term_condition, $escrow_currency)
-    {
-
-        // step 1
-        $ar = array();
-
-        $object_escrow = new AistoreEscrowSystem();
-
-        $aistore_escrow_currency = $object_escrow->get_escrow_currency();
-
-        $escrow_fee = $object_escrow->create_escrow_fee($amount); // issue here
-        
-
-        // insert currency also
-        
-
-        global $wpdb;
-
-        $wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}escrow_system ( title, amount, receiver_email,sender_email,term_condition,escrow_fee ,currency ) VALUES ( %s, %d, %s, %s ,%s ,%s,%s)", array(
-            $title,
-            $amount,
-            $receiver_email,
-            $sender_email,
-            $term_condition,
-            $escrow_fee,
-            $escrow_currency
-        )));
-
-        $eid = $wpdb->insert_id;
-
-        sendNotificationCreated($eid);
-      //  sendEmailCreated($eid);
-          do_action( 'aistore_escro_created',$eid);
-          
-         $created_escrow_success_message = get_option('created_escrow_success_message');
-
-        $ar['Error'] = true;
-        $ar['eid'] = $eid;
-
-        $ar['Messsage'] = $created_escrow_success_message;
-
-        return $ar;
-    }
-
-
-     public static function aistore_bank_details()
-    {
-
-        if (!is_user_logged_in())
-        {
-            return "<div class='no-login'>Kindly login and then visit this page </div>";
-        }
-        
+      
         
     ob_start();
     
     
-    
-              global $wpdb;
+         
+              global $wpdb;    
+
+             
           $eid = sanitize_text_field($_REQUEST['eid']);
                 $user_id = get_current_user_id();
                 
-        $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE id=%s ", $eid));
+              
+                
+   $email= get_the_author_meta('user_email',$user_id);
+                 
+                  $escrow=$this->AistoreEscrowDetail($eid,$email);
+                  
+                  
+                  
+    //    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE id=%s ", $eid));
                       
          $aistore_escrow_currency = $escrow->currency;
                       $escrow_amount = $escrow->amount;
@@ -185,20 +110,16 @@ class AistoreEscrowSystem
         
     }
     // create escrow System
-    public static function aistore_escrow_system()
+    public  function aistore_escrow_system()
     {
 
-        if (!is_user_logged_in())
-        {
-            return "<div class='no-login'>Kindly login and then visit this page </div>";
-        }
-
+      
     ob_start();
             
-        $object_escrow = new AistoreEscrowSystem();
-        $aistore_escrow_currency = $object_escrow->get_escrow_currency();
+     //   $object_escrow = new AistoreEscrowSystem();
+        $aistore_escrow_currency = $this->get_escrow_currency();
 
-        $escrow_admin_user_id = $object_escrow->get_escrow_admin_user_id(); // change variable name
+        $escrow_admin_user_id = $this->get_escrow_admin_user_id(); // change variable name
         
 
         echo "<div>";
@@ -226,91 +147,21 @@ class AistoreEscrowSystem
             }
             
             
-               $es = new AistoreEscrow();
+             //  $es = new AistoreEscrow();
               
-              $_REQUEST['user_email']= get_the_author_meta('user_email', get_current_user_id());
+  $_REQUEST['user_email']= get_the_author_meta('user_email', get_current_user_id());
               
-            $escrow=     $es->create_escrow($_REQUEST)  ;
+            $request=     $this->create_escrow($_REQUEST)  ;
             
             
-
-
-/*
-            $title = sanitize_text_field($_REQUEST['title']);
-            $amount = sanitize_text_field($_REQUEST['amount']);
-
-            $receiver_email = sanitize_email($_REQUEST['receiver_email']);
-
-            $term_condition = sanitize_textarea_field(htmlentities($_REQUEST['term_condition']));
-
-            $escrow_currency = sanitize_text_field($_REQUEST['aistore_escrow_currency']);
-
-            $escrow_fee = $object_escrow->create_escrow_fee($amount);
-
-            $sender_email = get_the_author_meta('user_email', get_current_user_id());
-
-            global $wpdb;
-
-            // add currency also
-         $qr=$wpdb->prepare("INSERT INTO {$wpdb->prefix}escrow_system ( title, amount, receiver_email,sender_email,term_condition,escrow_fee ,currency ) VALUES ( %s, %s, %s, %s ,%s ,%s,%s)", array(
-                $title,
-                $amount,
-                $receiver_email,
-                $sender_email,
-                $term_condition,
-                $escrow_fee,
-                $escrow_currency
-            ));
-            
-         
-            aistore_escrow_created
-               $wpdb->query($qr);
-            
-    
-
-            $eid = $wpdb->insert_id;
-            
-         */
+ 
          
          
-          $eid =$escrow['id'];
+          $eid =$request['id'];
           
-/*
-  $escrow_wallet = new AistoreWallet();
- $user_balance=$escrow_wallet->aistore_balance($user_id,$escrow_currency);
-
-$sender_email = get_the_author_meta( 'user_email', $user_id );
-
-$new_amount = $escrow_fee + $amount;
-
-if($user_balance>$new_amount){
-     $object_escrow = new AistoreEscrowSystem();
-      $escrow_admin_user_id = $object_escrow->get_escrow_admin_user_id();
-      
-             $created_escrow_message = get_option('created_escrow_message');
-        $escrow_details =$created_escrow_message .$eid;
-                    
-      $escrow_wallet->aistore_debit($user_id, $amount, $escrow_currency, $escrow_details,$eid);
-
-        $escrow_wallet->aistore_credit($escrow_admin_user_id, $amount, $escrow_currency, $escrow_details,$eid); 
-            
-            
-              $escrow_details = 'Escrow Fee for the created escrow with escrow id '.$eid;
-         $escrow_wallet->aistore_debit($user_id, $escrow_fee, $escrow_currency, $escrow_details,$eid);
-
-     $escrow_wallet->aistore_credit($escrow_admin_user_id, $escrow_fee, $escrow_currency, $escrow_details,$eid); 
-            
-            
-              $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
-    SET payment_status = 'paid'  WHERE id = '%d' ", $eid));
-    
-
-}
-       */
+ 
        
-       
-   
-                 do_action( 'aistore_escrow_created',$eid);
+         //   do_action( 'aistore_escrow_created',$eid);
     
             
             $bank_details_page_id_url = esc_url(add_query_arg(array(
@@ -321,14 +172,13 @@ if($user_balance>$new_amount){
           
 
  echo $bank_details_page_id_url;
-  
+ /* 
 ?>
 <meta http-equiv="refresh" content="0; URL=<?php echo esc_url($bank_details_page_id_url); ?>" />
 
 
 <?php
- 
-    
+ */
     
         }
         else
@@ -400,11 +250,6 @@ if($user_balance>$new_amount){
   
    <label for="term_condition"> <?php _e('Term And Condition', 'aistore') ?></label><br>
    
-   
-
-
-
-  
   <?php
             $content = '';
             $editor_id = 'term_condition';
@@ -431,14 +276,11 @@ if($user_balance>$new_amount){
   apply_filters( "after_aistore_escrow_form" ,$_REQUEST);
   
   ?>
-     
-
- 
-	
-	
 	
 <input 
  type="submit" class="button button-primary  btn  btn-primary "   name="submit" value="<?php _e('Create Escrow', 'aistore') ?>"/>
+ 
+ 
 <input type="hidden" name="action" value="escrow_system" />
 </form> 
 <?php
@@ -454,28 +296,27 @@ if($user_balance>$new_amount){
     }
 
     // Escrow List
-    public static function aistore_escrow_list()
+    public   function aistore_escrow_list()
     {
-        if (!is_user_logged_in())
-        {
-            return "<div class='loginerror'>Kindly login and then visit this page</div>";
-        }
+      
         
         
         
 
-        $object_escrow_currency = new AistoreEscrowSystem();
-        $aistore_escrow_currency = $object_escrow_currency->get_escrow_currency();
-        $user_id= get_current_user_id();
-        $current_user_email_id = get_the_author_meta('user_email', $user_id);
+$object_escrow_currency = new AistoreEscrowSystem();
+
+$aistore_escrow_currency = $object_escrow_currency->get_escrow_currency();
+
+
+$user_id= get_current_user_id();
+$current_user_email_id = get_the_author_meta('user_email', $user_id);
+
+
 
         global $wpdb;
 
-  /*      $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE receiver_email=%s or sender_email=%s order by id desc ", $current_user_email_id, $current_user_email_id));
-    */    
-           $es = new AistoreEscrow();
-               
-               $results=$es->aistore_escrow_list($current_user_email_id);
+
+  $results=$this->AistoreEscrowList($current_user_email_id);
                
                
     ob_start();
@@ -537,8 +378,8 @@ if($user_balance>$new_amount){
            
 		 
 		   
-		   
-		   <td> 	<a href="<?php echo esc_url($details_escrow_page_id_url); ?>" >
+	
+	  <td> 	<a href="<?php echo esc_url($details_escrow_page_id_url); ?>" >
 
 		   <?php echo esc_attr($row->id); ?> </a> </td>
   <td> 		   <?php echo esc_attr($row->title); ?> </td>
@@ -558,10 +399,10 @@ if($user_balance>$new_amount){
                 echo esc_attr($role);
 
 ?>
-
-		  </td>
+</td>
 		   
-		  	   <td> 		   <?php echo esc_attr($row->amount) . " " . esc_attr($row->currency) ?> </td>
+
+  <td> 		   <?php echo esc_attr($row->amount) . " " . esc_attr($row->currency) ?> </td>
 		   <td> 		   <?php echo esc_attr($row->sender_email); ?> </td>
 		   <td> 		   <?php echo esc_attr($row->receiver_email); ?> </td>
 		    <td> 		   <?php echo esc_attr($row->payment_status); ?> </td>
@@ -591,8 +432,11 @@ if($user_balance>$new_amount){
 
     }
 
+
+
+
     // Escrow Details
-    public static function aistore_escrow_detail()
+    public   function aistore_escrow_detail()
     {
         if (!is_user_logged_in())
         {
@@ -612,7 +456,7 @@ if($user_balance>$new_amount){
             ) , home_url()));
 
 
-
+echo    $add_escrow_page_url;
 
 ?>
     
@@ -625,45 +469,31 @@ global $wpdb;
         $eid = sanitize_text_field($_REQUEST['eid']);
         
  
-   
         
-  apply_filters( "before_aistore_escrow", $eid );
+   apply_filters( "before_aistore_escrow", $eid );
 
         
-        $aistore_escrow_btns = new AistoreEscrowBTN();
+//    $aistore_escrow_btns = new AistoreEscrowBTN();
   
-    $aistore_escrow_btns->aistore_escrow_btn_actions();
+   $this->aistore_escrow_btn_actions();
       
       
 
-        $object_escrow = new AistoreEscrowSystem();
+    //    $object_escrow = new AistoreEscrowSystem();
 
-        $escrow_admin_user_id = $object_escrow->get_escrow_admin_user_id();
+        $escrow_admin_user_id = $this->get_escrow_admin_user_id();
 
         $user_id = get_current_user_id();
 
         $email_id = get_the_author_meta('user_email', $user_id);
 
+               
+$escrow=$this->AistoreEscrowDetail($eid,$email_id) ;
+               
     
-
-
-/*
-
-        $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system  WHERE (  receiver_email = %s   or  sender_email = %s    )  and  id =  %d ", $email_id, $email_id, $eid));
-        
-        */
-        
-        
-              $es = new AistoreEscrow();
-               
-               $escrow=$es->aistore_escrow_detail($eid,$email_id) ;
-               
-               
-        
-
- 
+    
 ?>
-	  <div>
+<div>
 	       <div class="alert alert-success" role="alert">
  <strong>  <?php _e('Status ', 'aistore'); ?>   <?php echo esc_attr($escrow->status); ?></strong>
   </div>
@@ -673,26 +503,29 @@ global $wpdb;
  <strong><?php _e('Payment Status ', 'aistore'); ?>   <?php echo esc_attr($escrow->payment_status); ?></strong>
   </div>
   
-	      <?php
+<?php
+	      
         if ($escrow->payment_status == "Pending")
         {
+            
 ?>
-<div>
-  <p>Don't ship the product.</p>
-  </div><br>
+
+<div>  <p>Don't ship the product.</p>  </div><br>
   
   
   <?php
-            $user_email = get_the_author_meta('user_email', get_current_user_id());
+ $user_email = get_the_author_meta('user_email', get_current_user_id());
+            
+            
             if ($escrow->sender_email == $user_email)
             {
 
 
-
-            $bank_details_page_id_url = esc_url(add_query_arg(array(
+ $bank_details_page_id_url = esc_url(add_query_arg(array(
                 'page_id' => get_option('bank_details_page_id') ,
-                'eid' => $eid,
-            ) , home_url()));
+                'eid' => $eid,) , home_url()));
+            
+            
             
             ?>
 
@@ -719,24 +552,14 @@ global $wpdb;
         printf(__("Status : %s", 'aistore') , $escrow->status . "<br>");
          printf(__("Amount : %s", 'aistore') , $escrow->amount ." ". $escrow->currency."<br><hr />");
          
-         
-         
-       
-      
+          
 
-        $aistore_escrow_btns->accept_escrow_btn($escrow);
-
-        $aistore_escrow_btns->cancel_escrow_btn($escrow);
-
-        $aistore_escrow_btns->release_escrow_btn($escrow);
-
-        $aistore_escrow_btns->dispute_escrow_btn($escrow);
+        $this->accept_escrow_btn($escrow);
+        $this->cancel_escrow_btn($escrow);
+        $this->release_escrow_btn($escrow);
+        $this->dispute_escrow_btn($escrow);
 
  
-
- 
-
-
 
 
 ?>
@@ -754,6 +577,15 @@ global $wpdb;
     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Email</button>
     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Transaction</button>
      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-term" type="button" role="tab" aria-controls="nav-term" aria-selected="false">Term and Condition</button>
+     
+     
+     <?php
+  
+  apply_filters( "aistore_escrow_tab_button", $escrow->id );
+  
+  ?>
+  
+  
   </div>
 </nav>
 
@@ -762,7 +594,6 @@ global $wpdb;
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         
   <?php
-  
   apply_filters( "after_aistore_escrow_notification", $escrow->id );
   
   ?>
@@ -770,8 +601,9 @@ global $wpdb;
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
   <?php
   
-        apply_filters( "after_aistore_escrow", $escrow->id );
-        ?>
+   apply_filters( "after_aistore_escrow", $escrow->id );
+  
+  ?>
       </div>
   <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"> <?php
   
@@ -785,6 +617,15 @@ global $wpdb;
     apply_filters( "AistorEscrowFiles", $escrow );
   
   ?></div>
+  
+  
+    <?php
+  
+  apply_filters( "aistore_escrow_tab_contents", $escrow  );
+  
+  ?>
+  
+  
 </div>
 
 
@@ -794,8 +635,16 @@ global $wpdb;
 
 
 <?php
-$eschat = new Aistorechat();
- $eschat->aistore_escrow_chat();
+
+ 
+  
+  apply_filters( "aistore_details_bottom_section", $escrow  );
+  
+ 
+  
+  
+//$eschat = new Aistorechat();
+// $eschat->aistore_escrow_chat();
  
  
         return ob_get_clean();
@@ -804,20 +653,6 @@ $eschat = new Aistorechat();
    
 
       
- 
-function aistore_ipaddress(){
-      $ipaddress = '';
-    if (getenv('HTTP_CLIENT_IP')) $ipaddress = getenv('HTTP_CLIENT_IP');
-    else if (getenv('HTTP_X_FORWARDED_FOR')) $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-    else if (getenv('HTTP_X_FORWARDED')) $ipaddress = getenv('HTTP_X_FORWARDED');
-    else if (getenv('HTTP_FORWARDED_FOR')) $ipaddress = getenv('HTTP_FORWARDED_FOR');
-    else if (getenv('HTTP_FORWARDED')) $ipaddress = getenv('HTTP_FORWARDED');
-    else if (getenv('REMOTE_ADDR')) $ipaddress = getenv('REMOTE_ADDR');
-    else $ipaddress = 'UNKNOWN';
-    
-    return $ipaddress;
-}
-
   
 
 

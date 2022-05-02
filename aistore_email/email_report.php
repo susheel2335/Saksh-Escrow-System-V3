@@ -31,7 +31,9 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="heading<?php echo esc_attr($row->id); ?>">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo esc_attr($row->id); ?>" aria-expanded="true" aria-controls="collapseOne">
-         <?php echo esc_attr($row->user_email); ?>
+         <?php 
+     
+    echo esc_attr($row->user_email) . " --- ". esc_attr($row->created_at). "     --- ". esc_attr($row->subject)  ; ?>
       </button>
     </h2>
     <div id="collapse<?php echo esc_attr($row->id); ?>" class="accordion-collapse collapse " aria-labelledby="heading<?php echo esc_attr($row->id); ?>" data-bs-parent="#accordionExample">

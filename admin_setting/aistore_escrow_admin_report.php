@@ -5,9 +5,9 @@
            	
            	        $escrow_admin_user_id = get_option('escrow_user_id');
            	        
-     	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions  INNER JOIN {$wpdb->prefix}users ON  {$wpdb->prefix}aistore_wallet_transactions.user_id={$wpdb->prefix}users.ID WHERE {$wpdb->prefix}users.ID= ".$escrow_admin_user_id;
+     	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions  INNER JOIN {$wpdb->prefix}users ON  {$wpdb->prefix}aistore_wallet_transactions.user_id={$wpdb->prefix}users.ID WHERE {$wpdb->prefix}users.ID= ".$escrow_admin_user_id." order by aistore_wallet_transactions.id desc ";
      	
-     //	echo $sql;
+     echo $sql;
      	
      	 $results = $wpdb->get_results($sql);
            ?>
@@ -29,7 +29,7 @@
         {
             ?>
             
-<table id="example" class="display nowrap" style="width:100%">
+  <table  id="example" class="widefat striped fixed" style="width:100%">
         <thead>
             <tr>
                    <th><?php _e('ID', 'aistore'); ?></th>

@@ -1,9 +1,7 @@
 <?php
 
 
-// function aistore_escrow_details_page()
-// {
-//         global $wpdb;
+ 
 
         $eid = sanitize_text_field($_REQUEST['eid']);
 
@@ -49,7 +47,7 @@
             }
         }
 
-        ob_start();
+     
 
         if (!isset($eid))
         {
@@ -61,7 +59,7 @@
 	    <?php _e('Go To Escrow List Page', 'aistore'); ?> 
 	     </a></div>
 <?php
-            return ob_get_clean();
+           
         }
 
 
@@ -430,7 +428,7 @@ sendNotificationDisputed($eid);
          printf(__("Payment Status : %s", 'aistore') , $escrow->payment_status . "<br>");
         printf(__("Status : %s", 'aistore') , $escrow->status . "<br><br>");
 
-        $object = new AistoreEscrowBTN();
+        $object = new AistoreEscrow();
 
         $object->accept_escrow_btn($escrow);
 
@@ -619,9 +617,7 @@ sendNotificationDisputed($eid);
    
   <p><?php echo html_entity_decode($row->message); ?></p>
   
-  <br /><br />
-  <b><?php echo esc_attr($row->user_login); ?> </b>
-  <h6 > <?php echo esc_attr($row->created_at); ?></h6>
+  <h6 > <?php echo esc_attr($row->user_login); ?>--- <?php echo esc_attr($row->created_at); ?></h6>
 </div>
  
 <hr>
@@ -647,15 +643,33 @@ sendNotificationDisputed($eid);
 
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Notification</button>
-    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Email</button>
-    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Transaction</button>
+      
+        <button class="nav-link active" id="nav-home1-tab" data-bs-toggle="tab" data-bs-target="#nav-home1" type="button" role="tab" aria-controls="nav-home1" aria-selected="true">Terms and conditions</button>
+        
+        
+    <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Notifications</button>
+    
+    
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Emails</button>
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Transactions</button>
   </div>
 </nav>
 
 <br>
 <div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    
+    <div class="tab-pane fade show active" id="nav-home1" role="tabpanel" aria-labelledby="nav-home1-tab">
+        
+  <?php
+  
+   echo $escrow->term_condition ;
+  
+  ?>
+  </div>
+  
+  
+  
+  <div class="tab-pane fade show " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         
   <?php
   
@@ -680,12 +694,5 @@ sendNotificationDisputed($eid);
   
 
     
-  
-  
-<!--</div>-->
+    
 </div>
-
-
-<?php
-
-// }

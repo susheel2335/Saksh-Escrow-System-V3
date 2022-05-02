@@ -113,28 +113,7 @@ function aistore_plugin_table_install()
   PRIMARY KEY (id)
 )  ";
 
-    $table_escrow_notification = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_notification  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  type varchar(100) NOT NULL,
-   message  text  NOT NULL,
-   user_email  varchar(100)   NOT NULL,
-  url varchar(100)   NOT NULL,
-  reference_id bigint(20)   NULL,
-  created_at timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id)
-) ";
 
-$table_escrow_email = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_email  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  type varchar(100) NOT NULL,
-   message  text  NOT NULL,
-   user_email  varchar(100)   NOT NULL,
-  url varchar(100)   NOT NULL,
-   reference_id bigint(20)   NULL,
-   subject varchar(100)  NULL,
-  created_at timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id)
-) ";
 
   $table_aistore_wallet_transactions = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "aistore_wallet_transactions  (
    	transaction_id  bigint(20)  NOT NULL  AUTO_INCREMENT,
@@ -190,7 +169,7 @@ $table_escrow_email = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_
 
     dbDelta($table_escrow_documents);
 
-    dbDelta($table_escrow_notification);
+
     
     dbDelta($table_escrow_email);
     
@@ -220,9 +199,7 @@ $table_escrow_email = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_
 }
 register_activation_hook(__FILE__, 'aistore_plugin_table_install');
 
-include_once dirname(__FILE__) . '/aistore_email/email_report.php';
 
-include_once dirname(__FILE__) . '/aistore_email/send_email.php';
 
 include_once dirname(__FILE__) . '/aistore_escrow/Escrow_list.php';
 include_once dirname(__FILE__) . '/aistore_notifications/user_notification.php';
@@ -245,172 +222,96 @@ include_once dirname(__FILE__) . '/aistore_file_upload/file_upload.php';
 
 
 
-add_shortcode('aistore_escrow_system', array(
-    'AistoreEscrowSystem',
-    'aistore_escrow_system'
-));
+add_shortcode('aistore_escrow_system', 'aistore_escrow_system');
 
-add_shortcode('aistore_escrow_list', array(
-    'AistoreEscrowSystem',
-    'aistore_escrow_list'
-));
+add_shortcode('aistore_escrow_list',  'aistore_escrow_list');
 
-add_shortcode('aistore_escrow_detail', array(
-    'AistoreEscrowSystem',
-    'aistore_escrow_detail'
-));
+add_shortcode('aistore_escrow_detail', 'aistore_escrow_detail');
 
-add_shortcode('aistore_bank_details', array(
-    'AistoreEscrowSystem',
-    'aistore_bank_details'
-));
+add_shortcode('aistore_bank_details',  'aistore_bank_details');
 
  
+function aistore_escrow_list()
+{
+      if (!is_user_logged_in())
+        {
+            return "<div class='loginerror'>Kindly login and then visit this page</div>";
+        }
+        
+        
+   $cl=new AistoreEscrowSystem();
+   
+return    $cl->aistore_escrow_list();
+   
+} 
+function aistore_bank_details()
+{
+      if (!is_user_logged_in())
+        {
+            return "<div class='loginerror'>Kindly login and then visit this page</div>";
+        }
+        
+   $cl=new AistoreEscrowSystem();
+   
+return    $cl->aistore_bank_details();
+   
+}
+
+
+function aistore_escrow_detail()
+{
+      if (!is_user_logged_in())
+        {
+            return "<div class='loginerror'>Kindly login and then visit this page</div>";
+        }
+        
+   $cl=new AistoreEscrowSystem();
+   
+return    $cl->aistore_escrow_detail();
+   
+}
+function aistore_escrow_system()
+{
+      if (!is_user_logged_in())
+        {
+            return "<div class='loginerror'>Kindly login and then visit this page</div>";
+        }
+        
+   $cl=new AistoreEscrowSystem();
+   
+return    $cl->aistore_escrow_system();
+   
+}
 
 function email_notification_message()
 {
     
     //messages
-     update_option('created_escrow_message', 'Payment transaction for the created escrow with escrow id #');
-    update_option('created_escrow_success_message', 'Created Successfully');
-    update_option('accept_escrow_message', 'Payment transaction for the accepted escrow with escrow id #');
-    update_option('accept_escrow_success_message', 'Accepted Successfully');
-
-    update_option('dispute_escrow_message', 'Payment transaction for the disputed escrow with escrow id #');
-    update_option('dispute_escrow_success_message', 'Disputed Successfully');
+     update_option('created_escrow_message', 'Payment transaction for the created escrow with escrow id  # [EID]');
     
-    update_option('release_escrow_message', 'Payment transaction for the released escrow with escrow id #');
-    update_option('release_escrow_success_message', 'Released Successfully');
- update_option('cancel_escrow_message', 'Payment transaction for the cancelled escrow with escrow id #');
-    update_option('cancel_escrow_success_message', 'Cancelled Successfully');
-    
-    //notification
-    
-
-    update_option('created_escrow', 'You have successfully created the escrow # [EID]');
-    update_option('partner_created_escrow', 'Your partner have successfully created the escrow # [EID]');
-    update_option('accept_escrow', 'You have successfully  accepted the escrow # [EID]');
-    update_option('partner_accept_escrow', 'Your partner have successfully accepted the escrow # [EID]');
-
-    update_option('dispute_escrow', 'You have successfully  disputed the escrow # [EID]');
-    update_option('partner_dispute_escrow', 'Your partner have successfully disputed the escrow # [EID]');
-    update_option('release_escrow', 'You have successfully  released the escrow # [EID]');
-    update_option('partner_release_escrow', 'Your partner have successfully released the escrow # [EID]');
-
-    update_option('cancel_escrow', 'You have successfully  cancelled the escrow # [EID]');
-    update_option('partner_cancel_escrow', 'Your partner have successfully cancelled the escrow # [EID]');
-    update_option('shipping_escrow', 'you have updated the shipping details for the escrow# [EID]');
-    update_option('partner_shipping_escrow', 'Your partner has updated the shipping details for the escrow# [EID]');
-
-    update_option('buyer_deposit', 'Your payment  has been accepted for the escrow  # [EID]');
-    update_option('seller_deposit', 'You have deposited the payment into  the escrow for  the transaction  escrow # [EID]');
-    update_option('Buyer_Mark_Paid', 'You have successfully  marked escrow # [EID]');
-
-    //email
-    update_option('email_created_escrow', 'You have successfully created the escrow # [EID]');
-    update_option('email_partner_created_escrow', 'Your partner have successfully created the escrow # [EID]');
-    update_option('email_accept_escrow', 'You have successfully  accepted the escrow # [EID]');
-    update_option('email_partner_accept_escrow', 'Your partner have successfully accepted the escrow # [EID]');
-
-    update_option('email_dispute_escrow', 'You have successfully  disputed the escrow # [EID]');
-    update_option('email_partner_dispute_escrow', 'Your partner have successfully disputed the escrow # [EID]');
-    update_option('email_release_escrow', 'You have successfully  released the escrow # [EID]');
-    update_option('email_partner_release_escrow', 'Your partner have successfully released the escrow # [EID]');
-
-    update_option('email_cancel_escrow', 'You have successfully  cancelled the escrow # [EID]');
-    update_option('email_partner_cancel_escrow', 'Your partner have successfully cancelled the escrow # [EID]');
-    update_option('email_shipping_escrow', 'you have updated the shipping details for the escrow# [EID]');
-    update_option('email_partner_shipping_escrow', 'Your partner has updated the shipping details for the escrow# [EID]');
-
-    update_option('email_buyer_deposit', 'Your payment  has been accepted for the escrow  # [EID]');
-    update_option('email_seller_deposit', 'You have deposited the payment into  the escrow for  the transaction  escrow # [EID]');
-    update_option('email_Buyer_Mark_Paid', 'You have successfully  marked escrow # [EID]');
+    update_option('created_escrow_success_message', 'Created Successfully escrow id  # [EID]');
     
     
+    update_option('accept_escrow_message', 'Payment transaction for the accepted escrow with escrow id  # [EID]');
     
-    //email body
-    update_option('email_body_created_escrow', 'Hi,
+    update_option('accept_escrow_success_message', 'Accepted Successfully escrow id  # [EID]');
 
-[ESCROWDATA]
+    update_option('dispute_escrow_message', 'Payment transaction for the disputed escrow with escrow id  # [EID]');
 
-Thanks');
-    update_option('email_body_partner_created_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-    update_option('email_body_accept_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-    update_option('email_body_partner_accept_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-
-    update_option('email_body_dispute_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-    update_option('email_body_partner_dispute_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
+    update_option('dispute_escrow_success_message', 'Disputed Successfully escrow id  # [EID]');
     
-    update_option('email_body_release_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-    update_option('email_body_partner_release_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-
-    update_option('email_body_cancel_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-    update_option('email_body_partner_cancel_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-    
-    update_option('email_body_shipping_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-    update_option('email_body_partner_shipping_escrow', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-
-    update_option('email_body_buyer_deposit', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-    update_option('email_body_seller_deposit', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
-    update_option('email_body_Buyer_Mark_Paid', 'Hi,
-
-[ESCROWDATA]
-
-Thanks');
+    update_option('release_escrow_message', 'Payment transaction for the released escrow with escrow id  # [EID]');
     
     
+    update_option('release_escrow_success_message', 'Released Successfully escrow id  # [EID]');
+
+ update_option('cancel_escrow_message', 'Payment transaction for the cancelled escrow with escrow id  # [EID]');
+ 
+ 
+    update_option('cancel_escrow_success_message', 'Cancelled Successfully escrow id  # [EID]');
+    
+  
+  
 
 }
 
@@ -480,23 +381,8 @@ function  AistoregetSupportMsg()
 
  
 
-
-// Add some text after the header
-add_action( 'saksh_escrow_list_before_header' , 'add_promotional_text' );
-function add_promotional_text() {
-  
-  echo "<div>Special offer! June only: Free chocolate for everyone!</div>";
-} 
-
-
-
-// Add some text after the header
-add_action( 'saksh_escrow_list_before_header' , 'add_promotional_text33333333333' );
-function add_promotional_text33333333333() {
-  
-  echo "<div>Special offer! June only: Free chocolate for everyone!</div>";
-} 
-
+ 
+ 
 
 
 

@@ -26,8 +26,8 @@ global $wpdb;
         {
             ?>
               
-  <table  id="example" class="display nowrap" style="width:100%">
-      
+ 
+  <table  id="example" class="widefat striped fixed" style="width:100%">
         <thead>
      <tr>
          
