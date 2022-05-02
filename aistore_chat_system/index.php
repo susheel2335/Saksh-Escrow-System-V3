@@ -9,6 +9,7 @@ if (!defined('ABSPATH'))
 
 function aistore_st_scripts_method()
 {
+    
     wp_enqueue_style('aistore', plugins_url('/css/chat.css', __FILE__) , array());
     // wp_enqueue_style('aistore', plugins_url('/css/custom.css', __FILE__) , array());
     wp_enqueue_script('aistore', plugins_url('/js/chat.js', __FILE__) , array(
@@ -17,6 +18,7 @@ function aistore_st_scripts_method()
      wp_enqueue_script( 'ajax-script', plugins_url( '/js/chat.js', __FILE__ ), array('jquery') );
 
 // in JavaScript, object properties are accessed as ajax_object.ajax_url, ajax_object.we_value
+
 wp_localize_script( 'ajax-script', 'ajax_object',
         array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'we_value' => 1234 ) );
 }

@@ -27,7 +27,11 @@ function aistore_wpdocs_load_textdomain()
 function aistore_scripts_method()
 {
 
-  
+   wp_enqueue_script( 'bootstrap_js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js', array('jquery'), NULL, true );
+   
+
+      
+   wp_enqueue_style( 'bootstrap_css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', false, NULL, 'all' );
   
     wp_enqueue_style('aistore', plugins_url('/aistore_assets/css/custom.css', __FILE__) , array());
     wp_enqueue_script('aistore', plugins_url('/aistore_assets/js/custom.js', __FILE__) , array(
@@ -102,6 +106,7 @@ function aistore_plugin_table_install()
   term_condition text ,
   amount double NOT NULL,
   currency  varchar(100)   NOT NULL,
+  url  varchar(100)   NOT NULL,
   receiver_email varchar(100)  NOT NULL,
   sender_email varchar(100)   NOT NULL,
   escrow_fee double NOT NULL,
