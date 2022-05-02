@@ -64,14 +64,15 @@ $id=sanitize_text_field($_REQUEST['id']);
    $url = admin_url('admin.php?page=disputed_escrow_details&eid=' . $row->id . '', 'https');
    
   
-    $user = get_user_by('email', $row->sender_email);
-    
- 
-            $sender_id = $user->ID;
-       
-    $receiver = get_user_by('email', $row->receiver_email);
+    // $user = get_user_by('email', $row->sender_email);
+   //$user=  get_user_by_email1($row->sender_email);
+   
+// print_r($user);
+            $sender_id =  get_user_by_email1($row->sender_email);
+        $receiver_id=  get_user_by_email1($row->receiver_email);
+   // $receiver = get_user_by('email', $row->receiver_email);
      
-            $receiver_id = $receiver->ID;
+           // $receiver_id = $receiver->ID;
             
    $urlbyid = admin_url('admin.php?page=aistore_user_escrow_list&id='. $sender_id . '', 'https');
    
@@ -130,4 +131,9 @@ $id=sanitize_text_field($_REQUEST['id']);
     </table>
         <?php }   
        
-       
+     function get_user_by_email1($email) {
+     global $wpdb;
+  $user = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}users WHERE   user_email=%d ", $email));
+    // $user= get_user_by('user_email', $email);
+    return $user->ID;
+}

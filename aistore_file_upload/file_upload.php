@@ -83,7 +83,7 @@ function process_file_upload($escrow)
                 if (!empty($upload_dir['basedir']))
                 {
 
-                    $user_dirname = $upload_dir['basedir'] . '/documents/' . $escrow->id;
+                    $user_dirname = $upload_dir['basedir'] . '/documents/' . $escrow['id'];
                     if (!file_exists($user_dirname))
                     {
                         wp_mkdir_p($user_dirname);
@@ -92,7 +92,7 @@ function process_file_upload($escrow)
                     $filename = wp_unique_filename($user_dirname, $_FILES['file']['name']);
                     move_uploaded_file(sanitize_text_field($_FILES['file']['tmp_name']) , $user_dirname . '/' . $filename);
 
-                    $image = $upload_dir['baseurl'] . '/documents/' . $escrow->id . '/' . $filename;
+                    $image = $upload_dir['baseurl'] . '/documents/' . $escrow['id'] . '/' . $filename;
 
                     // save into database  $image
                       $object_escrow = new AistoreEscrowSystem();
@@ -101,7 +101,7 @@ function process_file_upload($escrow)
 
 
                     $wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}escrow_documents ( eid, documents,user_id,documents_name,ipaddress) VALUES ( %d,%s,%d,%s,%s)", array(
-                        $escrow->id,
+                        $escrow['id'],
                         $image,
                         $user_id,
                         $filename,

@@ -1,9 +1,9 @@
 <?php 
 
-add_shortcode('aistore_notification', 'aistore_echo_all_notification');
+add_shortcode('aistore_notification', 'aistore_escrow_echo_all_notification');
 
 
-function aistore_echo_all_notification()
+function aistore_escrow_echo_all_notification()
 {
 	 
 ob_start();
@@ -47,9 +47,13 @@ $user_email = get_the_author_meta('user_email', get_current_user_id());
 
 
       
-    function  aistore_echo_notification_of_escrow($eid){
+ 
+    
   
-           	global $wpdb;
+ add_filter( 'after_aistore_escrow_notification', 'after_aistore_escrow_notification' );
+  
+     function  after_aistore_escrow_notification($eid){
+     	global $wpdb;
             
  $sql = "SELECT * FROM {$wpdb->prefix}escrow_notification WHERE  {$wpdb->prefix}escrow_notification.reference_id=".$eid." order by id desc";
  
@@ -103,20 +107,13 @@ $user_email = get_the_author_meta('user_email', get_current_user_id());
     
     
     <?php
-    }
     
-    
-    
-    
-    
-    
-    
-    
+     }
 
 
 
 
- function aistore_echo_notification( ){
+ function aistore_escrow_echo_notification( ){
 	 if ( !is_user_logged_in() ) {
     return "Please login to see your notifications" ;
 }
@@ -149,56 +146,7 @@ return "";
  			
 }
  
-function aistore_notification($notification,$type="success",$user_login="" ){
-	 if ( !is_user_logged_in() ) {
-    return "Please login to see your notifications" ;
-}
-	 if($user_login=="")
-	 {
- 	$user_login = get_the_author_meta('user_login', get_current_user_id());
-	 }
-	
-   global $wpdb;
- 
- 
-  
 
-   $q1=$wpdb->prepare("INSERT INTO {$wpdb->prefix}escrow_notification (  message,type, user_email ) VALUES ( %s, %s, %s ) ", array(  $notification,$type, $user_login));
-     $wpdb->query($q1);
-   
-   
-}
-
-
-function aistore_notification_new($n  ){
-	 if ( !is_user_logged_in() ) {
-    return "" ;
-}/*
-	$n=array();
-	$n['message']="test notification msg";
-	
-	$n['type']="success";
-	$n['url']="localhost";
-	
-	$n['user_login']=$login_email;
-	*/
-	
-	 
-	//$n['user_email']=$n['user_login'];
-	
-   global $wpdb;
- 
- 
-   
-   $q1=$wpdb->prepare("INSERT INTO {$wpdb->prefix}escrow_notification (  message,type, user_email,url ,reference_id) VALUES ( %s, %s, %s, %s, %s ) ", array( $n['message'],$n['type'], $n['user_email'], $n['url'], $n['reference_id']));
-   
-   // qr_to_log($q1);
-	
-	
-     $wpdb->query($q1);
-    
-   
-}
 
 
 

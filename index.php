@@ -314,6 +314,18 @@ function email_notification_message()
   
 
 }
+function Aistore_process_placeholder_EID($str, $eid)
+{
+  
+ 
+ 
+    
+    $str = str_replace("[EID]", $eid, $str);
+     
+    return ($str);
+}
+
+
 
 function Aistore_process_placeholder_Text($str, $escrow)
 {

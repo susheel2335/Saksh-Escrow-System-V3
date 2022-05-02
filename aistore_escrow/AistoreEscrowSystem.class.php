@@ -171,14 +171,14 @@ class AistoreEscrowSystem extends  AistoreEscrow
             
           
 
- echo $bank_details_page_id_url;
- /* 
+//  echo $bank_details_page_id_url;
+
 ?>
 <meta http-equiv="refresh" content="0; URL=<?php echo esc_url($bank_details_page_id_url); ?>" />
 
 
 <?php
- */
+
     
         }
         else

@@ -8,7 +8,7 @@ if (!defined('ABSPATH'))
 }
 
 
-function aistore_plugin_notification_table_install()
+function aistore_escrow_plugin_notification_table_install()
 {
     global $wpdb;
 
@@ -24,10 +24,10 @@ function aistore_plugin_notification_table_install()
 ) ";
 
     dbDelta($table_escrow_notification);
- notification_message();
+ aistore_escrow_notification_message();
 }
 
-register_activation_hook(__FILE__, 'aistore_plugin_notification_table_install');
+register_activation_hook(__FILE__, 'aistore_escrow_plugin_notification_table_install');
 
 include_once dirname(__FILE__) . '/menu.php';
 
@@ -36,7 +36,7 @@ include_once dirname(__FILE__) . '/menu.php';
 
     
     
-function notification_message()
+function aistore_escrow_notification_message()
 {  
     
     //notification

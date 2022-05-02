@@ -66,10 +66,11 @@ class AistoreEscrow
           
 
             $sender_email = $request['user_email'];
-
+            
        
-
-            // add currency also
+         
+            
+            // add currency also   
          $qr=$wpdb->prepare("INSERT INTO {$wpdb->prefix}escrow_system ( title, amount, receiver_email,sender_email,term_condition  ,currency ) VALUES ( %s, %s, %s, %s ,%s , %s)", array(
                 $title,
                 $amount,
@@ -91,6 +92,12 @@ class AistoreEscrow
 
             $eid = $wpdb->insert_id;
             
+            
+               $details_escrow_page_id_url = esc_url(add_query_arg(array('page_id' => get_option('details_escrow_page_id'), 'eid' => $eid,), home_url()));
+               
+                  $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
+    SET url = '%s'  WHERE id = '%d'", $details_escrow_page_id_url, $eid));
+    
             $request['id'] =$eid;
             $request['currency'] =$escrow_currency;
             $request['sender_email'] = $sender_email ;
@@ -99,14 +106,18 @@ class AistoreEscrow
         //  $escrow=  (object)  $data ;
 
             
-  //$escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE id=%s ", $eid));
+ $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE id=%s ", $eid));
       
     //   print_r($escrow);
       //       apply_filters( "AistorEscrowCreated" ,$escrow);
                 
-          do_action( 'AistorEscrowCreated',   $request);
+           do_action( 'AistorEscrowCreated',   $request);
           
-           
+        do_action( 'Aistore_Escrow_Created',   $escrow);
+          
+        return  $request;   
+
+          
         return  $request;   
 
           
@@ -875,4 +886,13 @@ function aistore_ipaddress(){
     return $ipaddress;
 }
 
+}
+add_action('AistorEscrowDetails', 'escrowDetails', 10, 3);
+
+
+function escrowDetails($eid)
+{
+     $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%d ", $eid));
+     
+     return $eid;
 }
