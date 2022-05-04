@@ -79,13 +79,10 @@ class AistoreEscrowSystem extends  AistoreEscrow
                     $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
     SET payment_status = 'processing'  WHERE id = '%d' ", $eid));
     
-  $details_escrow_page_id_url = esc_url(add_query_arg(array(
-                    'page_id' => get_option('details_escrow_page_id') ,
-                    'eid' => $eid,
-                ) , home_url()));
-                   ?>
+  $details_escrow_page_id_url = esc_url( $escrow->url);
+            ?>
 <meta http-equiv="refresh" content="0; URL=<?php echo esc_url($details_escrow_page_id_url); ?>" />
-<?php
+<?php  
                 }
                 else
                 {
@@ -151,34 +148,27 @@ class AistoreEscrowSystem extends  AistoreEscrow
               
   $_REQUEST['user_email']= get_the_author_meta('user_email', get_current_user_id());
               
-            $request=     $this->create_escrow($_REQUEST)  ;
+            $escrow=     $this->create_escrow($_REQUEST)  ;
             
             
  
          
-         
-          $eid =$request['id'];
-          
- 
-       
-         //   do_action( 'aistore_escrow_created',$eid);
+           $bank_details_page_id_url = esc_url(add_query_arg(array(
+                'page_id' => get_option('bank_details_page_id') ,
+                'eid' => $escrow->id,
+            ) , home_url()));
     
             
-            $bank_details_page_id_url = esc_url(add_query_arg(array(
-                'page_id' => get_option('bank_details_page_id') ,
-                'eid' => $eid,
-            ) , home_url()));
-            
           
-
-//  echo $bank_details_page_id_url;
-
+            
+         
+ 
 ?>
 <meta http-equiv="refresh" content="0; URL=<?php echo esc_url($bank_details_page_id_url); ?>" />
 
 
 <?php
-
+ 
     
         }
         else
@@ -364,10 +354,14 @@ $current_user_email_id = get_the_author_meta('user_email', $user_id);
     <?php
             foreach ($results as $row):
 
-                $details_escrow_page_id_url = esc_url(add_query_arg(array(
-                    'page_id' => get_option('details_escrow_page_id') ,
-                    'eid' => $row->id,
-                ) , home_url()));
+
+
+
+            
+            $details_escrow_page_id_url = esc_url( $row->url);
+            
+            
+              
 
 ?>
  
@@ -490,7 +484,8 @@ global $wpdb;
                
 $escrow=$this->AistoreEscrowDetail($eid,$email_id) ;
                
-    
+     $user_email = get_the_author_meta('user_email', $user_id);
+      
     
 ?>
 <div>
@@ -504,8 +499,8 @@ $escrow=$this->AistoreEscrowDetail($eid,$email_id) ;
   </div>
   
 <?php
-	      
-        if ($escrow->payment_status == "Pending")
+	    //   if ($escrow->payment_status == "Pending")
+        if ($this->make_payment_btn_visible($escrow, $user_email))
         {
             
 ?>
@@ -514,8 +509,7 @@ $escrow=$this->AistoreEscrowDetail($eid,$email_id) ;
   
   
   <?php
- $user_email = get_the_author_meta('user_email', get_current_user_id());
-            
+      
             
             if ($escrow->sender_email == $user_email)
             {
@@ -565,10 +559,8 @@ $escrow=$this->AistoreEscrowDetail($eid,$email_id) ;
 ?>
 
 <br><br>
-<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>-->
+
+
 
 
 <nav>
@@ -594,20 +586,20 @@ $escrow=$this->AistoreEscrowDetail($eid,$email_id) ;
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         
   <?php
-  apply_filters( "after_aistore_escrow_notification", $escrow->id );
+  apply_filters( "after_aistore_escrow_notification", $escrow );
   
   ?>
   </div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
   <?php
   
-   apply_filters( "after_aistore_escrow", $escrow->id );
+   apply_filters( "after_aistore_escrow", $escrow  );
   
   ?>
       </div>
   <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"> <?php
   
-  apply_filters( "after_aistore_escrow_transaction", $escrow->id );
+  apply_filters( "after_aistore_escrow_transaction", $escrow  );
   
   ?></div>
     <div class="tab-pane fade" id="nav-term" role="tabpanel" aria-labelledby="nav-term-tab"> <?php
@@ -643,8 +635,8 @@ $escrow=$this->AistoreEscrowDetail($eid,$email_id) ;
  
   
   
-$eschat = new Aistorechat();
-$eschat->aistore_escrow_chat();
+//$eschat = new Aistorechat();
+//$eschat->aistore_escrow_chat();
  
  
         return ob_get_clean();

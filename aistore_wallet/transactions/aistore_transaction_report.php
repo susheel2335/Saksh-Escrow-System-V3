@@ -1,18 +1,26 @@
 <?php
  add_filter( 'after_aistore_escrow_transaction', 'aistore_transaction_report' );
   
-     function  aistore_transaction_report($eid){
+     function  aistore_transaction_report($escrow){
          
   
 
 	global $wpdb;
-
+  $user_id = get_current_user_id();
+           	$eid=$escrow->id;
            	
            	        // $escrow_admin_user_id = get_option('escrow_user_id');
            	        
-     	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions  t  INNER JOIN {$wpdb->prefix}users u ON  t.user_id=u.ID WHERE t.reference=".$eid. "  ORDER BY transaction_id desc";
+           	        if(aistore_isadmin())
+           	        {
+     	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions  t  INNER JOIN {$wpdb->prefix}users u ON  t.user_id=u.ID WHERE t.reference=".$eid. "     ORDER BY transaction_id desc";
      	
-  
+           	        }
+           	        else
+           	        {
+           	            
+           	            	$sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions  t  INNER JOIN {$wpdb->prefix}users u ON  t.user_id=u.ID WHERE t.reference=".$eid. "  and t.user_id= $user_id  ORDER BY transaction_id desc";
+           	        }
  
      	
      	 $results = $wpdb->get_results($sql);

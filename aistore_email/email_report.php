@@ -1,17 +1,17 @@
 <?php
  add_filter( 'after_aistore_escrow', 'aistore_email_report' );
   
-     function  aistore_email_report($eid){
+     function  aistore_email_report($escrow){
          
          ?>
    
            <h1> <?php _e('Email Notification', 'aistore') ?> </h1>  <br>
      <?php
-      
+      	$eid=$escrow->id;
 	global $wpdb;
            	 
 //  $sql = "SELECT * FROM {$wpdb->prefix}escrow_email " ;
-  $sql = "SELECT * FROM {$wpdb->prefix}escrow_email WHERE   reference_id=".$eid;
+  $sql = "SELECT * FROM {$wpdb->prefix}escrow_email WHERE   reference_id=".$eid.  " order by id desc ";
  
      	 $results = $wpdb->get_results($sql);
      	  if ($results == null)

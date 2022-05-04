@@ -1,41 +1,33 @@
 <?php
-add_action('AistorEscrowCreated', 'sendEmailCreated', 10, 3);
-add_action('AistorEscrowAccepted', 'sendEmailAccepted', 10, 3);
-add_action('AistorEscrowCancelled', 'sendEmailCancelled', 10, 3);
-add_action('AistorEscrowDisputed', 'sendEmailDisputed', 10, 3);
-add_action('AistorEscrowReleased', 'sendEmailReleased', 10, 3);
+ 
 
 
-//   why we bring eid why not full escrow
-function sendEmailCreated($request)
+add_action('AistoreEscrowCreated', 'sendEmailCreated', 10, 3);
+add_action('AistoreEscrowAccepted', 'sendEmailAccepted', 10, 3);
+add_action('AistoreEscrowCancelled', 'sendEmailCancelled', 10, 3);
+add_action('AistoreEscrowDisputed', 'sendEmailDisputed', 10, 3);
+add_action('AistoreEscrowReleased', 'sendEmailReleased', 10, 3);
+
+
+
+
+ 
+function sendEmailCreated($escrow )
 {
     
      
-
-
-  global $wpdb;
-  $eid= $request['id'] ;
+ 
    
  
-    $user_id = get_current_user_id();
-    $user_email = get_the_author_meta('user_email', $user_id);
- 
-  
-    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%d ", $eid));
-    
      
-
-
-
-    $details_escrow_page_id_url = esc_url(add_query_arg(array(
-        'page_id' => get_option('details_escrow_page_id') ,
-        'eid' => $eid,
-    ) , home_url()));
     
-      
+    $details_escrow_page_id_url = $escrow->url;
 
-     $party_email = $escrow->receiver_email;
-    
+    $user_email = $escrow->sender_email;
+    $party_email = $escrow->receiver_email;
+
+ 
+       
  
     
     $subject  =get_option('email_created_escrow') ;
@@ -52,7 +44,7 @@ function sendEmailCreated($request)
     $n['type'] = "success";
     $n['subject'] = $subject;
     $n['escrow'] = $escrow;
-    $n['reference_id'] = $eid;
+    $n['reference_id'] = $escrow->id;
   $n['url'] = $details_escrow_page_id_url;
     $n['email'] =  $user_email   ;
    
@@ -83,31 +75,20 @@ function sendEmailCreated($request)
 
 }
 
-function sendEmailAccepted($eid)
+function sendEmailAccepted($escrow)
 {
     
-    $user_id = get_current_user_id();
-    $user_email = get_the_author_meta('user_email', $user_id);
+   
+   
+    
+    $details_escrow_page_id_url = $escrow->url;
 
-    global $wpdb;
-    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
-
-    $details_escrow_page_id_url = esc_url(add_query_arg(array(
-        'page_id' => get_option('details_escrow_page_id') ,
-        'eid' => $eid,
-    ) , home_url()));
-
-    if ($user_email == $escrow->sender_email)
-    {
-        $party_email = $escrow->receiver_email;
-    }
-    else
-    {
-        $party_email = $escrow->sender_email;
-    }
+    $user_email = $escrow->sender_email;
+    $party_email = $escrow->receiver_email;
 
 
-   // send email to party
+
+    
     
      $subject  =get_option('email_accept_escrow') ;
      $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
@@ -123,7 +104,7 @@ function sendEmailAccepted($eid)
     $n['type'] = "success";
     $n['subject'] = $subject;
     $n['escrow'] = $escrow;
-    $n['reference_id'] = $eid;
+    $n['reference_id'] =  $escrow->id;
     $n['url'] = $details_escrow_page_id_url;
     $n['email'] = $party_email;
     //$n['party_email'] = $user_email;
@@ -156,28 +137,19 @@ function sendEmailAccepted($eid)
 
 }
 
-function sendEmailCancelled($eid)
+function sendEmailCancelled($escrow)
 {
   
-    $user_id = get_current_user_id();
-    $user_email = get_the_author_meta('user_email', $user_id);
+  
+  
+    
+    $details_escrow_page_id_url = $escrow->url;
 
-    global $wpdb;
-    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
+    $user_email = $escrow->sender_email;
+    $party_email = $escrow->receiver_email;
 
-    $details_escrow_page_id_url = esc_url(add_query_arg(array(
-        'page_id' => get_option('details_escrow_page_id') ,
-        'eid' => $eid,
-    ) , home_url()));
 
-    if ($user_email == $escrow->sender_email)
-    {
-        $party_email = $escrow->receiver_email;
-    }
-    else
-    {
-        $party_email = $escrow->sender_email;
-    }
+ 
 
 
     // send email to party
@@ -196,7 +168,7 @@ function sendEmailCancelled($eid)
     $n['type'] = "success";
     $n['subject'] = $subject;
     $n['escrow'] = $escrow;
-    $n['reference_id'] = $eid;
+    $n['reference_id'] = $escrow->id;
     $n['url'] = $details_escrow_page_id_url;
     $n['email'] = $party_email;
     $n['party_email'] = $user_email;
@@ -228,29 +200,19 @@ function sendEmailCancelled($eid)
     aistore_send_email($n);
 }
 
-function sendEmailDisputed($eid)
+function sendEmailDisputed($escrow)
 {
+  
+  
     
-    $user_id = get_current_user_id();
-    $user_email = get_the_author_meta('user_email', $user_id);
+    $details_escrow_page_id_url = $escrow->url;
 
-    global $wpdb;
-    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
+    $user_email = $escrow->sender_email;
+    $party_email = $escrow->receiver_email;
+    
+    
 
-    $details_escrow_page_id_url = esc_url(add_query_arg(array(
-        'page_id' => get_option('details_escrow_page_id') ,
-        'eid' => $eid,
-    ) , home_url()));
-
-    if ($user_email == $escrow->sender_email)
-    {
-        $party_email = $escrow->receiver_email;
-    }
-    else
-    {
-        $party_email = $escrow->sender_email;
-    }
-
+    
     // send email to party
     
      $subject  =get_option('email_dispute_escrow') ;
@@ -267,7 +229,7 @@ function sendEmailDisputed($eid)
     $n['type'] = "success";
     $n['subject'] = $subject;
     $n['escrow'] = $escrow;
-    $n['reference_id'] = $eid;
+    $n['reference_id'] = $escrow->id;
     $n['url'] = $details_escrow_page_id_url;
     $n['email'] = $party_email;
     $n['party_email'] = $user_email;
@@ -300,30 +262,19 @@ function sendEmailDisputed($eid)
 
 }
 
-function sendEmailReleased($eid)
+function sendEmailReleased($escrow)
 {
 
    
-    $user_id = get_current_user_id();
-    $user_email = get_the_author_meta('user_email', $user_id);
+   
+    
+    $details_escrow_page_id_url = $escrow->url;
 
-    global $wpdb;
-    $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE   id=%s ", $eid));
-
-    $details_escrow_page_id_url = esc_url(add_query_arg(array(
-        'page_id' => get_option('details_escrow_page_id') ,
-        'eid' => $eid,
-    ) , home_url()));
-
-    if ($user_email == $escrow->sender_email)
-    {
-        $party_email = $escrow->receiver_email;
-    }
-    else
-    {
-        $party_email = $escrow->sender_email;
-    }
-
+    $user_email = $escrow->sender_email;
+    $party_email = $escrow->receiver_email;
+    
+    
+    
      // send email to party
     
      $subject  =get_option('email_release_escrow') ;
@@ -339,7 +290,7 @@ function sendEmailReleased($eid)
     $n['type'] = "success";
     $n['subject'] = $subject;
     $n['escrow'] = $escrow;
-    $n['reference_id'] = $eid;
+    $n['reference_id'] = $escrow->id;
     $n['url'] = $details_escrow_page_id_url;
     $n['email'] = $party_email;
     $n['party_email'] = $user_email;

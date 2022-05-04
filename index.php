@@ -334,13 +334,14 @@ function Aistore_process_placeholder_EID($str, $eid)
 
 function Aistore_process_placeholder_Text($str, $escrow)
 {
- $details_escrow_page_id_url = esc_url(add_query_arg(array(
-        'page_id' => get_option('details_escrow_page_id') ,
-        'eid' => $escrow->id,
-    ) , home_url()));
+ $details_escrow_page_id_url =$escrow->url;
     
     $date = $escrow->created_at;
+    
+    
 date_default_timezone_set('America/Los_Angeles');
+
+
 $datetime= date('l F j Y g:i:s A I', strtotime($date));
     
  

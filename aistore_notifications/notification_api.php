@@ -52,9 +52,9 @@ $user_email = get_the_author_meta('user_email', get_current_user_id());
   
  add_filter( 'after_aistore_escrow_notification', 'after_aistore_escrow_notification' );
   
-     function  after_aistore_escrow_notification($eid){
+     function  after_aistore_escrow_notification($escrow){
      	global $wpdb;
-            
+            	$eid=$escrow->id;
  $sql = "SELECT * FROM {$wpdb->prefix}escrow_notification WHERE  {$wpdb->prefix}escrow_notification.reference_id=".$eid." order by id desc";
  
      	 $results = $wpdb->get_results($sql);

@@ -71,8 +71,10 @@
     SET payment_status = 'paid'  WHERE id = '%d' ", $eid));
     
     
-    
-     sendNotificationPaymentAccepted($eid);
+    $ae=new AistoreEscrow();
+      $escrow = $ae->AistoreGetEscrow($eid);
+     do_action("AistoreEscrowPaymentAccepted", $escrow);
+     
 
                 }
                 
@@ -91,6 +93,12 @@
                     $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
     SET payment_status = 'Rejected'  WHERE id = '%d' ", $eid));
 
+
+  $ae=new AistoreEscrow();
+      $escrow = $ae->AistoreGetEscrow($eid);
+     do_action("AistoreEscrowPaymentRefund", $escrow);
+     
+     
                     
                 }
                 
@@ -128,6 +136,9 @@
 
             $escrow_wallet->aistore_credit($sender_id, $escrow_amount, $aistore_escrow_currency, $escrow_details,$eid); 
                     
+           //    $escrow_wallet->aistore_debit($sender_id, $escrow_amount, $aistore_escrow_currency, $escrow_details,$eid);
+               
+               
                     
             $escrow_details = 'Escrow Fee for the cancelled escrow with escrow id # '.$eid;
                     
@@ -135,11 +146,19 @@
 
             $escrow_wallet->aistore_credit($sender_id, $escrow_fee, $aistore_escrow_currency, $escrow_details,$eid); 
             
+       $escrow_wallet->aistore_debit($sender_id, $escrow_fee+$escrow_amount, $aistore_escrow_currency, $escrow_details,$eid);  // debit as it was wrongly credited to the user 
+       
+       
             
                     $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
     SET payment_status = 'Pending'  WHERE id = '%d' ", $eid));
 
-                     sendNotificationPaymentRefund($eid);
+                    
+                         
+    $ae=new AistoreEscrow();
+      $escrow = $ae->AistoreGetEscrow($eid);
+     do_action("AistoreEscrowPaymentRefund", $escrow);
+     
 
                 }
              

@@ -100,7 +100,7 @@
                        $sender_email = $escrow->sender_email;
             $user = get_user_by('email', $sender_email);
             $sender_id = $user->ID;
-                      $escrow_details = 'Send Payment To User Account  with escrow id # '.$eid;
+                      $escrow_details = 'Send Payment To User Account  with escrow id #'.$eid;
                       
                        $escrow_wallet = new AistoreWallet();
                        
@@ -112,9 +112,14 @@
             $escrow_wallet->aistore_credit($sender_id, $new_amount, $aistore_escrow_currency, $escrow_details,$eid); 
                     
                     
-                     $created_escrow_message = get_option('created_escrow_message');
-        $escrow_details =$created_escrow_message .$eid;
+                   //  $created_escrow_message = get_option('created_escrow_message');
+        //$escrow_details =$created_escrow_message .$eid;
                 
+                
+                    $escrow_details =Aistore_process_placeholder_Text (  get_option('created_escrow_message') ,$escrow);
+                 
+                 
+                 
                     
                         $escrow_wallet->aistore_debit($sender_id, $escrow_amount, $aistore_escrow_currency, $escrow_details,$eid);
 
@@ -132,7 +137,14 @@
     
     
     
-     sendNotificationPaymentAccepted($eid);
+     //sendNotificationPaymentAccepted($eid);
+     
+       
+    $ae=new AistoreEscrow();
+      $escrow = $ae->AistoreGetEscrow($eid);
+     do_action("AistoreEscrowPaymentAccepted", $escrow);
+     
+     
 
                 }
                 
@@ -199,8 +211,12 @@
                     $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
     SET payment_status = 'Pending'  WHERE id = '%d' ", $eid));
 
-                     sendNotificationPaymentRefund($eid);
+                   //  sendNotificationPaymentRefund($eid);
 
+
+  $ae=new AistoreEscrow();
+      $escrow = $ae->AistoreGetEscrow($eid);
+     do_action("AistoreEscrowPaymentRefund", $escrow);
                 }
              
              
@@ -219,7 +235,15 @@
             $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
     SET status = 'disputed'  WHERE id = '%d'", $eid));
       $dispute_escrow_success_message = get_option('dispute_escrow_success_message');
-sendNotificationDisputed($eid);
+//sendNotificationDisputed($eid);
+  
+  $ae=new AistoreEscrow();
+ $escrow = $ae->AistoreGetEscrow($eid);
+
+            do_action("AistoreEscrowDisputed", $escrow);
+            
+            
+            
 ?>
 <div>
 <strong> <?php echo esc_html($dispute_escrow_success_message); ?></strong></div>
@@ -261,8 +285,17 @@ sendNotificationDisputed($eid);
 }
 
        
+           
             
-            sendNotificationAccepted($eid);
+              $ae=new AistoreEscrow();
+ $escrow = $ae->AistoreGetEscrow($eid);
+
+            do_action("AistoreEscrowAccepted", $escrow);
+            
+            
+            
+            
+            
              $accept_escrow_success_message = get_option('accept_escrow_success_message');
 
 ?>
@@ -315,7 +348,17 @@ sendNotificationDisputed($eid);
             $escrow_wallet->aistore_credit($id, $escrow_amount, $aistore_escrow_currency, $escrow_details,$eid);
             
             $release_escrow_success_message = get_option('release_escrow_success_message');
-            sendNotificationReleased($eid);
+           // sendNotificationReleased($eid);
+            
+            
+            
+              $ae=new AistoreEscrow();
+ $escrow = $ae->AistoreGetEscrow($eid);
+
+            do_action("AistoreEscrowReleased", $escrow);
+            
+            
+            
 ?>
 <div>
 <strong> <?php echo esc_html($release_escrow_success_message); ?></strong></div>
@@ -376,8 +419,8 @@ sendNotificationDisputed($eid);
             $sender_email = $escrow->sender_email;
             $user = get_user_by('email', $sender_email);
             $sender_id = $user->ID;
-            $cancel_escrow_message = get_option('cancel_escrow_message');
-            $escrow_details = $cancel_escrow_message . $eid;
+            $escrow_details =Aistore_process_placeholder_Text (  get_option('cancel_escrow_message') ,$escrow);
+            //$escrow_details = $cancel_escrow_message . $eid;
   
 
             $escrow_wallet = new AistoreWallet();
@@ -394,8 +437,20 @@ sendNotificationDisputed($eid);
 
               $escrow_wallet->aistore_credit($sender_id, $sender_escrow_fee, $aistore_escrow_currency, $escrow_details,$eid);
             
-             $cancel_escrow_success_message = get_option('cancel_escrow_success_message');
-              sendNotificationCancelled($eid);
+          //   $cancel_escrow_success_message = get_option('cancel_escrow_success_message');
+           //   sendNotificationCancelled($eid);
+              
+              
+                 $cancel_escrow_success_message =Aistore_process_placeholder_Text (  get_option('cancel_escrow_success_message') ,$escrow);
+                 
+                 
+              
+              $ae=new AistoreEscrow();
+ $escrow = $ae->AistoreGetEscrow($eid);
+
+            do_action("AistoreEscrowCancelled", $escrow);
+            
+            
             }
 ?>
 <div>
@@ -673,19 +728,19 @@ sendNotificationDisputed($eid);
         
   <?php
   
-  apply_filters( "after_aistore_escrow_notification", $escrow->id );
+  apply_filters( "after_aistore_escrow_notification", $escrow  );
   
   ?>
   </div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
   <?php
   
-        apply_filters( "after_aistore_escrow", $escrow->id );
+        apply_filters( "after_aistore_escrow", $escrow  );
         ?>
       </div>
   <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"> <?php
   
-  apply_filters( "after_aistore_escrow_transaction", $escrow->id );
+  apply_filters( "after_aistore_escrow_transaction", $escrow  );
   
   ?></div>
 </div>
