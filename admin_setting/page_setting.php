@@ -9,7 +9,37 @@
 	   <?php echo AistoregetSupportMsg(); ?>
 <h3><?php _e('Escrow Setting', 'aistore') ?></h3>
  
-	                    
+	                
+
+ 
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      
+        <button class="nav-link active" id="nav-home1-tab" data-bs-toggle="tab" data-bs-target="#nav-home1" type="button" role="tab" aria-controls="nav-home1" aria-selected="true">Step 1</button>
+        
+        
+    <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Step 2</button>
+    
+    
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Step 3</button>
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Step 4</button>
+    
+     <button class="nav-link" id="nav-contact1-tab" data-bs-toggle="tab" data-bs-target="#nav-contact1" type="button" role="tab" aria-controls="nav-contact1" aria-selected="false">Step 5</button>
+  </div>
+</nav>
+
+
+<br>
+<div class="tab-content" id="nav-tabContent">
+    
+    <div class="tab-pane fade show active" id="nav-home1" role="tabpanel" aria-labelledby="nav-home1-tab">
+        
+
 <p><?php _e('Step 1', 'aistore') ?></p>
 
 
@@ -148,7 +178,13 @@
             $wpdb->query("INSERT INTO {$wpdb->prefix}escrow_currency ( currency, symbol  ) VALUES ( 'USD' ,'USD')");
 
 
-             email_notification_message();
+         //    email_notification_message();
+             
+             
+        do_action("AistoreEscrow_Install");
+        
+        
+        
 
 echo "<strong>If no error then task completed successfully.</strong>";
         }
@@ -297,76 +333,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
         </tr> 
         
         
-        	 <tr valign="top">
-        <th scope="row"><?php _e('Bank Details Page', 'aistore') ?></th>
-        <td>
-		<select name="bank_details_page_id" >
-		 
-		 
-		  <?php
-        foreach ($pages as $page)
-        {
-
-            if ($page->ID == get_option('bank_details_page_id'))
-            {
-                echo '	<option selected value="' . esc_attr($page->ID) . '">' . esc_attr($page->post_title) . '</option>';
-
-            }
-            else
-            {
-
-                echo '	<option  value="' .esc_attr( $page->ID ). '">' . esc_attr($page->post_title ). '</option>';
-
-            }
-        } ?> 
-	 
-	 
-		 
-					  
-					
- 
-</select>
-
-<p><?php _e('Create a page add this shortcode ', 'aistore') ?> <strong> [aistore_bank_details] </strong> <?php _e('and then select that page here.', 'aistore') ?> </p>
-
-
-
-
-
-</td>
-        </tr>
+    
         
-        
-        
-        	 <tr valign="top">
-        <th scope="row"><?php _e('Notification Page', 'aistore') ?></th>
-        <td>
-		<select name="notification_page_id" >
-		 
-		 
-		  <?php
-        foreach ($pages as $page)
-        {
+        <?php  
+        do_action("AistoreNotification_setting");
+        do_action("Aistorebank_payment");
+        ?>
 
-            if ($page->ID == get_option('notification_page_id'))
-            {
-                echo '	<option selected value="' .esc_attr( $page->ID) . '">' . esc_attr($page->post_title) . '</option>';
-
-            }
-            else
-            {
-
-                echo '	<option  value="' . esc_attr($page->ID) . '">' . esc_attr($page->post_title ). '</option>';
-
-            }
-        } ?> 
-
-</select>
-
-<p><?php _e('Create a page add this shortcode ', 'aistore') ?> <strong> [aistore_notification] </strong> <?php _e('and then select that page here.', 'aistore') ?> </p>
-
-</td>
-        </tr>
         
         
         
@@ -401,77 +374,38 @@ echo "<strong>If no error then task completed successfully.</strong>";
 </td>
         </tr>
         
+         
+        <?php  
+        do_action("Aistore_withdraw");
+    
+        ?>
+
         
+         
         
-        
-        	 <tr valign="top">
-        <th scope="row"><?php _e('Withdraw Page', 'aistore') ?></th>
-        <td>
-		<select name="aistore_saksh_withdrawal_system" >
-		 
-		 
-		  <?php
-        foreach ($pages as $page)
-        {
-
-            if ($page->ID == get_option('aistore_saksh_withdrawal_system'))
-            {
-                echo '	<option selected value="' . esc_attr($page->ID ). '">' . esc_attr($page->post_title) . '</option>';
-
-            }
-            else
-            {
-
-                echo '	<option  value="' .esc_attr( $page->ID) . '">' . esc_attr($page->post_title) . '</option>';
-
-            }
-        } ?> 
-
-</select>
-
-<p><?php _e('Create a page add this shortcode ', 'aistore') ?> <strong> [aistore_saksh_withdrawal_system] </strong> <?php _e('and then select that page here.', 'aistore') ?> </p>
-
-</td>
-        </tr>
-        
-        
-        
-        
-        	 <tr valign="top">
-        <th scope="row"><?php _e('Bank Account Page', 'aistore') ?></th>
-        <td>
-		<select name="aistore_bank_account" >
-		 
-		 
-		  <?php
-        foreach ($pages as $page)
-        {
-
-            if ($page->ID == get_option('aistore_bank_account'))
-            {
-                echo '	<option selected value="' .esc_attr( $page->ID ). '">' .esc_attr( $page->post_title) . '</option>';
-
-            }
-            else
-            {
-
-                echo '	<option  value="' .esc_attr( $page->ID ). '">' . esc_attr($page->post_title) . '</option>';
-
-            }
-        } ?> 
-
-</select>
-
-<p><?php _e('Create a page add this shortcode ', 'aistore') ?> <strong> [aistore_bank_account] </strong> <?php _e('and then select that page here.', 'aistore') ?> </p>
-
-</td>
-        </tr>
         
         
         </table>
         
         	<hr/>
         	
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--///step 2-->
+  
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        
 <p><?php _e('Step 2', 'aistore') ?></p>
 
 
@@ -509,28 +443,18 @@ echo "<strong>If no error then task completed successfully.</strong>";
         } ?> 
   </tr>  
 </select>
+
 <?php 
  $_new_user_url = admin_url('user-new.php', 'https'); ?>
 <p><?php _e('Add a new admin user with admin roll and then  ', 'aistore') ?><a href="<?php echo esc_url($_new_user_url); ?>">Click Here</a></p>
 
 <p><?php _e('Add an user with admin roll and then select its ID here', 'aistore') ?></p>
- <tr valign="top">
- <th scope="row"><?php _e('Chat system public people show or not', 'aistore') ?></th>
-        <td>
-            <?php $escrow_message_page = get_option('escrow_message_page'); ?>
-            
-            <select name="escrow_message_page" id="escrow_message_page">
-               
-            <option selected value="yes" <?php selected($escrow_message_page, 'yes'); ?>>Yes</option>
-            <option value="no" <?php selected($escrow_message_page, 'no'); ?>>No</option>
-  
-</select>
-	
-</td>
-        </tr>  
+
+
+
         
-        
-        
+        <?php   do_action("Aistorechat_system");
+        ?>
  
         
 
@@ -549,25 +473,10 @@ echo "<strong>If no error then task completed successfully.</strong>";
 </td>
         </tr>  
         
+        <?php    do_action("Aistoreupload_file_type");
+        ?>
         
-        
-         <tr valign="top">
- <th scope="row"><?php _e('Upload File type', 'aistore') ?></th>
-        <td>
-            <?php $escrow_file_type = esc_attr(get_option('escrow_file_type')); ?>
-            
-            <select name="escrow_file_type" id="escrow_file_type">
-                
-               
-            <option selected value="pdf" <?php selected($escrow_file_type, 'pdf'); ?>>pdf</option>
-            <option value="xlsx" <?php selected($escrow_file_type, 'xlsx'); ?>>xlsx</option>
-  
-   <option value="ppt" <?php selected($escrow_file_type, 'ppt'); ?>>ppt</option>
-      <option value="doc" <?php selected($escrow_file_type, 'doc'); ?>>doc</option>
-</select>
-	
-</td>
-        </tr>  
+      
               
   
     </table>
@@ -577,6 +486,26 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
     	<hr/>
         	 
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!----step 3 -->
+   <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         	
 <p><?php _e('Step 3', 'aistore') ?></p>
 
@@ -615,49 +544,235 @@ echo "<strong>If no error then task completed successfully.</strong>";
         <td><input type="number" name="escrow_accept_fee" value="<?php echo esc_attr(get_option('escrow_accept_fee')); ?>" />%</td>
         </tr>
         
-         <tr valign="top">
-        <th scope="row"><?php _e('Withdraw Fee', 'aistore') ?></th>
-        <td><input type="number" name="withdraw_fee" value="<?php echo esc_attr(get_option('withdraw_fee')); ?>" />%</td>
-        </tr>
-        
-  
+   <?php
+         do_action("Aistore_withdraw_fee");
+  ?>
   
     </table>
     
     <hr>
     
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--step 4-->
+  
+    <div class="tab-pane fade show active" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        
+
     <p><?php _e('Step 4', 'aistore') ?></p>
 
+<?php    do_action("Aistorebank_payment_details");
+        ?>
 
 
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--step 5 -->
+  
+  
+    <div class="tab-pane fade show active" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact1-tab">
+        
+        
+          
+    <p><?php _e('Step 5', 'aistore') ?></p>
+    
+<p><?php _e('Enable and Disable Extension ', 'aistore') ?></p>
 
-
+        	
         <table class="form-table">
         
-        <h3><?php _e('Bank Account Details', 'aistore') ?></h3>
-        
+      
 
-           <tr valign="top">
-        <th scope="row"><?php _e('Bank Details', 'aistore') ?></th>
-        <td>
-             <textarea id="bank_details" name="bank_details" rows="2" cols="50">
-<?php echo esc_attr(get_option('bank_details')); ?>
-</textarea>
-        </td>
-        </tr>
+      
         
-           <tr valign="top">
-        <th scope="row"><?php _e('Deposit Instructions', 'aistore') ?></th>
+ <tr valign="top">
+ <th scope="row"><?php _e('Wallet', 'aistore') ?></th>
         <td>
-             <textarea id="deposit_instructions" name="deposit_instructions" rows="2" cols="50">
-<?php echo esc_attr(get_option('deposit_instructions')); ?>
-</textarea>
-        </td>
-        </tr>
-       
+            <?php $wallet_system = get_option('wallet_system'); ?>
+            
+            <select name="wallet_system" id="wallet_system">
+               
+            <option selected value="yes" <?php selected($wallet_system, 'yes'); ?>>Yes</option>
+            <option value="no" <?php selected($wallet_system, 'no'); ?>>No</option>
   
+</select>
+	
+</td>
+        </tr>  
+        
+         <tr valign="top">
+ <th scope="row"><?php _e('Chat', 'aistore') ?></th>
+        <td>
+            <?php $chat_system = get_option('chat_system'); ?>
+            
+            <select name="chat_system" id="chat_system">
+               
+            <option selected value="yes" <?php selected($chat_system, 'yes'); ?>>Yes</option>
+            <option value="no" <?php selected($chat_system, 'no'); ?>>No</option>
   
-    </table>
+</select>
+	
+</td>
+        </tr> 
+        
+          <tr valign="top">
+ <th scope="row"><?php _e('File Upload', 'aistore') ?></th>
+        <td>
+            <?php $file_upload_system = get_option('file_upload_system'); ?>
+            
+            <select name="file_upload_system" id="file_upload_system">
+               
+            <option selected value="yes" <?php selected($file_upload_system, 'yes'); ?>>Yes</option>
+            <option value="no" <?php selected($file_upload_system, 'no'); ?>>No</option>
+  
+</select>
+	
+</td>
+        </tr> 
+        
+        
+         <tr valign="top">
+ <th scope="row"><?php _e('Notification', 'aistore') ?></th>
+        <td>
+            <?php $notification_system = get_option('notification_system'); ?>
+            
+            <select name="notification_system" id="notification_system">
+               
+            <option selected value="yes" <?php selected($notification_system, 'yes'); ?>>Yes</option>
+            <option value="no" <?php selected($notification_system, 'no'); ?>>No</option>
+  
+</select>
+	
+</td>
+        </tr> 
+        
+        
+         <tr valign="top">
+ <th scope="row"><?php _e('Email', 'aistore') ?></th>
+        <td>
+            <?php $email_system = get_option('email_system'); ?>
+            
+            <select name="email_system" id="email_system">
+               
+            <option selected value="yes" <?php selected($email_system, 'yes'); ?>>Yes</option>
+            <option value="no" <?php selected($email_system, 'no'); ?>>No</option>
+  
+</select>
+	
+</td>
+        </tr> 
+        
+        
+        
+        
+         <tr valign="top">
+ <th scope="row"><?php _e('Currency Convert', 'aistore') ?></th>
+        <td>
+            <?php $currency_convert_system = get_option('currency_convert_system'); ?>
+            
+            <select name="currency_convert_system" id="currency_convert_system">
+               
+            <option selected value="yes" <?php selected($currency_convert_system, 'yes'); ?>>Yes</option>
+            <option value="no" <?php selected($currency_convert_system, 'no'); ?>>No</option>
+  
+</select>
+	
+</td>
+        </tr> 
+        
+        
+        
+         <tr valign="top">
+ <th scope="row"><?php _e('Payment Gateway', 'aistore') ?></th>
+        <td>
+            <?php $payment_gateway_system = get_option('payment_gateway_system'); ?>
+            
+            <select name="payment_gateway_system" id="payment_gateway_system">
+               
+            <option selected value="yes" <?php selected($payment_gateway_system, 'yes'); ?>>Yes</option>
+            <option value="no" <?php selected($payment_gateway_system, 'no'); ?>>No</option>
+  
+</select>
+	
+</td>
+        </tr> 
+        
+         
+         <tr valign="top">
+ <th scope="row"><?php _e('Bank Payment', 'aistore') ?></th>
+        <td>
+            <?php $bank_payment_system = get_option('bank_payment_system'); ?>
+            
+            <select name="bank_payment_system" id="bank_payment_system">
+               
+            <option selected value="yes" <?php selected($bank_payment_system, 'yes'); ?>>Yes</option>
+            <option value="no" <?php selected($bank_payment_system, 'no'); ?>>No</option>
+  
+</select>
+	
+</td>
+        </tr> 
+        
+         <tr valign="top">
+ <th scope="row"><?php _e('Withdraw', 'aistore') ?></th>
+        <td>
+            <?php $withdraw_system = get_option('withdraw_system'); ?>
+            
+            <select name="withdraw_system" id="withdraw_system">
+               
+            <option selected value="yes" <?php selected($withdraw_system, 'yes'); ?>>Yes</option>
+            <option value="no" <?php selected($withdraw_system, 'no'); ?>>No</option>
+  
+</select>
+	
+</td>
+        </tr> 
+        
+        
+        </table>
+    
+        </div>
+        
+        
+        
+        
+        
+  </div>
+
+
+
+  
     
     <?php submit_button(); ?>
 

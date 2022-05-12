@@ -147,6 +147,75 @@ class AistoreEscrow
 
         return $escrow;
     }
+    
+    
+    
+       public function AistoreEscrowMarkPaid($escrow )
+    {
+        global $wpdb;
+
+         $escrow_admin_user_id = $this->get_escrow_admin_user_id();
+                    
+         $aistore_escrow_currency = $escrow->currency;
+                     
+     $escrow_amount = $escrow->amount;
+                     
+       $escrow_fee = $escrow->escrow_fee;
+                     
+                     $eid=$escrow->id;
+                     
+                     
+        $sender_email = $escrow->sender_email;
+          
+            $user = get_user_by('email', $sender_email);
+           
+            $sender_id = $user->ID;
+                    
+    $escrow_payment_credit_by_gateway = 'Send Payment To User Account  with escrow id # '.$eid;
+                      
+        
+   $escrow_wallet = new AistoreWallet();
+                       
+   
+        
+        
+        
+ $description_amount_transfer = 'Escrow amount for the created escrow with id #'.$eid;
+        
+        
+        
+  
+   $escrow_wallet->aistore_transfer($sender_id,$escrow_admin_user_id,  $escrow_amount, $aistore_escrow_currency, $description_amount_transfer,$eid);
+               
+               
+   
+                    
+ $description_fee_transfer = 'Escrow Fee for the created escrow with id #'.$eid;
+        
+        
+        $escrow_wallet->aistore_transfer($sender_id,$escrow_admin_user_id,  $escrow_fee, $aistore_escrow_currency, $description_fee_transfer,$eid);
+               
+         
+            
+            
+       global  $wpdb;
+       
+ $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}escrow_system
+    SET payment_status = 'paid'  WHERE id = '%d' ", $eid));
+    
+    
+   
+      $escrow = $this->AistoreGetEscrow($eid); // make sure we get updated escrow before pushing data to anyone
+      
+      
+     do_action("AistoreEscrowPaymentAccepted", $escrow);
+
+        return $escrow;
+    }
+
+
+
+
 
     function CancelEscrow____ReviewNeeded($escrow, $email_id)
     {
@@ -229,21 +298,15 @@ class AistoreEscrow
                 if ($escrow_fee_deducted == "accepted") {
                     $escrow_wallet = new AistoreWallet();
 
-                    $escrow_wallet->aistore_debit(
-                        $user_id,
-                        $escrow_fee,
-                        $aistore_escrow_currency,
-                        $escrow_details,
-                        $eid
-                    );
 
-                    $escrow_wallet->aistore_credit(
-                        $escrow_admin_user_id,
-                        $escrow_fee,
-                        $aistore_escrow_currency,
-                        $escrow_details,
-                        $eid
-                    ); // change variable name
+
+        
+        $escrow_wallet->aistore_transfer($user_id,$escrow_admin_user_id,  $escrow_fee, $aistore_escrow_currency, $escrow_details,$eid);
+        
+        
+      
+                    
+                    
                 }
 
                 global $wpdb;
@@ -483,17 +546,40 @@ class AistoreEscrow
   <input type="hidden" name="action" value="disputed" />
 </form> <?php }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public function aistore_escrow_btn_actions()
     {
         global $wpdb;
         $eid = sanitize_text_field($_REQUEST["eid"]);
-
-        $escrow = $wpdb->get_row(
-            $wpdb->prepare(
-                "SELECT * FROM {$wpdb->prefix}escrow_system where id=%s ",
-                $eid
-            )
-        );
+ $escrow_wallet = new AistoreWallet();
+ 
+ 
+    $escrow =$this->AistoreGetEscrow($eid );
+ 
+ 
+ 
+  
 
         $escrow_admin_user_id = $this->get_escrow_admin_user_id();
 
@@ -539,13 +625,12 @@ do_action("AistoreEscrowDisputed", $escrow);
                 return _e("Sorry, your nonce did not verify", "aistore");
             }
 
-            $escrow = $wpdb->get_row(
-                $wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}escrow_system WHERE receiver_email = %s  and id=%s ",
-                    $email_id,
-                    $eid
-                )
-            );
+
+
+    $escrow =$this->AistoreEscrowDetail($eid,$email_id );
+    
+    
+     
 
             $aistore_escrow_currency = $escrow->currency;
             $user_email = get_the_author_meta(
@@ -572,10 +657,13 @@ do_action("AistoreEscrowDisputed", $escrow);
             } elseif ($escrow->status == "accepted") {
                 return "";
             }
-            $es = new AistoreEscrow();
+            
+             
+     
+          
             $amount = $escrow->amount;
 
-            $escrow_fee = $es->accept_escrow_fee($amount);
+            $escrow_fee = $this->accept_escrow_fee($amount);
 
             // fee will be debited from both party once user accept the escrow
 
@@ -584,23 +672,17 @@ do_action("AistoreEscrowDisputed", $escrow);
             $escrow_fee_deducted = get_option("escrow_fee_deducted");
 
             if ($escrow_fee_deducted == "accepted") {
-                $escrow_wallet = new AistoreWallet();
+               
 
-                $escrow_wallet->aistore_debit(
-                    $user_id,
-                    $escrow_fee,
-                    $aistore_escrow_currency,
-                    $escrow_details,
-                    $eid
-                );
 
-                $escrow_wallet->aistore_credit(
-                    $escrow_admin_user_id,
-                    $escrow_fee,
-                    $aistore_escrow_currency,
-                    $escrow_details,
-                    $eid
-                ); // change variable name
+   
+        $escrow_wallet->aistore_transfer($user_id,$escrow_admin_user_id,  $escrow_fee, $aistore_escrow_currency, $escrow_details,$eid);
+        
+        
+      
+           
+      
+              
             }
             $wpdb->query(
                 $wpdb->prepare(
@@ -611,6 +693,10 @@ do_action("AistoreEscrowDisputed", $escrow);
                     $eid
                 )
             );
+            
+             
+     
+     
             $accept_escrow_success_message =Aistore_process_placeholder_Text (  get_option(
                 "accept_escrow_success_message"
             ) ,$escrow) ;
@@ -644,6 +730,23 @@ do_action("AistoreEscrowAccepted", $escrow);
                 )
             );
 
+
+
+
+
+             $wpdb->query(
+                $wpdb->prepare(
+                    "UPDATE {$wpdb->prefix}escrow_system
+    SET status = 'released'  WHERE  payment_status='paid' and  sender_email=%s and id = %d ",
+                    $email_id,
+                    $eid
+                )
+            );
+            
+             
+            
+            
+            
             $aistore_escrow_currency = $escrow->currency;
             $escrow_amount = $escrow->amount;
             $escrow_fee = $escrow->escrow_fee;
@@ -657,55 +760,29 @@ do_action("AistoreEscrowAccepted", $escrow);
          
 
             $escrow_fee_deducted = get_option("escrow_fee_deducted");
-            $escrow_wallet = new AistoreWallet();
+            
 
             if ($escrow_fee_deducted == "released") {
-                $escrow_wallet->aistore_debit(
-                    $escrow_user_id,
-                    $escrow_fee,
-                    $aistore_escrow_currency,
-                    $escrow_details,
-                    $eid
-                );
-
-                $escrow_wallet->aistore_credit(
-                    $escrow_admin_user_id,
-                    $escrow_fee,
-                    $aistore_escrow_currency,
-                    $escrow_details,
-                    $eid
-                ); // change variable name
+                
+                
+        $escrow_wallet->aistore_transfer($escrow_user_id,$escrow_admin_user_id,  $escrow_fee, $aistore_escrow_currency, $escrow_details,$eid);
+        
+        
+      
+      
+       
             }
-
-            $escrow_wallet->aistore_debit(
-                $escrow_admin_user_id,
-                $escrow_amount,
-                $aistore_escrow_currency,
-                $escrow_details,
-                $eid
-            );
-
-            $escrow_wallet->aistore_credit(
-                $escrow_user_id,
-                $escrow_amount,
-                $aistore_escrow_currency,
-                $escrow_details,
-                $eid
-            );
-
-            // $es = new AistoreEscrow();
+            
+            
+               $escrow_wallet->aistore_transfer($escrow_admin_user_id,$escrow_user_id,  $escrow_amount, $aistore_escrow_currency, $escrow_details,$eid);
+        
+        
+       
+ 
             $email_id = get_user_by("email", $escrow_reciever_email_id);
-            // $res= $es-> release_escrow($escrow,$email_id)  ;
-            global $wpdb;
+           
 
-            $wpdb->query(
-                $wpdb->prepare(
-                    "UPDATE {$wpdb->prefix}escrow_system
-    SET status = 'released'  WHERE  payment_status='paid' and  sender_email=%s and id = %d ",
-                    $email_id,
-                    $eid
-                )
-            );
+           
 
             $release_escrow_success_message =Aistore_process_placeholder_Text   ( get_option(
                 "release_escrow_success_message"
@@ -770,40 +847,27 @@ do_action("AistoreEscrowReleased", $escrow);
 
                 $escrow_wallet = new AistoreWallet();
 
-                $escrow_wallet->aistore_debit(
-                    $escrow_admin_user_id,
-                    $escrow_amount,
-                    $aistore_escrow_currency,
-                    $escrow_details,
-                    $eid
-                );
 
-                $escrow_wallet->aistore_credit(
-                    $sender_id,
-                    $escrow_amount,
-                    $aistore_escrow_currency,
-                    $escrow_details,
-                    $eid
-                );
+
+            
+               $escrow_wallet->aistore_transfer($escrow_admin_user_id,$sender_id,  $escrow_amount, $aistore_escrow_currency, $escrow_details,$eid);
+        
+        
+        
+         
 
                 $cancel_escrow_fee = get_option("cancel_escrow_fee");
 
                 if ($cancel_escrow_fee == "yes") {
-                    $escrow_wallet->aistore_debit(
-                        $escrow_admin_user_id,
-                        $sender_escrow_fee,
-                        $aistore_escrow_currency,
-                        $escrow_details,
-                        $eid
-                    );
-
-                    $escrow_wallet->aistore_credit(
-                        $sender_id,
-                        $sender_escrow_fee,
-                        $aistore_escrow_currency,
-                        $escrow_details,
-                        $eid
-                    );
+                    
+                    
+            
+               $escrow_wallet->aistore_transfer($escrow_admin_user_id,$sender_id,  $sender_escrow_fee, $aistore_escrow_currency, $escrow_details,$eid);
+        
+        
+        
+        
+                    
                 }
             }
 

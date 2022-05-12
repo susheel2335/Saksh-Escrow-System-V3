@@ -74,6 +74,7 @@ function aistore_isadmin()
     }
 }
 
+
 function aistore_plugin_table_install()
 {
     global $wpdb;
@@ -189,8 +190,7 @@ function aistore_plugin_table_install()
 
 
 
-
-    email_notification_message();
+ 
     
     
     
@@ -202,28 +202,40 @@ function aistore_plugin_table_install()
     
 
 }
+
+
+    add_action('AistoreEscrow_Install', 'aistore_plugin_table_install' ); 
+     
+     
+     
 register_activation_hook(__FILE__, 'aistore_plugin_table_install');
 
 
+//include_once dirname(__FILE__) . '/AistoreWallet.class.php';
 
 include_once dirname(__FILE__) . '/aistore_escrow/Escrow_list.php';
-include_once dirname(__FILE__) . '/aistore_notifications/user_notification.php';
+//include_once dirname(__FILE__) . '/aistore_notifications/user_notification.php';
 include_once dirname(__FILE__) . '/aistore_escrow/user_escrow.php';
-include_once dirname(__FILE__) . '/aistore_notifications/sendnotification.php';
+//include_once dirname(__FILE__) . '/aistore_notifications/sendnotification.php';
 
 
-include_once dirname(__FILE__) . '/aistore_chat_system/index.php';
-include_once dirname(__FILE__) . '/aistore_wallet/index.php';
-include_once dirname(__FILE__) . '/aistore_notifications/index.php';
-include_once dirname(__FILE__) . '/aistore_email/index.php';
+// include_once dirname(__FILE__) . '/aistore_chat_system/index.php';
+//include_once dirname(__FILE__) . '/aistore_wallet/index.php';
+//include_once dirname(__FILE__) . '/aistore_notifications/index.php';
+//include_once dirname(__FILE__) . '/aistore_email/index.php';
 
-include_once dirname(__FILE__) . '/aistore_notifications/notification_api.php';
+include_once dirname(__FILE__) . '/aistore_escrow_extensions/index.php';
 include_once dirname(__FILE__) . '/aistore_escrow/AistoreEscrowSystem.class.php';
 
-include_once dirname(__FILE__) . '/aistore_escrow/AistoreEscrowSettings.class.php';
+include_once dirname(__FILE__) . '/admin_setting/AistoreEscrowSettings.class.php';
+
+include_once dirname(__FILE__) . '/aistore_escrow/AistoreEscrowSystemAdmin.class.php';
 
 
-include_once dirname(__FILE__) . '/aistore_file_upload/file_upload.php';
+//include_once dirname(__FILE__) . '/aistore_file_upload/file_upload.php';
+
+//include_once dirname(__FILE__) . '/aistore_payment_gateway/index.php';
+//include_once dirname(__FILE__) . '/aistore_payment_gateway/crypto_deposit.php';
 
 
 
@@ -382,7 +394,7 @@ function  AistoregetSupportMsg()
     $url = admin_url('admin.php?page=aistore_page_escrow_setting', 'https');
                 
                
-    $msg  ="<p> For support plz email wordpress@aistore2030.com </p>";
+    $msg  ="<p> For support plz email wordpress@aistore2030.com or susheel2339@gmail.com or +91 8840574997 </p>";
     
     $msg   .="<p>Complete Escrow settings from this link  <a href='".esc_url($url)."'>Escrow Settings</a> </p>";
     
