@@ -20,20 +20,37 @@
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
       
-        <button class="nav-link active" id="nav-home1-tab" data-bs-toggle="tab" data-bs-target="#nav-home1" type="button" role="tab" aria-controls="nav-home1" aria-selected="true">Step 1</button>
+     
+     
+     <button class="nav-link active" id="nav-home1-tab" data-bs-toggle="tab" data-bs-target="#nav-home1" type="button" role="tab" aria-controls="nav-home1" aria-selected="true">Step 1</button>
         
         
     <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Step 2</button>
     
     
     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Step 3</button>
+    
+    
     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Step 4</button>
     
+    
+    
      <button class="nav-link" id="nav-contact1-tab" data-bs-toggle="tab" data-bs-target="#nav-contact1" type="button" role="tab" aria-controls="nav-contact1" aria-selected="false">Step 5</button>
+     
+     
+    
+     <?php
+   
+  do_action( "aistore_escrow_admin_tab"  );
+  
+  ?> 
+     
   </div>
 </nav>
 
 
+<br>
+<br>
 <br>
 <div class="tab-content" id="nav-tabContent">
     
@@ -91,66 +108,66 @@
 
             update_option('details_escrow_page_id', $details_escrow_page_id);
             
-         $my_post = array(
-                'post_type' => 'page',
-                'post_title' => 'Bank Detail',
-                'post_content' => '[aistore_bank_details]',
-                'post_status' => 'publish' 
-            );
+  //       $my_post = array(
+  //              'post_type' => 'page',
+  //              'post_title' => 'Bank Detail',
+   //             'post_content' => '[aistore_bank_details]',
+  //              'post_status' => 'publish' 
+   //         );
 
             // Insert the post into the database
-            $details_bank_page_id = wp_insert_post($my_post);
+   //         $details_bank_page_id = wp_insert_post($my_post);
 
-            update_option('bank_details_page_id', $details_bank_page_id);
+   //         update_option('bank_details_page_id', $details_bank_page_id);
             
-            $my_post = array(
-                'post_type' => 'page',
-                'post_title' => 'Escrow Notification',
-                'post_content' => '[aistore_notification]',
-                'post_status' => 'publish' 
-            );
+   //         $my_post = array(
+     //           'post_type' => 'page',
+    //            'post_title' => 'Escrow Notification',
+      //          'post_content' => '[aistore_notification]',
+      //          'post_status' => 'publish' 
+       //     );
 
             // Insert the post into the database
-            $notification_page_id = wp_insert_post($my_post);
+        //    $notification_page_id = wp_insert_post($my_post);
 
-            update_option('notification_page_id', $notification_page_id);
+       //     update_option('notification_page_id', $notification_page_id);
             
-               $my_post = array(
-                'post_type' => 'page',
-                'post_title' => 'Transaction History',
-                'post_content' => '[aistore_transaction_history]',
-                'post_status' => 'publish' 
-            );
+     //          $my_post = array(
+     //           'post_type' => 'page',
+    //            'post_title' => 'Transaction History',
+    //            'post_content' => '[aistore_transaction_history]',
+     //           'post_status' => 'publish' 
+    //        );
 
             // Insert the post into the database
-            $aistore_transaction_history_page_id = wp_insert_post($my_post);
+   //         $aistore_transaction_history_page_id = wp_insert_post($my_post);
 
-            update_option('aistore_transaction_history_page_id', $aistore_transaction_history_page_id);
+  //          update_option('aistore_transaction_history_page_id', //$aistore_transaction_history_page_id);
             
             
-              $my_post = array(
-                'post_type' => 'page',
-                'post_title' => 'Withdrawal',
-                'post_content' => '[aistore_saksh_withdrawal_system]',
-                'post_status' => 'publish' 
-            );
+    //          $my_post = array(
+   //             'post_type' => 'page',
+   //             'post_title' => 'Withdrawal',
+     //           'post_content' => '[aistore_saksh_withdrawal_system]',
+   //             'post_status' => 'publish' 
+     //       );
 
             // Insert the post into the database
-            $aistore_saksh_withdrawal_system = wp_insert_post($my_post);
+    //        $aistore_saksh_withdrawal_system = wp_insert_post($my_post);
 
-            update_option('aistore_saksh_withdrawal_system', $aistore_saksh_withdrawal_system);
+       //     update_option('aistore_saksh_withdrawal_system', $aistore_saksh_withdrawal_system);
             
-             $my_post = array(
-                'post_type' => 'page',
-                'post_title' => 'Bank Account',
-                'post_content' => '[aistore_bank_account]',
-                'post_status' => 'publish' 
-            );
+    //         $my_post = array(
+     //           'post_type' => 'page',
+   //             'post_title' => 'Bank Account',
+     //           'post_content' => '[aistore_bank_account]',
+   //             'post_status' => 'publish' 
+    //        );
 
             // Insert the post into the database
             $aistore_bank_account = wp_insert_post($my_post);
 
-            update_option('aistore_bank_account', $aistore_bank_account);
+         //   update_option('aistore_bank_account', $aistore_bank_account);
             
             $escrow_user_id=sanitize_text_field($_REQUEST['escrow_user_id']);
              $user_id = username_exists( $escrow_user_id );
@@ -168,14 +185,14 @@
         
         update_option( 'escrow_user_id', $user_id);
         update_option( 'escrow_user_name', $escrow_user_id);
-         update_option( 'escrow_file_type', 'pdf');
+   //      update_option( 'escrow_file_type', 'pdf');
            update_option('escrow_fee_deducted', 'accepted');
         }  
             //add currency
              global $wpdb;
 
             // add currency also
-            $wpdb->query("INSERT INTO {$wpdb->prefix}escrow_currency ( currency, symbol  ) VALUES ( 'USD' ,'USD')");
+      //      $wpdb->query("INSERT INTO {$wpdb->prefix}escrow_currency ( currency, symbol  ) VALUES ( 'USD' ,'USD')");
 
 
          //    email_notification_message();
@@ -335,12 +352,7 @@ echo "<strong>If no error then task completed successfully.</strong>";
         
     
         
-        <?php  
-        do_action("AistoreNotification_setting");
-        do_action("Aistorebank_payment");
-        ?>
-
-        
+    
         
         
         
@@ -374,11 +386,7 @@ echo "<strong>If no error then task completed successfully.</strong>";
 </td>
         </tr>
         
-         
-        <?php  
-        do_action("Aistore_withdraw");
-    
-        ?>
+       
 
         
          
@@ -387,24 +395,16 @@ echo "<strong>If no error then task completed successfully.</strong>";
         
         </table>
         
-        	<hr/>
+       
+       
         	
   </div>
   
   
   
+   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  <!--///step 2-->
-  
-    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="tab-pane fade show  " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         
 <p><?php _e('Step 2', 'aistore') ?></p>
 
@@ -472,10 +472,7 @@ echo "<strong>If no error then task completed successfully.</strong>";
 	
 </td>
         </tr>  
-        
-        <?php    do_action("Aistoreupload_file_type");
-        ?>
-        
+       
       
               
   
@@ -505,7 +502,7 @@ echo "<strong>If no error then task completed successfully.</strong>";
   
   
   <!----step 3 -->
-   <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+   <div class="tab-pane fade show  " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         	
 <p><?php _e('Step 3', 'aistore') ?></p>
 
@@ -543,65 +540,24 @@ echo "<strong>If no error then task completed successfully.</strong>";
         <th scope="row"><?php _e('Escrow Accept Fee', 'aistore') ?></th>
         <td><input type="number" name="escrow_accept_fee" value="<?php echo esc_attr(get_option('escrow_accept_fee')); ?>" />%</td>
         </tr>
-        
-   <?php
-         do_action("Aistore_withdraw_fee");
-  ?>
+ 
+ 
   
     </table>
     
-    <hr>
+ 
     
   </div>
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <!--step 4-->
-  
-    <div class="tab-pane fade show active" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-        
-
-    <p><?php _e('Step 4', 'aistore') ?></p>
-
-<?php    do_action("Aistorebank_payment_details");
-        ?>
-
-
-  </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+   
+   
   
   
   <!--step 5 -->
   
   
-    <div class="tab-pane fade show active" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact1-tab">
+    <div class="tab-pane fade show  " id="nav-contact1" role="tabpanel" aria-labelledby="nav-extension-tab">
         
         
           
@@ -609,7 +565,19 @@ echo "<strong>If no error then task completed successfully.</strong>";
     
 <p><?php _e('Enable and Disable Extension ', 'aistore') ?></p>
 
-        	
+        <?php
+        $aistore_escrow_extensions=array();
+          $aistore_escrow_extensions[] = 'wporg-is-awesome';
+          
+          
+        $aistore_escrow_extensions = apply_filters( "aistore_escrow_extension",$aistore_escrow_extensions);
+        
+        
+        var_dump($aistore_escrow_extensions);
+        
+        
+        
+        /*
         <table class="form-table">
         
       
@@ -761,22 +729,29 @@ echo "<strong>If no error then task completed successfully.</strong>";
         
         
         </table>
+    */
     
+    ?>
         </div>
         
         
         
-        
+            
+     <?php
+   
+  do_action( "aistore_escrow_admin_tab_contents"  );
+  
+  ?> 
+     
+  
+  
         
   </div>
 
 
 
   
-    
-    <?php submit_button(); ?>
-
-</form>
+      
 </div>
 </div>
 

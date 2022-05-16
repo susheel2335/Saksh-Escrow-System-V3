@@ -99,6 +99,8 @@ class AistoreEscrowSettings
             $this,
             'aistore_payment_process'
         ));
+        
+        
 
 
 

@@ -26,7 +26,7 @@
      echo  $object_escrow->aistore_admin_escrow_detail( );
       
      
-     
+    // do_action('Aistorebank_makepayment');
      
             ?>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"    >

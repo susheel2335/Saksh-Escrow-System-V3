@@ -16,6 +16,19 @@ if (!defined('ABSPATH'))
     exit; // Exit if accessed directly.
     
 }
+
+
+
+
+function aistore_escrow_extension_email_extension_function( $aistore_escrow_extensions ) {
+   
+        $aistore_escrow_extensions[] = 'Email Extensions';
+  
+    return $aistore_escrow_extensions;
+}
+add_filter( 'aistore_escrow_extension', 'aistore_escrow_extension_email_extension_function' );
+
+
   
  
 include_once dirname(__FILE__). '/aistore_email_install.php';
