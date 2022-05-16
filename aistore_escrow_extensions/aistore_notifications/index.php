@@ -18,14 +18,14 @@ if (!defined('ABSPATH'))
 }
 
 
-      add_action('AistoreEscrow_Install', 'aistore_escrow_plugin_notification_table_install' ); 
+ add_action('AistoreEscrow_Install', 'aistore_notification_escrow_plugin_table_install' ); 
       
       
-function aistore_escrow_plugin_notification_table_install()
+function aistore_notification_escrow_plugin_table_install()
 {
     
     
-    aistore_escrow_notification_message();
+    aistore_notification_escrow_message();
     
     
     global $wpdb;
@@ -55,7 +55,7 @@ include_once dirname(__FILE__) . '/menu.php';
 
     
     
-function aistore_escrow_notification_message() 
+function aistore_notification_escrow_message() 
 {  
     
     //notification
@@ -90,9 +90,9 @@ function aistore_escrow_notification_message()
  
    //  aistore_escrow_tab_button
      
-     add_action('aistore_escrow_tab_button', 'aistore_escrow_notifications_tab_button' ); 
+     add_action('aistore_escrow_tab_button', 'aistore_notifications_escrow_tab_button' ); 
      
-     function aistore_escrow_notifications_tab_button($escrow)
+     function aistore_notifications_escrow_tab_button($escrow)
 {
    
     ?>
@@ -106,9 +106,9 @@ function aistore_escrow_notification_message()
 
 
 
-    add_action('aistore_escrow_tab_contents', 'aistore_escrow_notifications_tab_contents' ); 
+    add_action('aistore_escrow_tab_contents', 'aistore_notifications_escrow_tab_contents' ); 
      
-     function aistore_escrow_notifications_tab_contents($escrow)
+     function aistore_notifications_escrow_tab_contents($escrow)
 {
    
     
@@ -141,6 +141,50 @@ include_once dirname(__FILE__) . '/notification_api.php';
 include_once dirname(__FILE__) . '/admin/page_setting.php';
 
 
+ function aistore_notification_escrow_extension_function( $aistore_escrow_extensions ) {
+   
+        $aistore_escrow_extensions[] = 'notification';
+  
+    return $aistore_escrow_extensions;
+}
+add_filter( 'aistore_escrow_extension', 'aistore_notification_escrow_extension_function' );
+
+  add_action('aistore_escrow_admin_tab_contents', 'aistore_notification_escrow_admin_tab_contents' ); 
+    
+
+function  aistore_notification_escrow_admin_tab_contents()
+
+{
+    ?>
+      <div class="tab-pane fade" id="nav-notification" role="tabpanel" aria-labelledby="nav-notification-tab">
+      
+ 
+        <?php
+        do_action('AistoreNotification_setting');
+         submit_button(); ?>
+  
+  
+  </div>
+  
+  
+  <?php
+    
+    
+}
+
+    add_action('aistore_escrow_admin_tab', 'aistore_notification_details_tab' ); 
+    
+
+function  aistore_notification_details_tab()
+
+{
+ echo  '
+    <button class="nav-link" id="nav-notification-tab" data-bs-toggle="tab" data-bs-target="#nav-notification" type="button" role="tab" aria-controls="nav-notification" aria-selected="false">Notification</button> 
+     
+     ';
+    
+ 
+}
 
 
 

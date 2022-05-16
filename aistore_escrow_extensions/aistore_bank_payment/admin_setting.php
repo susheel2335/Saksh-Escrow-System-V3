@@ -1,9 +1,9 @@
 <?php
 
-    add_action('Aistorebank_payment', 'aistore_bank_payment' ); 
+    add_action('Aistorebank_payment', 'ABP_page' ); 
     
     
-    function aistore_bank_payment(){
+    function ABP_page(){
           $pages = get_pages();
         ?>
                	 <tr valign="top">
@@ -83,10 +83,10 @@
         <?php
     }
     
-        add_action('Aistorebank_payment_details', 'aistore_payment_bank_details' ); 
+        add_action('Aistorebank_payment_details', 'ABP_details' ); 
     
     
-    function aistore_payment_bank_details(){
+    function ABP_details(){
         ?>
                    <table class="form-table">
         

@@ -17,7 +17,19 @@ if (!defined('ABSPATH'))
     
 }
 
+function aistore_scripts_method_email()
+{
 
+   wp_enqueue_script( 'bootstrap_js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js', array('jquery'), NULL, true );
+   
+
+      
+   wp_enqueue_style( 'bootstrap_css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', false, NULL, 'all' );
+  
+    
+}
+
+add_action('admin_enqueue_scripts', 'aistore_scripts_method_email');
 
 
 function aistore_escrow_extension_email_extension_function( $aistore_escrow_extensions ) {

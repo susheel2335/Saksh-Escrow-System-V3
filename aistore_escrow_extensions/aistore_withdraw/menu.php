@@ -9,11 +9,11 @@ if (!defined('ABSPATH'))
 
  
 
-add_action( 'admin_menu', 'register_my_withdraw_menu_page' );
+add_action( 'admin_menu', 'aistore_withdraw_register_menu_page' );
 
 
 
-function register_my_withdraw_menu_page() {
+function aistore_withdraw_register_menu_page() {
   
   
  add_menu_page( 'Withdraw', 'Withdraw', 'manage_options', 'withdrawal' );

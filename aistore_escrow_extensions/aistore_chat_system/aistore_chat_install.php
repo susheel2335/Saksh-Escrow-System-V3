@@ -5,11 +5,11 @@ if (!defined('ABSPATH'))
     
 }
  
- add_action('AistoreEscrow_Install', 'aistore_plugin_email_table_install' ); 
+ add_action('AistoreEscrow_Install', 'ACS_plugin_email_table_install' ); 
      
  
 
-function aistore_chat_plugin_table_install()
+function ACS_chat_plugin_table_install()
 {
     global $wpdb;
 
@@ -31,4 +31,4 @@ function aistore_chat_plugin_table_install()
 
 }
 
-register_activation_hook(__FILE__, 'aistore_chat_plugin_table_install');
+register_activation_hook(__FILE__, 'ACS_chat_plugin_table_install');

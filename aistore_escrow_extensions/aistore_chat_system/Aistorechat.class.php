@@ -3,18 +3,10 @@
 
 class Aistorechat {
     
-    public static function aistore_escrow_chat(){
+    public static function ACS_escrow_chat(){
         
         ?>
-<!--           <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
-<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
-<!------ Include the above in your HEAD tag ---------->
 
-
- 
-
-<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">-->
 
 <div class="container">
 <h3 class=" text-center">Messaging</h3>
@@ -88,9 +80,9 @@ class Aistorechat {
 }
 
 
-add_action('wp_ajax_custom_action', 'aistore_st_chat_box');
+add_action('wp_ajax_custom_action', 'ACS_chat_box');
 
-function aistore_st_chat_box()
+function ACS_chat_box()
 {
 
     global $wpdb;
@@ -116,9 +108,9 @@ array( $message, $eid,$user_login ,$user_id) ) );
 
 }
 
-add_action('wp_ajax_aistore_st_ticket_message_discussion_list', 'aistore_st_ticket_message_discussion_list');
+add_action('wp_ajax_ACS_message_discussion_list', 'ACS_message_discussion_list');
 
-function aistore_st_ticket_message_discussion_list()
+function ACS_message_discussion_list()
 {
     
 
@@ -140,9 +132,9 @@ function aistore_st_ticket_message_discussion_list()
 
 
 
-add_action('wp_ajax_aistore_st_ticket_list_chat', 'aistore_escrow_list_chat');
+add_action('wp_ajax_ACS_list_chat', 'ACS_list_chat');
 
-function aistore_escrow_list_chat()
+function ACS_list_chat()
 {
            $user_id= get_current_user_id();
  $current_user_email_id = get_the_author_meta('user_email', $user_id);

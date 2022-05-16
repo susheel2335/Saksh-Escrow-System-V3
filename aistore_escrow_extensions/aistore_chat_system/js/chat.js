@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
         type: "GET",
      url : ajax_object.ajax_url,
      dataType: 'JSON',
-      data :{action: "aistore_st_ticket_list_chat"},
+      data :{action: "ACS_list_chat"},
         success: function(data){
          console.log("data44444",data);
         //  alert(JSON.stringify(data));
@@ -46,7 +46,7 @@ jQuery(document).ready(function($) {
         type: "GET",
      url : ajax_object.ajax_url,
       dataType: 'JSON',
-            data :{action: "aistore_st_ticket_message_discussion_list",  eid :eid},
+            data :{action: "ACS_message_discussion_list",  eid :eid},
         success: function(data){
          console.log("data33",data);
            var html_to_append_message = '';
@@ -101,7 +101,7 @@ jQuery(document).ready(function($) {
         type: "GET",
      url : ajax_object.ajax_url,
       dataType: 'JSON',
-            data : {action: "aistore_st_ticket_message_discussion_list",  eid :eid},
+            data : {action: "ACS_message_discussion_list",  eid :eid},
         success: function(data){
            var html_to_append_message = '';
           $.each(data, function(i, item1) {

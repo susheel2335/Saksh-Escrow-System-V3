@@ -14,34 +14,6 @@ class AistoreEscrowSystem extends  AistoreEscrow
 
 
 
-//      public  function aistore_bank_details()
-//     {
-
-      
-        
-//     ob_start();
-    
-    
-         
-//               global $wpdb;    
-
-             
-//           $eid = sanitize_text_field($_REQUEST['eid']);
-//           $user_id = get_current_user_id();
-                
-//     $email= get_the_author_meta('user_email',$user_id);
-                 
-//  $escrow=$this->AistoreEscrowDetail($eid,$email);
-          
-   
-//   do_action( "payment_method_list", $escrow );
-  
- 
-
-//  return ob_get_clean();
-        
-//     }
-    
     
       public static function aistore_bank_details()
     {
@@ -486,7 +458,7 @@ $escrow=$this->AistoreEscrowDetail($eid,$email_id) ;
   
   
 $eschat = new Aistorechat();
-$eschat->aistore_escrow_chat();
+$eschat->ACS_escrow_chat();
  
   
  

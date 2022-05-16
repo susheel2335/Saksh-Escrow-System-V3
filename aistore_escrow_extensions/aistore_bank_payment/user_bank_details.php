@@ -1,10 +1,10 @@
 <?php
 
 
-  add_action('Aistoreuserbank_details', 'userbank_details' ); 
+  add_action('Aistoreuserbank_details', 'ABP_userbank_details' ); 
     
     
-    function userbank_details(){
+    function ABP_userbank_details(){
 // echo "SD";
 // ob_start();
     

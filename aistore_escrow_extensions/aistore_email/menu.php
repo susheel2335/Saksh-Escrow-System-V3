@@ -9,11 +9,11 @@ if (!defined('ABSPATH'))
 
  
 
-add_action( 'admin_menu', 'register_my_email_menu_page' );
+add_action( 'admin_menu', 'aistore_email_register_menu_page' );
 
 
 
-function register_my_email_menu_page() {
+function aistore_email_register_menu_page() {
   
   
   add_menu_page( 'Email Setting', 'Email Setting', 'manage_options', 'aistore_email_setting');

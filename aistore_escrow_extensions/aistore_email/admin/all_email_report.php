@@ -1,14 +1,15 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
            <h1> <?php _e('Email Report', 'aistore') ?> </h1>  <br>
      <?php
       
+        $escrow_admin_user_id =esc_attr( get_option('escrow_user_id'));
+        $the_user = get_user_by( 'id', $escrow_admin_user_id );  
+$admin_Email= $the_user->user_email;
+    
+      
 	global $wpdb;
            	 
- $sql = "SELECT * FROM {$wpdb->prefix}escrow_email " ;
-//   $sql = "SELECT * FROM {$wpdb->prefix}escrow_email WHERE   reference_id=".$eid;
+ $sql = "SELECT * FROM {$wpdb->prefix}escrow_email" ;
  
      	 $results = $wpdb->get_results($sql);
      	  if ($results == null)
@@ -34,7 +35,7 @@
     <div id="collapse<?php echo esc_attr($row->id); ?>" class="accordion-collapse collapse " aria-labelledby="heading<?php echo esc_attr($row->id); ?>" data-bs-parent="#accordionExample">
       <div class="accordion-body">
           To: <?php echo esc_attr($row->user_email); ?><br>
-          From: admin@blogentry.in<br>
+          From: <?php echo esc_attr($admin_Email); ?><br>
           Escrow Id: <?php echo esc_attr($row->reference_id); ?><br>
         <strong>Subject:  <?php echo esc_attr($row->subject); ?></strong> <br>Message: <?php echo html_entity_decode($row->message); ?><br><code><?php echo esc_attr($row->created_at); ?></code>
       </div>

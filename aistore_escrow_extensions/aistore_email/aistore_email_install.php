@@ -19,6 +19,7 @@ $table_escrow_email = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_
   type varchar(100) NOT NULL,
    message  text  NOT NULL,
    user_email  varchar(100)   NOT NULL,
+    partyr_email  varchar(100)   NOT NULL,
   url varchar(100)   NOT NULL,
    reference_id bigint(20)   NULL,
    subject varchar(100)  NULL,

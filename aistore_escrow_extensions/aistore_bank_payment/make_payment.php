@@ -1,11 +1,10 @@
 <?php
-  add_action('Aistorebank_makepayment', 'aistore_bank_makepayment' ); 
+  add_action('Aistorebank_makepayment', 'ABP_bank_makepayment' ); 
     
     
-    function aistore_bank_makepayment(){
+    function ABP_bank_makepayment(){
 
-     
-    // ob_start();
+
     
     
     
@@ -82,6 +81,5 @@
 <?php
 
 
-//  return ob_get_clean();
- 
+
     }

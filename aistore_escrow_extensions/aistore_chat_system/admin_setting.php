@@ -1,9 +1,9 @@
 <?php
 
-    add_action('Aistorechat_system', 'aistore_chat_publish' ); 
+    add_action('Aistorechat_system', 'ACS_chat_publish' ); 
     
     
-    function aistore_chat_publish(){
+    function ACS_chat_publish(){
         
         ?>
             <tr valign="top">

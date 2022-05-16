@@ -1,9 +1,9 @@
 <?php
 
-    add_action('Aistoreupload_file_type', 'upload_file_type' ); 
+    add_action('Aistoreupload_file_type', 'AFU_type' ); 
     
     
-    function upload_file_type(){
+    function AFU_type(){
         
         ?>
            <tr valign="top">

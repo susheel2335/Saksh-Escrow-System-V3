@@ -1,7 +1,7 @@
 <?php
- add_filter( 'after_aistore_escrow_form', 'after_aistore_escrow_form_fields' );
+ add_filter( 'after_aistore_escrow_form', 'AFU_form_fields' );
   
-     function  after_aistore_escrow_form_fields($eid){
+     function  AFU_form_fields($eid){
          
       
     $set_file =  get_option('escrow_file_type');
@@ -19,9 +19,9 @@
      
    //  aistore_escrow_tab_button
      
-     add_filter('aistore_escrow_tab_button', 'aistore_escrow_files_tab_button', 10); 
+     add_filter('aistore_escrow_tab_button', 'AFU_files_tab_button', 10); 
      
-     function aistore_escrow_files_tab_button($escrow)
+     function AFU_files_tab_button($escrow)
 {
     
     ?>
@@ -44,7 +44,7 @@
      
    <div class="tab-pane fade show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
         
- <?php   aistore_escrow_files($escrow); ?>
+ <?php   AFU_files($escrow); ?>
  
  
   </div>
@@ -63,7 +63,7 @@
 
  
 
-function aistore_escrow_files($escrow)
+function AFU_files($escrow)
 {
     
      
@@ -104,41 +104,10 @@ function aistore_escrow_files($escrow)
      
      
      
-add_action('AistoreEscrowCreatedafter', 'process_file_upload', 10, 3);
+add_action('AistoreEscrowCreatedafter', 'AFU_process_file_upload', 10, 3);
 
-function process_file_upload($data)
+function AFU_process_file_upload($data)
 {
-   /*
-   
-   // Create post object
-$my_post = array(
-  'post_title'    => __LINE__,
-  'post_content'  => print_r($data ,true),
-  'post_status'   => 'publish' 
-);
- 
-// Insert the post into the database
-wp_insert_post( $my_post );  // Create post object
-$my_post = array(
-  'post_title'    => __LINE__,
-  'post_content'  => print_r($data['escrow'],true),
-  'post_status'   => 'publish' 
-);
- 
-// Insert the post into the database
-wp_insert_post( $my_post );
-
-
-   // Create post object
-$my_post = array(
-  'post_title'    => __LINE__,
-  'post_content'  => print_r($data['files'],true),
-  'post_status'   => 'publish' 
-);
- 
-// Insert the post into the database
-wp_insert_post( $my_post );
-*/
 
 
 $files=$data['files'];

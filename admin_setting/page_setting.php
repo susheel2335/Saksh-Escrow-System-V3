@@ -31,11 +31,11 @@
     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Step 3</button>
     
     
-    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Step 4</button>
+    <!--<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Step 4</button>-->
     
     
     
-     <button class="nav-link" id="nav-contact1-tab" data-bs-toggle="tab" data-bs-target="#nav-contact1" type="button" role="tab" aria-controls="nav-contact1" aria-selected="false">Step 5</button>
+     <button class="nav-link" id="nav-contact1-tab" data-bs-toggle="tab" data-bs-target="#nav-contact1" type="button" role="tab" aria-controls="nav-contact1" aria-selected="false">Step 4</button>
      
      
     
@@ -453,10 +453,6 @@ echo "<strong>If no error then task completed successfully.</strong>";
 
 
         
-        <?php   do_action("Aistorechat_system");
-        ?>
- 
-        
 
  <tr valign="top">
  <th scope="row"><?php _e('Cancel Escrow fee refund or not ', 'aistore') ?></th>
@@ -561,13 +557,13 @@ echo "<strong>If no error then task completed successfully.</strong>";
         
         
           
-    <p><?php _e('Step 5', 'aistore') ?></p>
+    <p><?php _e('Step 4', 'aistore') ?></p>
     
 <p><?php _e('Enable and Disable Extension ', 'aistore') ?></p>
 
         <?php
         $aistore_escrow_extensions=array();
-          $aistore_escrow_extensions[] = 'wporg-is-awesome';
+        //  $aistore_escrow_extensions[] = 'bank_details';
           
           
         $aistore_escrow_extensions = apply_filters( "aistore_escrow_extension",$aistore_escrow_extensions);
@@ -575,12 +571,26 @@ echo "<strong>If no error then task completed successfully.</strong>";
         
         var_dump($aistore_escrow_extensions);
         
+        foreach($aistore_escrow_extensions as $extension):
+            
+            
+            echo $extension;
         
-        
-        /*
-        <table class="form-table">
-        
+      $status=  escrow_extension($extension);
       
+      
+      echo $status;
+        
+        endforeach;
+        
+        ?>
+        
+        <!--<table class="form-table">-->
+        
+      <?php  
+      
+      /*
+      ?>
 
       
         
