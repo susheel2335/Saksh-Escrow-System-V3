@@ -81,6 +81,513 @@ you need to create extenstion with following extenstion name
 10. saksh_wallet_currency_convert
 
 
+
+saksh-escrow-system/admin_setting/AistoreEscrowSettings.class.php
+
+    __construct
+    aistore_add_plugin_page
+    aistore_escrow_all_notification
+    aistore_escrow_admin_report
+    aistore_escrow_dashboard
+    aistore_message_setting
+    aistore_user_escrow_list
+    aistore_disputed_escrow_details
+    aistore_disputed_escrow_list
+    aistore_page_setting
+    aistore_notification_setting
+    aistore_email_setting
+    aistore_payment_process
+    aistore_page_register_setting
+    aistore_notification_register_setting
+    aistore_email_register_setting
+    aistore_message_register_setting
+
+ saksh-escrow-system/admin_setting/aistore_disputed_escrow_details.php
+
+ saksh-escrow-system/admin_setting/aistore_disputed_escrow_list.php
+
+    tssss
+
+ saksh-escrow-system/admin_setting/aistore_escrow_dashboard.php
+
+ saksh-escrow-system/admin_setting/aistore_payment_process.php
+
+    aistore_escrow_admin_process_payment
+
+ saksh-escrow-system/admin_setting/aistore_user_escrow_list.php
+
+    get_user_by_email1
+
+ saksh-escrow-system/admin_setting/escrow_message_setting.php
+
+saksh-escrow-system/admin_setting/page_setting.php
+
+saksh-escrow-system/aistore_assets/css/custom.css
+
+saksh-escrow-system/aistore_assets/js/custom.css
+
+saksh-escrow-system/aistore_assets/js/custom.js
+
+    ajaxSubmit
+
+saksh-escrow-system/aistore_assets/js/error_log
+
+    admin_url
+    admin_url
+    admin_url
+    admin_url
+    admin_url
+    admin_url
+
+saksh-escrow-system/aistore_escrow/AistoreEscrow.class.php
+
+    get_escrow_admin_user_id
+    get_escrow_currency
+    create_escrow_fee
+    accept_escrow_fee
+    create_escrow
+    AistoreEscrowList
+    AistoreEscrowDetail
+    AistoreGetEscrow
+    AistoreEscrowMarkPaid
+    CancelEscrow____ReviewNeeded
+    ReleaseEscrow____ReviewNeeded
+    AcceptEscrow____ReviewNeeded
+    DisputeEscrow
+    dispute_escrow_btn_visible
+    release_escrow_btn_visible
+    cancel_escrow_btn_visible
+    accept_escrow_btn_visible
+    make_payment_btn_visible
+    accept_escrow_btn
+    cancel_escrow_btn
+    release_escrow_btn
+    dispute_escrow_btn
+    aistore_escrow_btn_actions
+    aistore_ipaddress
+
+ saksh-escrow-system/aistore_escrow/AistoreEscrowAdmin.class.php
+
+    admin_release_escrow_btn_visible
+    admin_cancel_escrow_btn_visible
+    aistore_escrow_btn_admin_actions
+    admin_cancel_escrow_btn
+    admin_release_escrow_btn
+
+ /saksh-escrow-system/aistore_escrow/AistoreEscrowSystem.class.php
+
+    aistore_bank_details
+    aistore_escrow_system
+    aistore_escrow_list
+    aistore_escrow_detail
+    aistore_escrow_detail_tabs
+
+ saksh-escrow-system/aistore_escrow/AistoreEscrowSystemAdmin.class.php
+
+    aistore_admin_escrow_detail
+/saksh-escrow-system/aistore_escrow/Escrow_list.php
+
+    __construct
+    status_filter
+    date_filter
+    search_box
+    get_escrow
+    prepareWhereClouse
+    delete_escrow
+    remove_payment_escrow
+    record_count
+    no_items
+    column_default
+    column_cb
+    column_name
+    get_columns
+    get_sortable_columns
+    get_bulk_actions
+    form
+    prepare_items
+    process_bulk_action
+    __construct
+    set_screen
+    plugin_menu
+    plugin_settings_page
+    screen_option
+    get_instance
+
+saksh-escrow-system/aistore_escrow/user_escrow.php
+
+    aistore_users
+    aistore_user_escrow
+    aistore_user_escrow_list
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment/admin_setting.php
+
+    ABP_page
+    ABP_details
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment/index.php
+
+    ABP_extension_function
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment/make_payment.php
+
+    ABP_bank_makepayment
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment/user_bank_details.php
+
+    ABP_userbank_details
+
+ /saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment_gateway/crypto_deposit.php
+
+    aistore_escrow_payment_method_list
+    payment_form
+    webhook
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment_gateway/index.php
+
+    aistore_escrow_payment_nofity_url
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/Aistorechat.class.php
+
+    ACS_escrow_chat
+    ACS_chat_box
+    ACS_message_discussion_list
+    ACS_list_chat
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/admin_setting.php
+
+    ACS_chat_publish
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/aistore_chat_install.php
+
+    ACS_chat_plugin_table_install
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/css/chat.css
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/index.php
+
+    ACS_scripts_method
+    ACS_extension_function
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/js/chat.js
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/readme.txt
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_email/admin/all_email_report.php
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_email/admin/email_setting.php
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_email/aistore_email_install.php
+
+    aistore_plugin_email_table_install
+    email_message
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_email/email_report.php
+
+    aistore_escrow_emails_tab_button
+    aistore_escrow_emails_tab_contents
+    aistore_email_report
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_email/email_template.php
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_email/index.php
+
+    aistore_scripts_method_email
+    aistore_escrow_extension_email_extension_function
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_email/menu.php
+
+    aistore_email_register_menu_page
+    aistore_email_setting
+    aistore_all_email_report
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_email/send_email.php
+
+    sendEmailCreated
+    sendEmailAccepted
+    sendEmailCancelled
+    sendEmailDisputed
+    sendEmailReleased
+    sendEmailPaymentAccepted
+    aistore_send_email
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_file_upload/admin_setting.php
+
+    AFU_type
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_file_upload/aistore_escrow_file_upload.php
+
+    AFU_files_tab_button
+    aistore_escrow_files_tab_contents
+    AFU_files
+    AFU_process_file_upload
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_file_upload/index.php
+
+    AFU_extension_function
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_notifications/admin/notification_report.php
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_notifications/admin/notification_setting.php
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_notifications/admin/page_setting.php
+
+    aistore_notification_setting
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_notifications/index.php
+
+    aistore_notification_escrow_plugin_table_install
+    aistore_notification_escrow_message
+    aistore_notifications_escrow_tab_button
+    aistore_notifications_escrow_tab_contents
+    aistore_notification_escrow_extension_function
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_notifications/menu.php
+
+    aistore_escrow_register_my_notification_menu_page
+    aistore_escrow_notification_setting
+    aistore_escrow_notification_report
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_notifications/notification_api.php
+
+    aistore_escrow_echo_all_notification
+    aistore_escrow_echo_notification
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_notifications/sendnotification.php
+
+    aistore_escrow_sendNotificationCreated
+    aistore_escrow_sendNotificationAccepted
+    aistore_escrow_sendNotificationCancelled
+    aistore_escrow_sendNotificationDisputed
+    aistore_escrow_sendNotificationReleased
+    aistore_escrow_sendNotificationPaymentRefund
+    aistore_escrow_sendNotificationPaymentAccepted
+    aistore_notification_new
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_notifications/user_notification.php
+
+    aistore_escrow_all_notification
+    aistore_escrow_user_notification
+    aistore_escrow_user_notification_list
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_payment_gateway/crypto_deposit.php
+
+    aistore_escrow_payment_method_list
+    payment_form
+    webhook
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_payment_gateway/index.php
+
+    aistore_escrow_payment_nofity_url
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/AistoreWallet.class.php
+
+    aistore_transfer
+    aistore_balance
+    aistore_debit
+    aistore_credit
+    aistore_transaction_history
+    aistore_wallet_transaction_history
+    aistore_wallet_currency
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/Aistore_escrow_hook.php
+
+    aistore_escrow_transactions_tab_button
+    aistore_escrow_transactions_tab_contents
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/admin/all_wallet_balance.php
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/admin/balance_list.php
+
+    __construct
+    status_filter
+    date_filter
+    search_box
+    get_balance
+    prepareWhereClouse
+    record_count
+    no_items
+    column_default
+    column_cb
+    get_columns
+    get_sortable_columns
+    form
+    aistore_prepare_items
+    process_bulk_action
+    __construct
+    set_screen
+    plugin_menu
+    plugin_settings_page
+    screen_option
+    get_instance
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/admin/currency_setting.php
+
+    getCurrency
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/admin/debit_credit.php
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/admin/transaction_list.php
+
+    __construct
+    status_filter
+    date_filter
+    search_box
+    get_transactions
+    prepareWhereClouse
+    record_count
+    no_items
+    column_default
+    column_cb
+    get_columns
+    get_sortable_columns
+    get_bulk_actions
+    form
+    prepare_items
+    process_bulk_action
+    __construct
+    set_screen
+    plugin_menu
+    plugin_settings_page
+    screen_option
+    get_instance
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/admin/user_balance.php
+
+    aistore_new_modify_user_table_balance
+    aistore_new_modify_user_table_row_balance
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/admin/user_transaction.php
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/admin/user_transaction_list.php
+
+    aistore_transaction
+    aistore_user_transaction
+    aistore_user_transaction_list
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/index.php
+
+    aistore_escrow_transactions_tab_button
+    aistore_escrow_transactions_tab_contents
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/languages/aistore.pot
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/menu.php
+
+    register_my_custom_menu_page
+    aistore_debit_credit
+    currency_setting
+    balance_list
+
+saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/transactions/aistore_transaction_report.php
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_wallet/user_bank_details.php
+
+    aistore_extra_user_profile_fields
+    aistore_save_extra_user_profile_fields
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_withdraw/Aistore_WithdrawalSystem.class.php
+
+    aistore_bank_account
+    aistore_saksh_withdrawal_system
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_withdraw/Widthdrawal_requests.php
+
+    __construct
+    status_filter
+    date_filter
+    search_box
+    get_withdrawal
+    prepareWhereClouse
+    delete_withdrawal
+    record_count
+    no_items
+    column_default
+    column_cb
+    column_name
+    get_columns
+    get_sortable_columns
+    get_bulk_actions
+    form
+    prepare_items
+    process_bulk_action
+    __construct
+    set_screen
+    plugin_menu
+    plugin_settings_page
+    screen_option
+    get_instance
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_withdraw/Withdrawal.php
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_withdraw/admin_setting.php
+
+    aistore_withdraw
+    aistore_withdraw_fee
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_withdraw/index.php
+
+    aistore_withdraw_extension_function
+
+ saksh-escrow-system/aistore_escrow_extensions/aistore_withdraw/menu.php
+
+    aistore_withdraw_register_menu_page
+    withdrawal
+    withdrawal_list
+
+saksh-escrow-system/aistore_escrow_extensions/index.php
+
+    escrow_extension
+
+ saksh-escrow-system/aistore_escrow_extensions/saksh_wallet_currency_convert/index.php
+
+    saksh_wallet_currency_convert_scripts_method
+
+ saksh-escrow-system/aistore_escrow_extensions/saksh_wallet_currency_convert/saksh_wallet_currency_convert_admin.php
+
+    saksh_wallet_currency_convert_admin_menu
+    saksh_wallet_currency_convert_page_currencyexchange
+
+ saksh-escrow-system/aistore_escrow_extensions/saksh_wallet_currency_convert/saksh_wallet_currency_convert_api.php
+
+ saksh-escrow-system/aistore_escrow_extensions/saksh_wallet_currency_convert/saksh_wallet_currency_convert_custom.js
+
+ saksh-escrow-system/aistore_escrow_extensions/saksh_wallet_currency_convert/saksh_wallet_currency_convert_exchange.php
+
+    saksh_wallet_currency_convert_currencyexchange
+    saksh_wallet_currency_convert_getrate
+
+saksh-escrow-system/index.php
+
+    find_all_files
+    aistore_wpdocs_load_textdomain
+    aistore_scripts_method
+    saksh_escrow_system_css
+    aistore_isadmin
+    aistore_plugin_table_install
+    aistore_escrow_list
+    aistore_bank_details
+    aistore_escrow_detail
+    aistore_escrow_system
+    email_notification_message
+    Aistore_process_placeholder_EID
+    Aistore_process_placeholder_Text
+
+saksh-escrow-system/languages/aistore.pot
+
+saksh-escrow-system/languages/hi_IN.mo
+
+    can
+    instead
+	
+saksh-escrow-system/languages/hi_IN.po
+
+saksh-escrow-system/readme.txt
+
+    aistore_escrow_extension_email_extension_function
+    
+    
+    
+    
 How to add an extension
 
 <code>
