@@ -66,9 +66,18 @@ After enableing the plugin you need to create pages with following shortcodes
 
 [aistore_escrow_detail]  Escrow details page where user do trades.
 
-After creating pages please admin and in the form set the pages so that system know which pages is used for which purpose.
+After creating pages please admin and in the form set the pages so that system know which pages is used for which purpose and  you need to create extenstion with following extenstion name
 
-
+1.  aistore_bank_payment
+2.  aistore_bank_payment_gateway
+3.  aistore_chat_system
+4.  aistore_email
+5.  aistore_file_upload
+6.  aistore_notifications
+7.  aistore_payment_gateway
+8.  aistore_wallet
+9.  aistore_withdraw
+10. saksh_wallet_currency_convert
 
 
 How to add an extension
