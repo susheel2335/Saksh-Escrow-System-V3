@@ -1,5 +1,5 @@
 
-// alert("ljkl");  
+alert("ljkl");  
      
 jQuery(document).ready(function($) {
 

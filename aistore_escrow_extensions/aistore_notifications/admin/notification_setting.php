@@ -1,4 +1,6 @@
 <?php
+
+   
 ?>
     <h3><?php _e('Notification Setting', 'aistore') ?></h3>
       
@@ -155,6 +157,29 @@
 </textarea>
           </td>
         </tr>
+        
+        
+                  <tr valign="top">
+        <th scope="row"><?php _e('Admin Payment Refund', 'aistore') ?></th>
+        <td>
+              <textarea id="PaymentRefund" name="PaymentRefund" rows="2" cols="50">
+<?php echo esc_attr(get_option('PaymentRefund')); ?>
+</textarea>
+          </td>
+        </tr>
+        
+        
+           <tr valign="top">
+        <th scope="row"><?php _e('Admin Payment Accepted', 'aistore') ?></th>
+        <td>
+              <textarea id="PaymentAccepted" name="PaymentAccepted" rows="2" cols="50">
+<?php echo esc_attr(get_option('PaymentAccepted')); ?>
+</textarea>
+          </td>
+        </tr>
+        
+        
+      
   
     </table>
        <?php submit_button(); ?>

@@ -7,11 +7,13 @@ if (!defined('ABSPATH'))
     
 }
  
- add_action('AistoreEscrow_Install', 'aistore_plugin_email_table_install' ); 
+ add_action('AistoreEscrow_Install', 'aistore_email_plugin_table_install' ); 
      
  
-function aistore_plugin_email_table_install()
-{  email_message();
+function aistore_email_plugin_table_install()
+
+{  
+    aistore_email_message();
     global $wpdb;
 
 $table_escrow_email = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_email  (
@@ -42,7 +44,7 @@ register_activation_hook(__FILE__, 'aistore_plugin_email_table_install');
   
     
     
-function email_message()
+function aistore_email_message()
 {
       //email
     update_option('email_created_escrow', 'You have successfully created the escrow # [EID]');

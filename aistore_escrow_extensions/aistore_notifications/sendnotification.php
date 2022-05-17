@@ -160,9 +160,9 @@ function aistore_escrow_sendNotificationPaymentRefund($escrow) {
     $user_email = $escrow->sender_email;
     $party_email = $escrow->receiver_email;
     
-    
+
   
-    $msg = "Payment for the excrow #[EID] has been  refunded/cancelled/denied by admin"; 
+    $msg =  get_option('PaymentRefund'); 
     $msg = Aistore_process_placeholder_Text($msg, $escrow);
     
     
@@ -178,8 +178,7 @@ function aistore_escrow_sendNotificationPaymentRefund($escrow) {
 
 
  
-    $msg = "Payment for the excrow #[EID] has been refunded/cancelled/denied by admin"; 
-    
+    $msg =get_option('PaymentRefund'); 
     
     $msg = Aistore_process_placeholder_Text($msg, $escrow);
     
@@ -206,7 +205,7 @@ function aistore_escrow_sendNotificationPaymentAccepted($escrow) {
     
     
  
-    $msg = "Payment for the excrow #[EID] has been approved by admin"; 
+    $msg = get_option('PaymentAccepted'); 
     
     
     
@@ -224,7 +223,7 @@ function aistore_escrow_sendNotificationPaymentAccepted($escrow) {
     aistore_notification_new($n);
   
   
-    $msg = "Payment for the excrow #[EID] has been approved by admin"; 
+    $msg = get_option('PaymentAccepted'); 
     
     
     $msg = Aistore_process_placeholder_Text($msg, $escrow);

@@ -17,7 +17,29 @@ $status=  escrow_extension('file_upload');
     exit();
  }
 
+register_activation_hook(__FILE__, 'aistore_file_upload_plugin_table_install');
 
+
+function aistore_file_upload_plugin_table_install()
+{
+    global $wpdb;
+
+        $table_escrow_documents = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "escrow_documents (
+  id int(100) NOT NULL  AUTO_INCREMENT,
+  eid  int(100) NOT NULL,
+  documents  varchar(100)  NOT NULL,
+   ipaddress varchar(100)   NOT NULL,
+   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
+   user_id  int(100) NOT NULL,
+  documents_name  varchar(100)  DEFAULT NULL,
+  PRIMARY KEY (id)
+)  ";
+
+
+   require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($table_escrow_documents);
+
+}
 include "aistore_escrow_file_upload.php";
 include "admin_setting.php";
 

@@ -7,9 +7,52 @@ Plugin URI: #
 Author: susheelhbti
 Author URI: http://www.aistore2030.com/
 Description: Saksh Escrow System is a plateform allow parties to complete safe payments.  
-
-
+ 
 */
+
+
+// function find_all_files( $dir=__DIR__ )
+// {
+//     $root = scandir($dir);
+//     foreach($root as $value)
+//     {
+//         if($value === '.' || $value === '..') {continue;}
+//         if(is_file("$dir/$value")) {$result[]="$dir/$value";continue;}
+//         foreach(find_all_files("$dir/$value") as $value)
+//         {
+//             $result[]=$value;
+//         }
+//     }
+//     return $result;
+// } 
+
+
+
+// echo "<pre>";
+
+// $f=find_all_files();
+
+
+// foreach($f as $n)
+// { 
+    
+//     echo $n;
+ 
+
+// preg_match_all('/function (\w+)/', file_get_contents($n), $m);
+
+// // print_r( "<li>".$m[1]."</li>");
+// // var_dump($m[1]);
+// echo "<ul>";
+// foreach($m[1] as $n1)
+// { 
+//     echo "<li>".$n1."</li>";
+// }
+//  echo "</ul> ";
+// }
+
+
+
 
 if (!defined('ABSPATH'))
 {
@@ -77,29 +120,10 @@ function aistore_isadmin()
 
 function aistore_plugin_table_install()
 {
+    aistore_message();
     global $wpdb;
 
-    $table_escrow_discussion = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "escrow_discussion  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  eid int(100) NOT NULL,
-   message  text  NOT NULL,
-   user_login  varchar(100)   NOT NULL,
-  status  varchar(100)   NOT NULL,
-  ipaddress varchar(100)   NOT NULL,
-   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id)
-) ";
 
-    $table_escrow_documents = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "escrow_documents (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  eid  int(100) NOT NULL,
-  documents  varchar(100)  NOT NULL,
-   ipaddress varchar(100)   NOT NULL,
-   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
-   user_id  int(100) NOT NULL,
-  documents_name  varchar(100)  DEFAULT NULL,
-  PRIMARY KEY (id)
-)  ";
 
     $table_escrow_system = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "escrow_system (
   id int(100) NOT NULL AUTO_INCREMENT, 
@@ -121,83 +145,18 @@ function aistore_plugin_table_install()
 
 
 
-  $table_aistore_wallet_transactions = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "aistore_wallet_transactions  (
-   	transaction_id  bigint(20)  NOT NULL  AUTO_INCREMENT,
-  user_id bigint(20)  NOT NULL,
-   reference bigint(20)   NULL,
-   type   varchar(100)  NOT NULL,
-   amount  double    NOT NULL,
-  balance  double    NOT NULL,
-    description  text  NOT NULL,
-   currency  varchar(100)   NOT NULL,
-   created_by  	bigint(20) NOT NULL,
-   date  timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (transaction_id)
-) ";
 
-    $table_aistore_wallet_balance = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "aistore_wallet_balance  (
-     	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
-   	transaction_id  bigint(20)  NOT NULL,
-  user_id bigint(20)  NOT NULL,
-  balance  double    NOT NULL,
-   currency  varchar(100)   NOT NULL,
-   created_by  	bigint(20) NOT NULL,
-   date  timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id)
-) ";
-
-  
-    $table_withdrawal_requests = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "widthdrawal_requests  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  amount double NOT NULL,
- 
-   method  varchar(100)   NOT NULL,   charges  varchar(100)   NOT NULL,
-   username  varchar(100)   NOT NULL,
-   currency  varchar(100)   NOT NULL,
-  status  varchar(100)   NOT NULL DEFAULT 'pending',
-   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id)
-) ";
-
-  $table_escrow_currency = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_currency  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  currency varchar(100) NOT NULL,
-   symbol  varchar(100)   NOT NULL,
-  created_at timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id)
-) ";
    
     require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
 
-    dbDelta($table_escrow_discussion);
+
 
     dbDelta($table_escrow_system);
 
-    dbDelta($table_escrow_documents);
-
-
-    
-    dbDelta($table_escrow_email);
-    
-    
-      dbDelta($table_aistore_wallet_transactions);
-
-    dbDelta($table_aistore_wallet_balance);
-    
-    dbDelta($table_withdrawal_requests);
-    
-    dbDelta($table_escrow_currency);
-
-
-
- 
-    
-    
-    
     
      update_option('escrow_accept_fee', 5);
      update_option('escrow_create_fee', 5);
-     update_option('withdraw_fee', 5);
+
       update_option('escrow_fee_deducted', 'accepted');
     
 
@@ -300,7 +259,7 @@ return    $cl->aistore_escrow_system();
    
 }
 
-function email_notification_message()
+function aistore_message()
 {
     
     //messages

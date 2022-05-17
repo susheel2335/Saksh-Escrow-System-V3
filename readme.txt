@@ -278,8 +278,8 @@ saksh-escrow-system/aistore_escrow/user_escrow.php
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_email/aistore_email_install.php
 
-    aistore_plugin_email_table_install
-    email_message
+    aistore_email_plugin_table_install
+    aistore_email_message
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_email/email_report.php
 

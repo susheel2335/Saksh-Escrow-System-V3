@@ -1,5 +1,36 @@
 <?php
 
+register_activation_hook(__FILE__, 'aistore_withdraw_plugin_table_install');
+
+
+function aistore_withdraw_plugin_table_install()
+{
+    global $wpdb;
+
+        $table_withdrawal_requests = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "widthdrawal_requests  (
+  id int(100) NOT NULL  AUTO_INCREMENT,
+  amount double NOT NULL,
+ 
+   method  varchar(100)   NOT NULL,   charges  varchar(100)   NOT NULL,
+   username  varchar(100)   NOT NULL,
+   currency  varchar(100)   NOT NULL,
+  status  varchar(100)   NOT NULL DEFAULT 'pending',
+   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id)
+) ";
+
+
+   require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+  dbDelta($table_withdrawal_requests);
+    update_option('withdraw_fee', 5);
+}
+
+
+ 
+  add_shortcode('aistore_bank_account', array(
+    'Aistore_WithdrawalSystem',
+    'aistore_bank_account'
+));
 
  add_shortcode('aistore_saksh_withdrawal_system', array(
     'Aistore_WithdrawalSystem',
@@ -7,11 +38,6 @@
 ));
  
  
- 
-  add_shortcode('aistore_bank_account', array(
-    'Aistore_WithdrawalSystem',
-    'aistore_bank_account'
-));
 
  include_once dirname(__FILE__) . '/menu.php';
  include_once dirname(__FILE__) . '/admin_setting.php';

@@ -231,7 +231,7 @@ else{
           $c1= sanitize_text_field($_REQUEST['c1']);
         $c2= sanitize_text_field($_REQUEST['c2']);
         
-         $call=  "https://escrowsys.blogentry.in/wp-content/plugins/saksh-escrow-system/aistore_escrow_extensions/saksh_wallet_currency_convert/saksh_wallet_currency_convert_api.php";
+         $call=  "/saksh_wallet_currency_convert_api.php";
          
       $str = @file_get_contents($call);
     if ($str === FALSE) {

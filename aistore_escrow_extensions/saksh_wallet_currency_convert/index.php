@@ -16,11 +16,11 @@ function saksh_wallet_currency_convert_scripts_method()
         'jquery'
     ));
     
-      wp_enqueue_script( 'ajax-script', plugins_url( '../../saksh_wallet_currency_convert_custom.js', __FILE__ ), array('jquery') );
+ wp_enqueue_script( 'ajax-script', plugins_url( '../../saksh_wallet_currency_convert_custom.js', __FILE__ ), array('jquery') );
 
 
 wp_localize_script( 'ajax-script', 'ajax_object',
-        array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'we_value' => 1234 ) );
+        array( 'ajax_url' => admin_url( 'admin-ajax.php' )) );
    
  wp_register_script( 'jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', null, null, true );      	
 }

@@ -1,5 +1,6 @@
 <?php
 
+ 
     add_action('AistoreNotification_setting', 'aistore_notification_setting' ); 
     
     

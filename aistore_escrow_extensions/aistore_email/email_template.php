@@ -175,9 +175,13 @@ table, td { color: #000000; } a { color: #fdc71b; text-decoration: underline; } 
   <tbody>
     <tr>
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 50px;font-family:arial,helvetica,sans-serif;" align="left">
+        <?php
         
+	
+ $admin_email = get_option( 'admin_email' ); 
+?>
   <div style="color: #ffffff; line-height: 190%; text-align: center; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 190%;"><span style="font-family: Montserrat, sans-serif; font-size: 14px; line-height: 26.6px;">If you have any questions, feel free message us at <a rel="noopener" href="https://unlayer.com" target="_blank"><span style="text-decoration: underline; font-size: 14px; line-height: 26.6px;">wordpress@aistore2030.com</span></a>&nbsp;</span><br /><span style="font-family: Montserrat, sans-serif; font-size: 14px; line-height: 26.6px;">All right reserved. Update email preferences or unsubscribe.</span><br /><span style="font-family: Montserrat, sans-serif; font-size: 14px; line-height: 26.6px;">Terms of use | Privacy Policy </span></p>
+    <p style="font-size: 14px; line-height: 190%;"><span style="font-family: Montserrat, sans-serif; font-size: 14px; line-height: 26.6px;">If you have any questions, feel free message us at <a rel="noopener" href="https://unlayer.com" target="_blank"><span style="text-decoration: underline; font-size: 14px; line-height: 26.6px;"><?php echo $admin_email; ?></span></a>&nbsp;</span><br /><span style="font-family: Montserrat, sans-serif; font-size: 14px; line-height: 26.6px;">All right reserved. Update email preferences or unsubscribe.</span><br /><span style="font-family: Montserrat, sans-serif; font-size: 14px; line-height: 26.6px;">Terms of use | Privacy Policy </span></p>
   </div>
 
       </td>

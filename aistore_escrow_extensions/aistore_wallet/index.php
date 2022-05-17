@@ -17,6 +17,63 @@ if (!defined('ABSPATH'))
     
 }
 
+register_activation_hook(__FILE__, 'aistore_wallet_plugin_table_install');
+
+
+function aistore_wallet_plugin_table_install()
+{
+    global $wpdb;
+
+
+  $table_aistore_wallet_transactions = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "aistore_wallet_transactions  (
+   	transaction_id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+  user_id bigint(20)  NOT NULL,
+   reference bigint(20)   NULL,
+   type   varchar(100)  NOT NULL,
+   amount  double    NOT NULL,
+  balance  double    NOT NULL,
+    description  text  NOT NULL,
+   currency  varchar(100)   NOT NULL,
+   created_by  	bigint(20) NOT NULL,
+   date  timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (transaction_id)
+) ";
+
+    $table_aistore_wallet_balance = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "aistore_wallet_balance  (
+     	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
+   	transaction_id  bigint(20)  NOT NULL,
+  user_id bigint(20)  NOT NULL,
+  balance  double    NOT NULL,
+   currency  varchar(100)   NOT NULL,
+   created_by  	bigint(20) NOT NULL,
+   date  timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id)
+) ";
+
+  
+   
+  $table_escrow_currency = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_currency  (
+  id int(100) NOT NULL  AUTO_INCREMENT,
+  currency varchar(100) NOT NULL,
+   symbol  varchar(100)   NOT NULL,
+  created_at timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id)
+) ";
+
+
+   
+    require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+
+    dbDelta($table_aistore_wallet_transactions);
+
+    dbDelta($table_aistore_wallet_balance);
+    
+  
+    
+    dbDelta($table_escrow_currency);
+
+
+}
 
 
  include_once dirname(__FILE__) . '/transactions/aistore_transaction_report.php';

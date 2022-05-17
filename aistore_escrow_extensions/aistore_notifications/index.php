@@ -79,6 +79,8 @@ function aistore_notification_escrow_message()
     update_option('buyer_deposit', 'Your payment  has been accepted for the escrow  # [EID]');
     update_option('seller_deposit', 'You have deposited the payment into  the escrow for  the transaction  escrow # [EID]');
     update_option('Buyer_Mark_Paid', 'You have successfully  marked escrow # [EID]');
+     update_option('PaymentRefund', 'Payment for the escrow #[EID] has been  refunded/cancelled/denied by admin');
+    update_option('PaymentAccepted', 'Payment for the escrow #[EID] has been approved by admin');
 
 } 
 

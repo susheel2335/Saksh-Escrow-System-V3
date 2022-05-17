@@ -254,8 +254,15 @@ class AistoreEscrowSettings
         register_setting('aistore_notification_page', 'buyer_deposit');
         register_setting('aistore_notification_page', 'seller_deposit');
         register_setting('aistore_notification_page', 'Buyer_Mark_Paid');
+        
+        
+         register_setting('aistore_notification_page', 'PaymentRefund');
+        register_setting('aistore_notification_page', 'PaymentAccepted');
+     
 
     }
+    
+    
     //email
     function aistore_email_register_setting()
     {
