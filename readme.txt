@@ -66,7 +66,8 @@ After enableing the plugin you need to create pages with following shortcodes
 
 [aistore_escrow_detail]  Escrow details page where user do trades.
 
-After creating pages please admin and in the form set the pages so that system know which pages is used for which purpose and  you need to create extenstion with following extenstion name
+After creating pages please admin and in the form set the pages so that system know which pages is used for which purpose and  
+you need to create extenstion with following extenstion name
 
 1.  aistore_bank_payment
 2.  aistore_bank_payment_gateway
