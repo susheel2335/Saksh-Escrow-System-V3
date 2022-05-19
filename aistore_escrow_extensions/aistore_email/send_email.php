@@ -105,8 +105,8 @@ function sendEmailAccepted($escrow)
     $n['escrow'] = $escrow;
     $n['reference_id'] =  $escrow->id;
     $n['url'] = $details_escrow_page_id_url;
-    $n['email'] = $user_email;
-    $n['party_email'] = $party_email;
+    $n['email'] = $party_email;
+    $n['party_email'] = $user_email;
 
     aistore_send_email($n);
 
@@ -124,8 +124,8 @@ function sendEmailAccepted($escrow)
 
     $n['message'] = $msg;
     $n['subject'] = $subject;
-    $n['email'] = $party_email;
-    $n['party_email'] = $user_email;
+    $n['email'] = $user_email;
+    $n['party_email'] = $party_email;
 
     aistore_send_email($n);
 
