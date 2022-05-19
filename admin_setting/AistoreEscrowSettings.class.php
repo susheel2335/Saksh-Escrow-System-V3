@@ -190,7 +190,7 @@ class AistoreEscrowSettings
 
     function aistore_payment_process()
     {
-        include_once dirname(__FILE__) . '../../admin_setting/aistore_payment_process.php';
+        include_once dirname(__FILE__) . '../../aistore_escrow_extensions/aistore_bank_payment/aistore_payment_process.php';
     }
         
     // page Setting

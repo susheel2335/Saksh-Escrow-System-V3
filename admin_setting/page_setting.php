@@ -5,7 +5,7 @@
 ?>
 	  <div class="wrap">
 	  
-	  <div class="card">
+	  <div class="tgcard">
 	   <?php echo AistoregetSupportMsg(); ?>
 <h3><?php _e('Escrow Setting', 'aistore') ?></h3>
  
@@ -25,9 +25,7 @@
     
     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Step 3</button>
     
-    
-    <!--<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Step 4</button>-->
-    
+ 
     
     
      <button class="nav-link" id="nav-contact1-tab" data-bs-toggle="tab" data-bs-target="#nav-contact1" type="button" role="tab" aria-controls="nav-contact1" aria-selected="false">Step 4</button>
@@ -556,26 +554,45 @@ echo "<strong>If no error then task completed successfully.</strong>";
     
 <p><?php _e('Enable and Disable Extension ', 'aistore') ?></p>
 
+
+ 
+
+
+
+
+ 
+
         <?php
         $aistore_escrow_extensions=array();
-        //  $aistore_escrow_extensions[] = 'bank_details';
-          
+  
+     
           
         $aistore_escrow_extensions = apply_filters( "aistore_escrow_extension",$aistore_escrow_extensions);
         
-        
-        var_dump($aistore_escrow_extensions);
+         
         
         foreach($aistore_escrow_extensions as $extension):
             
+            {
+            echo '<hr />'; 
             
+            
+              echo '   
+  <input name="'. $extension.'" id="'. $extension.'" type="checkbox">
+ 
+ ' ;
+
+  
+       
             echo $extension;
         
-      $status=  escrow_extension($extension);
+    //  $status=  escrow_extension($extension);
       
       
-      echo $status;
+    //  echo $status;
         
+        
+            }
         endforeach;
         
         ?>
@@ -759,4 +776,5 @@ echo "<strong>If no error then task completed successfully.</strong>";
       
 </div>
 </div>
-
+ 
+ 

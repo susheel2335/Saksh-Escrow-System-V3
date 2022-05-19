@@ -75,7 +75,7 @@ $escrow_admin_user_id = get_option('escrow_user_id');
 if($balance >= $amount){ 
     
     
-    $withdraw = get_option('withdraw_fee');
+    $withdraw = floatval(get_option('withdraw_fee'));
     
      $withdraw_fee = ($withdraw / 100) * $amount;
      

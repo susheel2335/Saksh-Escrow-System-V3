@@ -40,6 +40,7 @@ class AistoreEscrow
 
         $title = sanitize_text_field($request["title"]);
         $amount = sanitize_text_field($request["amount"]);
+        $escrow_fee = $this->create_escrow_fee($amount);
 
         $receiver_email = sanitize_email($request["receiver_email"]);
 
@@ -54,14 +55,14 @@ class AistoreEscrow
         $sender_email = $request["user_email"];
 
         $qr = $wpdb->prepare(
-            "INSERT INTO {$wpdb->prefix}escrow_system ( title, amount, receiver_email,sender_email,term_condition  ,currency ) VALUES ( %s, %s, %s, %s ,%s , %s)",
+            "INSERT INTO {$wpdb->prefix}escrow_system ( title, amount, receiver_email,sender_email,term_condition ,escrow_fee ,currency ) VALUES ( %s, %s, %s, %s ,%s , %s,%s)",
             [
                 $title,
                 $amount,
                 $receiver_email,
                 $sender_email,
                 $term_condition,
-
+                $escrow_fee,
                 $escrow_currency,
             ]
         );

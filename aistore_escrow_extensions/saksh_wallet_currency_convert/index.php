@@ -1,11 +1,11 @@
 <?php
+ 
 
-// echo plugins_url('/saksh-escrow-system/aistore_escrow_extensions/saksh_wallet_currency_convert/saksh_wallet_currency_convert_custom.js');
 
 function saksh_wallet_currency_convert_scripts_method()
 {
     
-    echo plugins_url('saksh_wallet_currency_convert_custom.js', __FILE__);
+//    echo plugins_url('saksh_wallet_currency_convert_custom.js', __FILE__);
     
     
     
@@ -22,7 +22,8 @@ function saksh_wallet_currency_convert_scripts_method()
 wp_localize_script( 'ajax-script', 'ajax_object',
         array( 'ajax_url' => admin_url( 'admin-ajax.php' )) );
    
- wp_register_script( 'jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', null, null, true );      	
+ wp_register_script( 'jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', null, null, true );  
+ 
 }
 
 add_action('wp_enqueue_scripts', 'saksh_wallet_currency_convert_scripts_method');

@@ -1,5 +1,5 @@
+ 
 
-alert("ljkl");  
      
 jQuery(document).ready(function($) {
 
@@ -12,23 +12,17 @@ jQuery(document).ready(function($) {
       data :{action: "ACS_list_chat"},
         success: function(data){
          console.log("data44444",data);
-        //  alert(JSON.stringify(data));
+        
+        
          
           var html_to_append = '';
           $.each(data, function(i, item) {
               
-              
-             
-   
+               
             html_to_append +=
-            '<a href="/?page_id=7&eid='+item.id+'"><div class="chat_list active_chat"><div class="chat_people"><div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"></div> <div class="chat_ib"><h5> # ' +
+            '<a href="'+item.url+'"><div class="chat_list active_chat"><div class="chat_people"><div class="chat_img"><img src="/assets/user-profile.png" alt="sunil"></div> <div class="chat_ib"><h5> ' +
             item.sender_email + 
-            '<br>Escrow Id: '+ item.id+'<span class="chat_date">'+item.created_at+'<p>'+item.status+'<p></span></h5><p>' +
-            
-            item.title +
-            '</p><p>' +
-            item.amount +
-            '</p></div></div></div></a>';
+            '<br>(#'+ item.id+" "+ item.title+')</h5> </div></div></div></a>';
             
           });
           $("#items-container").html(html_to_append);
@@ -65,7 +59,7 @@ jQuery(document).ready(function($) {
                       else{
           
             html_to_append_message +=
-            '<div class="incoming_msg"><div class="incoming_msg_img"><img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"></div><div class="received_msg"><div class="received_withd_msg"> <p>'+item1.message+'</p><span class="time_date">'+item1.created_at+'</span></div></div>';
+            '<div class="incoming_msg"><div class="incoming_msg_img"><img src="/assets/user-profile.png" alt="sunil"></div><div class="received_msg"><div class="received_withd_msg"> <p>'+item1.message+'</p><span class="time_date">'+item1.created_at+'</span></div></div>';
             
                       }
                      
@@ -118,7 +112,7 @@ jQuery(document).ready(function($) {
                       else{
           
             html_to_append_message +=
-            '<div class="incoming_msg"><div class="incoming_msg_img"><img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"></div><div class="received_msg"><div class="received_withd_msg"> <p>'+item1.message+'</p><span class="time_date">'+item1.created_at+'</span></div></div>';
+            '<div class="incoming_msg"><div class="incoming_msg_img"><img src="/assets/user-profile.png" alt="sunil"></div><div class="received_msg"><div class="received_withd_msg"> <p>'+item1.message+'</p><span class="time_date">'+item1.created_at+'</span></div></div>';
             
                       }
                      

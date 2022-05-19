@@ -14,7 +14,13 @@ function aistore_escrow_payment_method_list( $escrow ) {
     
     
  $aep=new AistoreEscrowPayment();
- 
+  $eid = sanitize_text_field($_REQUEST['eid']);
+         
+         
+$object_escrow = new AistoreEscrowSystem();
+
+$escrow = $object_escrow->AistoreGetEscrow($eid);
+
  return $aep->payment_form( $escrow );
  
     

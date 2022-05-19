@@ -4,15 +4,14 @@
     
     function ABP_bank_makepayment(){
 
-
-    
-    
-    
               global $wpdb;
           $eid = sanitize_text_field($_REQUEST['eid']);
                 $user_id = get_current_user_id();
                 
-        $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE id=%s ", $eid));
+                
+        $object_escrow = new AistoreEscrow();
+             $escrow =    $object_escrow->AistoreGetEscrow($eid);
+        // $escrow = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_system WHERE id=%s ", $eid));
                       
          $aistore_escrow_currency = $escrow->currency;
                       $escrow_amount = $escrow->amount;

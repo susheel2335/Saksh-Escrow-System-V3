@@ -8,8 +8,8 @@ class Aistorechat {
         ?>
 
 
-<div class="container">
-<h3 class=" text-center">Messaging</h3>
+<div class="chatbox">
+<h3 class=" text-center">Messaging77777</h3>
 <div class="messaging">
       <div class="inbox_msg">
           <?php
@@ -26,13 +26,7 @@ class Aistorechat {
             <div class="recent_heading">
               <h4>Recent</h4>
             </div>
-            <div class="srch_bar">
-              <div class="stylish-input-group">
-                <input type="text" class="search-bar"  placeholder="Search" >
-                <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>
-            </div>
+            
           </div>
              <div class="inbox_chat">
                   <div id="items-container" class="row"></div>

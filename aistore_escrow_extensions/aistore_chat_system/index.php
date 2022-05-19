@@ -10,7 +10,7 @@ Description: Aistore Chat System is a plateform allow parties to complete safe p
 
 
 */
-
+// echo plugins_url('/js/chat.js', __FILE__);
 
 if (!defined('ABSPATH'))
 {
@@ -44,21 +44,36 @@ function aistore_chat_plugin_table_install()
 
 function ACS_scripts_method()
 {
+   $page_id=  get_option("details_escrow_page_id");
+   
+
+
+   
+    if (get_the_ID()==$page_id ) {
+            
+            
+            
+    
      wp_enqueue_script( 'bootstrap_js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js', array('jquery'), NULL, true );
      
    wp_enqueue_style( 'bootstrap_css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', false, NULL, 'all' );
    
     wp_enqueue_style('chat1', plugins_url('/css/chat.css', __FILE__) , array());
 
-    wp_enqueue_script('chat1', plugins_url('/js/chat.js', __FILE__) , array(
-        'jquery'
-    ));
+   
+    
      wp_enqueue_script( 'ajax-script', plugins_url( '/js/chat.js', __FILE__ ), array('jquery') );
 
-// in JavaScript, object properties are accessed as ajax_object.ajax_url, ajax_object.we_value
-
+ 
 wp_localize_script( 'ajax-script', 'ajax_object',
         array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+        
+    
+    
+            
+            
+        }
+        
 }
 
 add_action('wp_enqueue_scripts', 'ACS_scripts_method');

@@ -19,6 +19,14 @@ class AistoreWallet
          
          $this->aistore_credit($receiver_user_id, $amount, $currency, $description,$reference);
          
+         
+         
+                
+            do_action( 'aistore_wallet_transfer',$reference);
+            
+            
+            
+            
          /*
         
         if($this->aistore_balance($sender_user_id, $currency) >= $amount )
@@ -150,10 +158,12 @@ class AistoreWallet
         } 
         
         ob_start();
-?>
-   <div>
+
+
+   echo "<div>";
 	 
-<?php
+
+
         $user_id = get_current_user_id();
         _e( 'Available balance is:', 'aistore' ) ;
        
@@ -173,6 +183,8 @@ $currency=  $row->currency;
    endforeach;
         $wallet = new AistoreWallet();
         $results = $wallet->aistore_wallet_transaction_history($user_id);
+        echo $user_id;
+        print_r(   $results );
 
 ?></div>
 <h3><u><?php _e('Transactions', 'aistore'); ?></u> </h3>
@@ -252,7 +264,7 @@ $currency=  $row->currency;
 
         global $wpdb;
 
-        $sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions WHERE   user_id=$user_id group by reference order by transaction_id desc";
+        $sql = "SELECT * FROM {$wpdb->prefix}aistore_wallet_transactions WHERE   user_id=$user_id  order by transaction_id desc";
 
         return $wpdb->get_results($sql);
 

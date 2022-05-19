@@ -1,10 +1,27 @@
 <?php
 
+
+
+add_action('AistoreEscrow_Install', 'aistore_set_defualt_value_widthdraw');
+
+function aistore_set_defualt_value_widthdraw()
+{
+
+ 
+ 
+aistore_withdraw_plugin_table_install();
+}
+
+
+
 register_activation_hook(__FILE__, 'aistore_withdraw_plugin_table_install');
 
 
 function aistore_withdraw_plugin_table_install()
 {
+    update_option('withdraw_fee', 15);
+    
+    
     global $wpdb;
 
         $table_withdrawal_requests = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "widthdrawal_requests  (
@@ -22,7 +39,7 @@ function aistore_withdraw_plugin_table_install()
 
    require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
   dbDelta($table_withdrawal_requests);
-    update_option('withdraw_fee', 5);
+    
 }
 
 

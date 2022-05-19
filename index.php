@@ -97,6 +97,19 @@ function saksh_escrow_system_css() {
 }
 
 
+function aistore_load_scripts($hook) {
+
+ 
+  
+  wp_enqueue_script('aistore',plugins_url('/aistore_assets/js/admin.js', __FILE__) ,'','',true);
+  
+  
+   
+}
+add_action('admin_enqueue_scripts', 'aistore_load_scripts');
+
+
+
 
 function aistore_isadmin()
 {
@@ -313,7 +326,7 @@ function Aistore_process_placeholder_Text($str, $escrow)
 date_default_timezone_set('America/Los_Angeles');
 
 
-$datetime= date('l F j Y g:i:s A I', strtotime($date));
+$datetime= date('l F j Y g:i:s A', strtotime($date));
     
  
 $html ='<h1>Escrow Details </h1><br>

@@ -34,7 +34,7 @@ add_action('admin_enqueue_scripts', 'aistore_scripts_method_email');
 
 function aistore_escrow_extension_email_extension_function( $aistore_escrow_extensions ) {
    
-        $aistore_escrow_extensions[] = 'Email Extensions';
+        $aistore_escrow_extensions[] = 'Email_Extensions';
   
     return $aistore_escrow_extensions;
 }

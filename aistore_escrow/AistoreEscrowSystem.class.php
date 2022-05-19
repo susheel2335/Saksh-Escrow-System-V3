@@ -19,6 +19,9 @@ class AistoreEscrowSystem extends  AistoreEscrow
     {
 
        do_action("Aistorebank_makepayment");
+       do_action("payment_method_list");
+       
+      
    
         
     }
@@ -484,7 +487,7 @@ $eschat->ACS_escrow_chat();
 
 
 <nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+  <div class="nav nav-tabs  mb-3" id="nav-tab" role="tablist">
    
    
     
@@ -503,7 +506,8 @@ $eschat->ACS_escrow_chat();
   </div>
 </nav>
 
-<br>
+
+
 <div class="tab-content" id="nav-tabContent">
    
   
