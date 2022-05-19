@@ -66,6 +66,13 @@ After enableing the plugin you need to create pages with following shortcodes
 
 [aistore_escrow_detail]  Escrow details page where user do trades.
 
+
+How a user can add/edit bank details 
+
+[aistore_bank_account] user can add/edit bank details.
+
+
+
 After creating pages please admin and in the form set the pages so that system know which pages is used for which purpose and  
 you need to create extenstion with following extenstion name
 
