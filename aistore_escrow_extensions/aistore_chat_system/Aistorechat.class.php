@@ -3,29 +3,19 @@
 
 class Aistorechat {
     
-    
-    // This function is used to escrow chat page
     public static function ACS_escrow_chat(){
         
-        
-        if (!empty($_REQUEST['eid'])) {
- $eid= sanitize_text_field($_REQUEST['eid']);  
-} else {  
-    $eid= 0;
-}
-
-
         ?>
 
 
-<div class="chatbox">
-<h3 class=" text-center">Messaging </h3>
+<div class="container">
+<h3 class=" text-center">Messaging</h3>
 <div class="messaging">
       <div class="inbox_msg">
           <?php
       global $wpdb;
 
-       //$eid= sanitize_text_field($_REQUEST['eid']);
+       $eid= sanitize_text_field($_REQUEST['eid']);
        
        $user_id = get_current_user_id();
 
@@ -36,10 +26,16 @@ class Aistorechat {
             <div class="recent_heading">
               <h4>Recent</h4>
             </div>
-            
+            <div class="srch_bar">
+              <div class="stylish-input-group">
+                <input type="text" class="search-bar"  placeholder="Search" >
+                <span class="input-group-addon">
+                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span> </div>
+            </div>
           </div>
              <div class="inbox_chat">
-                  <div id="items-container" class="row">testttttttttttt</div>
+                  <div id="items-container" class="row"></div>
         
         
          </div>
@@ -86,8 +82,6 @@ class Aistorechat {
 
 add_action('wp_ajax_custom_action', 'ACS_chat_box');
 
-// This function is used to escrow discussion
-
 function ACS_chat_box()
 {
 
@@ -116,9 +110,6 @@ array( $message, $eid,$user_login ,$user_id) ) );
 
 add_action('wp_ajax_ACS_message_discussion_list', 'ACS_message_discussion_list');
 
-
-
-//This function is used to escrow discussion list
 function ACS_message_discussion_list()
 {
     
@@ -139,7 +130,7 @@ function ACS_message_discussion_list()
     wp_die();
 }
 
-// This function is used to escrow list
+
 
 add_action('wp_ajax_ACS_list_chat', 'ACS_list_chat');
 

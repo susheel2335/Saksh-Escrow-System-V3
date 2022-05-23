@@ -17,7 +17,7 @@ $results = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_ex
 }
 
          
-//include_once dirname(__FILE__) . '/aistore_chat_system/index.php';
+include_once dirname(__FILE__) . '/aistore_chat_system/index.php';
   
 include_once dirname(__FILE__) . '/aistore_email/index.php';
    
