@@ -30,6 +30,7 @@ include "crypto_deposit.php";
     ));
 }
 
+
 add_action('rest_api_init', 'aistore_escrow_at_rest_init');
 
 

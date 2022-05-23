@@ -11,46 +11,6 @@ Description: Saksh Escrow System is a plateform allow parties to complete safe p
 */
 
 
-// function find_all_files( $dir=__DIR__ )
-// {
-//     $root = scandir($dir);
-//     foreach($root as $value)
-//     {
-//         if($value === '.' || $value === '..') {continue;}
-//         if(is_file("$dir/$value")) {$result[]="$dir/$value";continue;}
-//         foreach(find_all_files("$dir/$value") as $value)
-//         {
-//             $result[]=$value;
-//         }
-//     }
-//     return $result;
-// } 
-
-
-
-// echo "<pre>";
-
-// $f=find_all_files();
-
-
-// foreach($f as $n)
-// { 
-    
-//     echo $n;
- 
-
-// preg_match_all('/function (\w+)/', file_get_contents($n), $m);
-
-// // print_r( "<li>".$m[1]."</li>");
-// // var_dump($m[1]);
-// echo "<ul>";
-// foreach($m[1] as $n1)
-// { 
-//     echo "<li>".$n1."</li>";
-// }
-//  echo "</ul> ";
-// }
-
 
 
 
@@ -233,6 +193,8 @@ function aistore_escrow_list()
 return    $cl->aistore_escrow_list();
    
 } 
+
+/*
 function aistore_bank_details()
 {
       if (!is_user_logged_in())
@@ -245,7 +207,7 @@ function aistore_bank_details()
 return    $cl->aistore_bank_details();
    
 }
-
+*/
 
 function aistore_escrow_detail()
 {
@@ -358,6 +320,20 @@ $html ='<h1>Escrow Details </h1><br>
     return ($str);
 }
 
+
+
+function aistore_escrow_getpartner($email,$escrow)
+{
+ 
+    $user_email = $escrow->sender_email;
+    $party_email = $escrow->receiver_email;
+    
+    if($email==$user_email )
+    return $escrow->receiver_email;
+    else
+    return  $escrow->sender_email;
+    
+}
 
 
 function  AistoregetSupportMsg()

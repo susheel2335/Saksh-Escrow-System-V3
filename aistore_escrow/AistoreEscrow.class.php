@@ -5,19 +5,21 @@ if (!defined("ABSPATH")) {
 
 class AistoreEscrow
 {
-    // get escrow feecccc
+    // This function is used to get escrow admin user id
     public function get_escrow_admin_user_id()
     {
         $escrow_admin_user_id = get_option("escrow_user_id");
         return $escrow_admin_user_id;
     }
-
+    
+    //This function is used to get escrow currency
     public function get_escrow_currency()
     {
         $aistore_escrow_currency = get_option("aistore_escrow_currency");
         return $aistore_escrow_currency;
     }
 
+//This function is used to create escrow fee
     public function create_escrow_fee($amount)
     {
         $escrow_create_fee = get_option("escrow_create_fee");
@@ -25,7 +27,8 @@ class AistoreEscrow
         $escrow_fee = ($escrow_create_fee / 100) * $amount;
         return $escrow_fee;
     }
-
+    
+    //This function is used to accept escrow fee
     public function accept_escrow_fee($amount)
     {
         $escrow_accept_fee = get_option("escrow_accept_fee");
@@ -33,7 +36,9 @@ class AistoreEscrow
         $escrow_fee = ($escrow_accept_fee / 100) * $amount;
         return $escrow_fee;
     }
-
+    
+    
+     //This function is used to create escrow 
     function create_escrow($request)
     {
         global $wpdb;
@@ -105,7 +110,7 @@ class AistoreEscrow
         return $escrow;
     }
 
-    // Escrow List
+    // This function is used to  escrow list by user email id
     public function AistoreEscrowList($emailId)
     {
         global $wpdb;
@@ -120,6 +125,10 @@ class AistoreEscrow
 
         return $results;
     }
+    
+    
+    
+      // This function is used to escrow details by escrow id and an email
  public function AistoreEscrowDetail($eid, $email)
     {
         global $wpdb;
@@ -135,6 +144,9 @@ class AistoreEscrow
 
         return $escrow;
     }
+    
+    
+    // This function is used to get escrow details by escrow id
     public function AistoreGetEscrow($eid )
     {
         global $wpdb;
@@ -150,7 +162,7 @@ class AistoreEscrow
     }
     
     
-    
+      // This function is used to send payment to user account with escrow id and payment status are paid
        public function AistoreEscrowMarkPaid($escrow )
     {
         global $wpdb;
@@ -217,6 +229,7 @@ class AistoreEscrow
 
 
 
+// This function is used to cancel escrow with escrow id and status are cancelled
 
     function CancelEscrow____ReviewNeeded($escrow, $email_id)
     {
@@ -235,6 +248,8 @@ class AistoreEscrow
         }
     }
 
+
+// This function is used to release escrow with escrow id and status are released
     function ReleaseEscrow____ReviewNeeded($escrow, $email_id)
     {
         if (accept_escrow_btn_visible($escrow, $email_id)) {
@@ -254,6 +269,7 @@ class AistoreEscrow
         }
     }
 
+// This function is used to accept escrow with escrow id and status are accepted and payment status are paid
     function AcceptEscrow____ReviewNeeded($escrow, $email_id)
     {
         if (accept_escrow_btn_visible($escrow, $email_id)) {
@@ -328,6 +344,8 @@ class AistoreEscrow
         }
     }
 
+
+//  This function is used to dispute escrow with escrow id and status are disputed 
     function DisputeEscrow($escrow)
     {
         if ($this->dispute_escrow_btn_visible($escrow)) {
@@ -348,6 +366,8 @@ class AistoreEscrow
         }
     }
 
+
+//  This function is used to dispute escrow button visible or not
     function dispute_escrow_btn_visible($escrow)
     {
         if ($escrow->payment_status != "paid") {
@@ -369,6 +389,8 @@ class AistoreEscrow
         return true;
     }
 
+
+// This function is used to release escrow button visible or not
     public function release_escrow_btn_visible($escrow, $user_email)
     {
         if ($escrow->payment_status != "paid") {
@@ -393,7 +415,9 @@ class AistoreEscrow
 
         return true;
     }
-
+    
+    
+    //   This function is used to cancel escrow button visible or not
     function cancel_escrow_btn_visible($escrow, $user_email)
     {
         if ($escrow->status == "closed") {
@@ -403,16 +427,23 @@ class AistoreEscrow
         } elseif ($escrow->status == "cancelled") {
             return false;
         }
-
+        
+ 
         if ($escrow->sender_email == $user_email) {
+            
+            
+        if ($escrow->status  <> "pending") {
+         
             if ($escrow->payment_status == "paid") {
                 return false;
             }
+        }
         }
 
         return true;
     }
 
+    //   This function is used to accept escrow button visible or not
     function accept_escrow_btn_visible($escrow, $user_email)
     {
         if ($escrow->payment_status != "paid") {
@@ -439,7 +470,7 @@ class AistoreEscrow
     }
     
     
-    
+    // This function is used to make_payment escrow button visible or not
     function make_payment_btn_visible($escrow, $user_email)
     {
         if ($escrow->payment_status != "paid") {
@@ -462,7 +493,9 @@ class AistoreEscrow
         return true;
     }
 
-    // Accept Button
+
+
+    // This function is used to  Accept Button
 
     function accept_escrow_btn($escrow)
     {
@@ -483,9 +516,11 @@ class AistoreEscrow
 </form> <?php }
     }
 
-    // cancel button
+
 
     // cancel button
+
+//   This function is used to  Cancel Button
     function cancel_escrow_btn($escrow)
     {
         $es = new AistoreEscrow();
@@ -503,8 +538,12 @@ class AistoreEscrow
   ); ?>">
   <input type="hidden" name="action" value="cancelled" />
 </form> <?php }
+ 
     }
-
+    
+    
+    
+//  This function is used to  Release Button
     // release button
     public function release_escrow_btn($escrow)
     {
@@ -527,8 +566,11 @@ class AistoreEscrow
   <input type="hidden" name="action" value="released" />
 </form> <?php }
     }
+    
+    
+    
     // dispute button
-
+//  This function is used to  Dispute Button
     function dispute_escrow_btn($escrow)
     {
         //    $es = new AistoreEscrow();
@@ -568,7 +610,8 @@ class AistoreEscrow
     
     
     
-    
+    //This function is to escrow button action 
+    // like disputed, accepted,released,cancelled
     public function aistore_escrow_btn_actions()
     {
         global $wpdb;
@@ -800,6 +843,18 @@ do_action("AistoreEscrowReleased", $escrow);
         // Sender Create escrow  to excute cancel button
         // Receiver  accept or cancel escrow
         if (isset($_POST["submit"]) and $_POST["action"] == "cancelled") {
+            
+            
+            
+          if(!$this->cancel_escrow_btn_visible($escrow,$email_id) )
+          return "";
+          
+          
+            
+            
+               if($escrow->status == "cancelled"){
+                return "";
+            }
 
             if (
                 !isset($_POST["aistore_nonce"]) ||
@@ -810,6 +865,8 @@ do_action("AistoreEscrowReleased", $escrow);
             ) {
                 return _e("Sorry, your nonce did not verify", "aistore");
             }
+            
+            
 
             $wpdb->query(
                 $wpdb->prepare(
@@ -830,6 +887,11 @@ do_action("AistoreEscrowReleased", $escrow);
                 )
             );
 
+
+        // if($escrow->status == "cancelled"){
+        //         return ;
+        //     }
+            
             if ($escrow->payment_status == "paid") {
                 $escrow_amount = $escrow->amount;
 
@@ -888,6 +950,9 @@ do_action("AistoreEscrowCancelled", $escrow);
         }
     }
 
+
+
+// This function is to get ip address 
     function aistore_ipaddress()
     {
         $ipaddress = "";

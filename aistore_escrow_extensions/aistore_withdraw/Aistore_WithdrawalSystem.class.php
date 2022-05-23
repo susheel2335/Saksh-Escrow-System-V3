@@ -175,7 +175,7 @@ else{
     <h6><?php  _e( 'Withdrawal Request', 'aistore' );?> </h6>
   <label for="amount"><?php   _e( 'Amount', 'aistore' ); ?></label><br>
   
-  <input class="input" type="number" id="amount" name="amount" min="1"  required  class="form-control" style="width:100%;" ><br>
+  <input class="input" type="number" id="amount" name="amount"   required  class="form-control" step="any" style="width:100%;" ><br>
 
   <label for="title"><?php _e('Currency', 'aistore'); ?></label><br>
   <?php

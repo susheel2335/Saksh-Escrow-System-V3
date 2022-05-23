@@ -21,6 +21,7 @@ class Escrow_List extends WP_List_Table {
 	 
 	 
 
+    //   This function is used to search escrow 
 public function status_filter( $text, $input_id ) {
 
 
@@ -95,6 +96,8 @@ public function status_filter( $text, $input_id ) {
         <?php
     }
 
+
+//   This function is used to search escrow by date
 public function date_filter( $text, $input_id ) {
         if ( empty( $_REQUEST['s'] ) && ! $this->has_items() ) {
             return;
@@ -131,7 +134,7 @@ public function date_filter( $text, $input_id ) {
         <?php
     }
 
-
+// This function is used to search escrow by email , id and an amount
 public function search_box( $text, $input_id ) {
         if ( empty( $_REQUEST['s'] ) && ! $this->has_items() ) {
             return;
@@ -204,7 +207,7 @@ public function search_box( $text, $input_id ) {
     }
 
 	/**
-	 * Retrieve customers data from the database
+	 * Retrieve escrow data from the database
 	 *
 	 * @param int $per_page
 	 * @param int $page_number
@@ -251,6 +254,8 @@ $sql .=  Escrow_List::prepareWhereClouse();
 
 		return $result;
 	}
+
+
 
 	public  static function prepareWhereClouse() {
 		$sql="";
@@ -306,7 +311,7 @@ else
 	}
 
 
-
+// Remove escrow payment
 		public static function remove_payment_escrow( $id ) {
 		global $wpdb;
 
@@ -334,7 +339,7 @@ $sql .=  Escrow_List::prepareWhereClouse();
 	}
 
 
-	/** Text displayed when no customer data is available */
+	/** Text displayed when no escrow data is available */
 	public function no_items() {
 		_e( 'No escrow  avaliable.', 'sp' );
 	}

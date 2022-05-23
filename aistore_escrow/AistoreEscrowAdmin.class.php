@@ -9,7 +9,7 @@ class AistoreEscrowAdmin extends  AistoreEscrowSystem
  
   
     
-    
+    // This function is used to admin release escrow button visible or not
     public function admin_release_escrow_btn_visible($escrow )
     {
         if ($escrow->payment_status != "paid") {
@@ -34,6 +34,7 @@ class AistoreEscrowAdmin extends  AistoreEscrowSystem
     }
 
 
+// This function is used to admin cancel escrow button visible or not
     function admin_cancel_escrow_btn_visible($escrow )
     {
         if ($escrow->status == "closed") {
@@ -44,11 +45,11 @@ class AistoreEscrowAdmin extends  AistoreEscrowSystem
             return false;
         }
 
-       
+       /*
             if ($escrow->payment_status == "paid") {
                 return false;
             }
-        
+        */
 
         return true;
     }
@@ -59,7 +60,7 @@ class AistoreEscrowAdmin extends  AistoreEscrowSystem
     
 
 
- 
+//  This function is to escrow admin button action like released,cancelled
     public function aistore_escrow_btn_admin_actions()
     {
         global $wpdb;
@@ -240,7 +241,7 @@ do_action("AistoreEscrowCancelled", $escrow);
 
     
     
-    
+        //   This function is used to  admin Cancel Button
      
     function admin_cancel_escrow_btn($escrow)
     {
@@ -264,7 +265,7 @@ return;
         
     }
     
-    
+        //   This function is used to  admin Release Button
        public function admin_release_escrow_btn($escrow)
     {
         if(!$this->admin_release_escrow_btn_visible($escrow ))

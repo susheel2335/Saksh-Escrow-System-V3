@@ -1,10 +1,16 @@
 <?php
 
-    add_action('Aistore_withdraw', 'aistore_withdraw' ); 
+add_action('aistore_escrow_admin_tab_contents', 'aistore_withdraw_escrow_admin_tab_contents_withdraw' ); 
     
-    
-    function aistore_withdraw(){
-          $pages = get_pages();
+
+function  aistore_withdraw_escrow_admin_tab_contents_withdraw()
+
+{
+    ?>
+      <div class="tab-pane fade" id="nav-withdraw" role="tabpanel" aria-labelledby="nav-withdraw-tab">
+      
+ <?php
+         $pages = get_pages();
         ?>
                	 
         	 <tr valign="top">
@@ -32,31 +38,41 @@
 
 </select>
 
-<p><?php _e('Create a page add this shortcode ', 'aistore') ?> <strong> [aistore_saksh_withdrawal_system] </strong> <?php _e('and then select that page here.', 'aistore') ?> </p>
+<p><?php _e('Create a page add this shortcode ', 'aistore') ?>  [aistore_saksh_withdrawal_system]  <?php _e('and then select that page here.', 'aistore') ?> </p>
 
 </td>
         </tr>
         
         
-  
-        <?php
-    }
-    
-    
-    
-      add_action('Aistore_withdraw_fee', 'aistore_withdraw_fee' ); 
-    
-    
-    function aistore_withdraw_fee(){
-        ?>
            <tr valign="top">
         <th scope="row"><?php _e('Withdraw Fee', 'aistore') ?></th>
         <td><input type="number" name="withdraw_fee" value="<?php echo esc_attr(get_option('withdraw_fee')); ?>" />%</td>
         </tr>
+  
+        <?php
+        
+       
+     submit_button(); ?>
+    
+  
+  
+  </div>
+  
+   
         
         <?php
-    }
+}
+
+    add_action('aistore_escrow_admin_tab', 'aistore_withdraw_tab' ); 
     
+
+function  aistore_withdraw_tab()
+
+{
+ echo  '
+    <button class="nav-link" id="nav-withdraw-tab" data-bs-toggle="tab" data-bs-target="#nav-withdraw" type="button" role="tab" aria-controls="nav-withdraw" aria-selected="false">Withdraw</button> 
+     
+     ';
     
-    
-    
+ 
+}

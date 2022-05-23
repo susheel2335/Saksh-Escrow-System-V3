@@ -1,7 +1,5 @@
 <?php
 
-// function aistore_escrow_admin_process_payment()
-// {
 
 
     ?>
@@ -293,5 +291,3 @@ endforeach;
   
 	<?php
     }
-// }
-

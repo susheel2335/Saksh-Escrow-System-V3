@@ -11,7 +11,7 @@ jQuery(document).ready(function($) {
      dataType: 'JSON',
       data :{action: "ACS_list_chat"},
         success: function(data){
-         console.log("data44444",data);
+   
         
         
          
@@ -25,6 +25,9 @@ jQuery(document).ready(function($) {
             '<br>(#'+ item.id+" "+ item.title+')</h5> </div></div></div></a>';
             
           });
+          
+          console.log(html_to_append);
+         alert(html_to_append);
           $("#items-container").html(html_to_append);
           
 
@@ -42,7 +45,7 @@ jQuery(document).ready(function($) {
       dataType: 'JSON',
             data :{action: "ACS_message_discussion_list",  eid :eid},
         success: function(data){
-         console.log("data33",data);
+        
            var html_to_append_message = '';
           $.each(data, function(i, item1) {
   
@@ -87,9 +90,7 @@ jQuery(document).ready(function($) {
 		}, 'json');
 		
 	
-
-		console.log("Your ticket_id id is ::"+eid);
-		
+ 
 		
 		  $.ajax({
         type: "GET",

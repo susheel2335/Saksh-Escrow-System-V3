@@ -26,27 +26,8 @@ class AistoreWallet
             
             
             
-            
-         /*
-        
-        if($this->aistore_balance($sender_user_id, $currency) >= $amount )
-     
-     {
-         
-         $this->aistore_debit($sender_user_id, $amount, $currency, $description,$reference);
-         
-         
-         $this->aistore_credit($receiver_user_id, $amount, $currency, $description,$reference);
-         
-         return true;
-     }
-            
-            else
-            {
-                return false;
-            }
-            
-            */
+      
+      
     
     }
     
@@ -183,9 +164,8 @@ $currency=  $row->currency;
    endforeach;
         $wallet = new AistoreWallet();
         $results = $wallet->aistore_wallet_transaction_history($user_id);
-        echo $user_id;
-        print_r(   $results );
-
+        
+        
 ?></div>
 <h3><u><?php _e('Transactions', 'aistore'); ?></u> </h3>
 <?php

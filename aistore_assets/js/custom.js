@@ -109,14 +109,3 @@ var escrow_id = document.getElementById('escrow_id').value;
 
 
 
-
-
-jQuery('#newCustomerForm').submit(ajaxSubmit);
-
-function ajaxSubmit() {
-    var newCustomerForm = jQuery(this).serialize();
-
-  
-
-    return false;
-}

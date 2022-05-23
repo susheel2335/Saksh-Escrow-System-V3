@@ -6,6 +6,9 @@ include_once dirname(__FILE__) . '/user_bank_details.php';
 
 include_once dirname(__FILE__) . '/menu.php';
 
+
+// This function is used to bank payment  details
+
 function ABP_extension_function( $aistore_escrow_extensions ) {
    
         $aistore_escrow_extensions[] = 'bank_details';

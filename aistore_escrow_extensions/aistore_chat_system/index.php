@@ -18,38 +18,18 @@ if (!defined('ABSPATH'))
     
 }
 
-register_activation_hook(__FILE__, 'aistore_chat_plugin_table_install');
 
-
-function aistore_chat_plugin_table_install()
-{
-    global $wpdb;
-
-    $table_escrow_discussion = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "escrow_discussion  (
-  id int(100) NOT NULL  AUTO_INCREMENT,
-  eid int(100) NOT NULL,
-   message  text  NOT NULL,
-   user_login  varchar(100)   NOT NULL,
-  status  varchar(100)   NOT NULL,
-  ipaddress varchar(100)   NOT NULL,
-   created_at  timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id)
-) ";
-
-   require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
-
-    dbDelta($table_escrow_discussion);
-
-}
 
 function ACS_scripts_method()
 {
    $page_id=  get_option("details_escrow_page_id");
    
+$chat_page_id= 74;// get_option("details_escrow_page_id");
+   
 
 
    
-    if (get_the_ID()==$page_id ) {
+    if (get_the_ID()==$page_id or get_the_ID()==$chat_page_id ) {
             
             
             
@@ -85,59 +65,61 @@ include_once dirname(__FILE__) . '/Aistorechat.class.php';
 
 add_shortcode('aistore_escrow_chat', array(
     'Aistorechat',
-    'aistore_escrow_chat'
+    'ACS_escrow_chat'
 ));
 
 
 
-function ACS_extension_function( $aistore_escrow_extensions ) {
+// function ACS_extension_function( $aistore_escrow_extensions ) {
    
-        $aistore_escrow_extensions[] = 'chat_system';
+//         $aistore_escrow_extensions[] = 'chat_system';
   
-    return $aistore_escrow_extensions;
-}
-add_filter( 'aistore_escrow_extension', 'ACS_extension_function' );
+//     return $aistore_escrow_extensions;
+// }
+// add_filter( 'aistore_escrow_extension', 'ACS_extension_function' );
 
 
-  add_action('aistore_escrow_admin_tab_contents', 'ACS_admin_tab_contents_chat_system' ); 
+//   add_action('aistore_escrow_admin_tab_contents', 'ACS_admin_tab_contents_chat_system' ); 
     
 
-function  ACS_admin_tab_contents_chat_system()
+// function  ACS_admin_tab_contents_chat_system()
 
-{
+// {
     ?>
-      <div class="tab-pane fade" id="nav-chat" role="tabpanel" aria-labelledby="nav-chat-tab">
+      <!--<div class="tab-pane fade" id="nav-chat" role="tabpanel" aria-labelledby="nav-chat-tab">-->
       
  
         <?php
-        do_action('Aistorechat_system');
-             submit_button(); ?>
+        // do_action('Aistorechat_system');
+        //      submit_button(); 
+             
+             ?>
     
         
     
   
   
-  </div>
+  <!--</div>-->
   
   
   <?php
     
     
-}
+// }
 
-    add_action('aistore_escrow_admin_tab', 'ACS_chat_details_tab' ); 
+//     add_action('aistore_escrow_admin_tab', 'ACS_chat_details_tab' ); 
     
 
-function  ACS_chat_details_tab()
+// function  ACS_chat_details_tab()
 
-{
- echo  '
-    <button class="nav-link" id="nav-chat-tab" data-bs-toggle="tab" data-bs-target="#nav-chat" type="button" role="tab" aria-controls="nav-chat" aria-selected="false">Chat</button> 
+// {
+//  echo  '
+//     <button class="nav-link" id="nav-chat-tab" data-bs-toggle="tab" data-bs-target="#nav-chat" type="button" role="tab" aria-controls="nav-chat" aria-selected="false">Chat</button> 
      
-     ';
+//      ';
     
  
-}
+// }
 
 
 

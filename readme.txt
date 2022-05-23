@@ -92,38 +92,56 @@ you need to create extenstion with following extenstion name
 saksh-escrow-system/admin_setting/AistoreEscrowSettings.class.php
 
     __construct
-    aistore_add_plugin_page
-    aistore_escrow_all_notification
-    aistore_escrow_admin_report
-    aistore_escrow_dashboard
-    aistore_message_setting
-    aistore_user_escrow_list
-    aistore_disputed_escrow_details
-    aistore_disputed_escrow_list
-    aistore_page_setting
-    aistore_notification_setting
-    aistore_email_setting
-    aistore_payment_process
-    aistore_page_register_setting
-    aistore_notification_register_setting
-    aistore_email_register_setting
-    aistore_message_register_setting
+    aistore_add_plugin_page:
+    This function is used add an escrow option page.
+ 
+    aistore_escrow_dashboard:
+    This function is used to admin dashboard and show all escrow list.
+    
+    aistore_message_setting 
+    This function is used to  messages set to the wallet (debit/credit) payment transaction message details for the escrow with escrow id.
+    
+    aistore_user_escrow_list:
+    This function is use to show all user escrow list.
+    
+    aistore_disputed_escrow_details:
+    This function is used to show disputed escrow details page.
+    
+    aistore_disputed_escrow_list:
+    This function is used to show all user disputed escrow list.
+    
+    aistore_page_setting:
+    This function is used to add page setting 
+    
+ 
+    aistore_page_register_setting:
+    page register our settings.
+    
+    aistore_notification_register_setting:
+    This function is used to set notification register setting.
+     
+    aistore_email_register_setting:
+    This function is used to set email register setting.
+     
+    aistore_message_register_setting:
+    This function is used to set message register setting.
+    
+    
+    
+    
 
  saksh-escrow-system/admin_setting/aistore_disputed_escrow_details.php
 
  saksh-escrow-system/admin_setting/aistore_disputed_escrow_list.php
 
-    tssss
-
  saksh-escrow-system/admin_setting/aistore_escrow_dashboard.php
 
- saksh-escrow-system/admin_setting/aistore_payment_process.php
-
-    aistore_escrow_admin_process_payment
-
  saksh-escrow-system/admin_setting/aistore_user_escrow_list.php
+ 
 
-    get_user_by_email1
+    get_user_by_email1:
+    This function is used to get user id by user email
+    
 
  saksh-escrow-system/admin_setting/escrow_message_setting.php
 
@@ -135,119 +153,248 @@ saksh-escrow-system/aistore_assets/js/custom.css
 
 saksh-escrow-system/aistore_assets/js/custom.js
 
-    ajaxSubmit
-
-saksh-escrow-system/aistore_assets/js/error_log
-
-    admin_url
-    admin_url
-    admin_url
-    admin_url
-    admin_url
-    admin_url
 
 saksh-escrow-system/aistore_escrow/AistoreEscrow.class.php
 
-    get_escrow_admin_user_id
-    get_escrow_currency
-    create_escrow_fee
-    accept_escrow_fee
-    create_escrow
-    AistoreEscrowList
-    AistoreEscrowDetail
-    AistoreGetEscrow
-    AistoreEscrowMarkPaid
-    CancelEscrow____ReviewNeeded
-    ReleaseEscrow____ReviewNeeded
-    AcceptEscrow____ReviewNeeded
-    DisputeEscrow
-    dispute_escrow_btn_visible
-    release_escrow_btn_visible
-    cancel_escrow_btn_visible
-    accept_escrow_btn_visible
-    make_payment_btn_visible
-    accept_escrow_btn
-    cancel_escrow_btn
-    release_escrow_btn
-    dispute_escrow_btn
-    aistore_escrow_btn_actions
-    aistore_ipaddress
+    get_escrow_admin_user_id:
+    This function is used to get escrow admin user id
+    
+    get_escrow_currency:
+    This function is used to get escrow currency
+    
+    create_escrow_fee:
+    This function is used to create escrow fee
+    
+    accept_escrow_fee:
+    This function is used to accept escrow fee
+     
+    create_escrow:
+     This function is used to create escrow 
+     
+    AistoreEscrowList:
+    This function is used to  escrow list by user email id
+    
+    AistoreEscrowDetail:
+    This function is used to escrow details by escrow id and an email
+      
+    AistoreGetEscrow:
+    This function is used to get escrow details by escrow id
+      
+    AistoreEscrowMarkPaid:
+    This function is used to send payment to user account with escrow id 
+    and payment status are paid
+     
+    CancelEscrow____ReviewNeeded:
+    This function is used to cancel escrow with escrow id and status are cancelled
+    
+    ReleaseEscrow____ReviewNeeded:
+    This function is used to release escrow with escrow id and status are released
+    
+    AcceptEscrow____ReviewNeeded:
+    This function is used to accept escrow with escrow id and status are accepted and payment status are paid
+    
+    
+    DisputeEscrow:
+    This function is used to dispute escrow with escrow id and status are disputed 
+    
+    dispute_escrow_btn_visible:
+    This function is used to dispute escrow button visible or not
+      
+    release_escrow_btn_visible:
+    This function is used to release escrow button visible or not
+      
+    cancel_escrow_btn_visible:
+      This function is used to cancel escrow button visible or not
+      
+    accept_escrow_btn_visible:
+      This function is used to accept escrow button visible or not
+      
+    make_payment_btn_visible:
+      This function is used to make_payment escrow button visible or not
+      
+    accept_escrow_btn:
+     This function is used to  Accept Button
+      
+    cancel_escrow_btn:
+     This function is used to  Cancel Button
+      
+    release_escrow_btn:
+      This function is used to  Release Button
+      
+    dispute_escrow_btn:
+      This function is used to  Dispute Button
+      
+    aistore_escrow_btn_actions:
+     This function is to escrow button action like disputed, accepted,released,cancelled
+      
+    aistore_ipaddress:
+    This function is to get ip address 
+    
+    
 
  saksh-escrow-system/aistore_escrow/AistoreEscrowAdmin.class.php
 
-    admin_release_escrow_btn_visible
-    admin_cancel_escrow_btn_visible
-    aistore_escrow_btn_admin_actions
-    admin_cancel_escrow_btn
-    admin_release_escrow_btn
+    admin_release_escrow_btn_visible:
+    This function is used to admin release escrow button visible or not
+    
+    admin_cancel_escrow_btn_visible:
+    This function is used to admin cancel escrow button visible or not
+    
+    aistore_escrow_btn_admin_actions:
+     This function is to escrow admin button action like released,cancelled
+    
+    admin_cancel_escrow_btn:
+      This function is used to  admin Cancel Button
+      
+    admin_release_escrow_btn:
+      This function is used to  admin Release Button
+      
+      
 
  /saksh-escrow-system/aistore_escrow/AistoreEscrowSystem.class.php
 
-    aistore_bank_details
-    aistore_escrow_system
-    aistore_escrow_list
-    aistore_escrow_detail
-    aistore_escrow_detail_tabs
+    aistore_bank_details:
+   This function is used to  bank make payment and payment method list
+    
+    aistore_escrow_system:
+     This function is used to escrow form and create escrow 
+    
+    aistore_escrow_list:
+     This function is used to escrow list
+     
+    aistore_escrow_detail:
+    This function is used to escrow deatils page
+    
+    aistore_escrow_detail_tabs:
+     This function is used to escrow deatils page and create a tabs like Term and Condition
+   
 
  saksh-escrow-system/aistore_escrow/AistoreEscrowSystemAdmin.class.php
 
-    aistore_admin_escrow_detail
+    aistore_admin_escrow_detail:
+     This function is used to  escrow deatils admin page
+     
+     
+    
 /saksh-escrow-system/aistore_escrow/Escrow_list.php
 
-    __construct
-    status_filter
-    date_filter
-    search_box
-    get_escrow
-    prepareWhereClouse
-    delete_escrow
-    remove_payment_escrow
-    record_count
-    no_items
-    column_default
-    column_cb
-    column_name
-    get_columns
-    get_sortable_columns
-    get_bulk_actions
+    __construct:
+     Class constructor
+     
+    status_filter:
+      This function is used to search escrow 
+      
+    date_filter:
+      This function is used to search escrow by date
+      
+    search_box:
+    This function is used to search escrow by email , id and an amount
+    
+    get_escrow:
+    Retrieve escrow data from the database
+    
+    prepareWhereClouse:
+    
+    delete_escrow:
+    Delete a customer record.
+    
+    remove_payment_escrow:
+    Remove escrow payment
+    
+    record_count:
+    Returns the count of records in the database.
+    
+    no_items:
+    Text displayed when no escrow data is available
+    
+    column_default:
+    Render a column when no column specific method exist.
+    
+    column_cb:
+    Render the bulk edit checkbox
+    
+    column_name:
+    Method for name column
+    
+    get_columns:
+     Associative array of columns
+     
+    get_sortable_columns:
+    Columns to make sortable.
+    
+    
+    get_bulk_actions:
+    Returns an associative array containing the bulk action
+    
     form
-    prepare_items
-    process_bulk_action
-    __construct
+    prepare_items:
+     Handles data query and filter, sorting, and pagination.
+     
+    process_bulk_action:
+    Detect when a bulk action is being triggered...
+    
+    __construct:
+     class constructor
+     
     set_screen
     plugin_menu
-    plugin_settings_page
-    screen_option
-    get_instance
+    
+    plugin_settings_page:
+     Plugin settings page
+     
+    screen_option:
+    Screen options
+    
+    get_instance:
+    Singleton instance
 
 saksh-escrow-system/aistore_escrow/user_escrow.php
 
-    aistore_users
-    aistore_user_escrow
-    aistore_user_escrow_list
+    aistore_users:
+      user escrow list
+    
+    aistore_user_escrow:
+    
+    aistore_user_escrow_list:
+    This is function is used to  escrow list in all users page
+    
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment/admin_setting.php
 
-    ABP_page
-    ABP_details
+    ABP_page:
+    This is function is used to  set bank details page
+    
+    ABP_details:
+     This is function is used to  add admin  bank details 
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment/index.php
 
-    ABP_extension_function
+    ABP_extension_function:
+    This function is used to bank payment  details
+    
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment/make_payment.php
 
-    ABP_bank_makepayment
+    ABP_bank_makepayment:
+    This function is used to make  payment with admin bank details
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment/user_bank_details.php
 
-    ABP_userbank_details
+    ABP_userbank_details:
+    This function is used to add an  user bank details page
+    
 
- /saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment_gateway/crypto_deposit.php
+    /saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment_gateway/crypto_deposit.php
 
-    aistore_escrow_payment_method_list
-    payment_form
-    webhook
+
+    aistore_escrow_payment_method_list:
+    notification handling so that form status can be updated
+    
+    payment_form:
+    this is a sample payment gateway form you can customize this and use your own payment gateway 
+    
+    webhook:
+    this will run in the background and update the escrow payment status
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_bank_payment_gateway/index.php
 
@@ -255,18 +402,27 @@ saksh-escrow-system/aistore_escrow/user_escrow.php
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/Aistorechat.class.php
 
-    ACS_escrow_chat
-    ACS_chat_box
-    ACS_message_discussion_list
-    ACS_list_chat
+    ACS_escrow_chat:
+    This function is used to escrow chat page
+    
+    ACS_chat_box:
+    This function is used to escrow discussion
+    
+    ACS_message_discussion_list:
+    This function is used to escrow discussion list
+    
+    ACS_list_chat:
+     This function is used to escrow list
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/admin_setting.php
 
-    ACS_chat_publish
+    ACS_chat_publish:
+    
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/aistore_chat_install.php
 
-    ACS_chat_plugin_table_install
+    ACS_chat_plugin_table_install:
+    This function is used to create chat table 
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_chat_system/css/chat.css
 
@@ -285,14 +441,23 @@ saksh-escrow-system/aistore_escrow/user_escrow.php
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_email/aistore_email_install.php
 
-    aistore_email_plugin_table_install
-    aistore_email_message
+    aistore_email_plugin_table_install:
+    This function is used to create email message
+    
+    aistore_email_message:
+    This function is used to create email message with escrow id
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_email/email_report.php
 
-    aistore_escrow_emails_tab_button
-    aistore_escrow_emails_tab_contents
-    aistore_email_report
+    aistore_escrow_emails_tab_button:
+    This function is used to create email message with escrow id
+
+
+    aistore_escrow_emails_tab_contents:
+    This function is used to escrow emails tab button
+    
+    aistore_email_report:
+    This function is used to escrow emails tab button
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_email/email_template.php
 
@@ -309,7 +474,8 @@ saksh-escrow-system/aistore_escrow/user_escrow.php
 
  saksh-escrow-system/aistore_escrow_extensions/aistore_email/send_email.php
 
-    sendEmailCreated
+    sendEmailCreated:
+    
     sendEmailAccepted
     sendEmailCancelled
     sendEmailDisputed

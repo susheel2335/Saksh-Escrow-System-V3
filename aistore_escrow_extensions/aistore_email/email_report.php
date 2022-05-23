@@ -4,6 +4,9 @@
   
  add_action('aistore_escrow_tab_button', 'aistore_escrow_emails_tab_button' ); 
      
+     
+     // This function is used to escrow emails tab button
+
      function aistore_escrow_emails_tab_button($escrow)
 {
    

@@ -1,7 +1,7 @@
 <?php
   add_action('Aistorebank_makepayment', 'ABP_bank_makepayment' ); 
     
-    
+    // This function is used to make  payment with admin bank details
     function ABP_bank_makepayment(){
 
               global $wpdb;

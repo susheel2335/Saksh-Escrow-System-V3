@@ -183,7 +183,7 @@ function sendEmailCancelled($escrow)
 
     $n['message'] = $msg;
     $n['subject'] = $subject;
-    $n['email'] = $party_email;
+    $n['email'] = aistore_escrow_getpartner($email,$escrow);  ;//$party_email;
     $n['party_email'] = $user_email;
 
     aistore_send_email($n);
@@ -220,7 +220,15 @@ function sendEmailDisputed($escrow)
     $n['escrow'] = $escrow;
     $n['reference_id'] = $escrow->id;
     $n['url'] = $details_escrow_page_id_url;
-    $n['email'] = $user_email;
+    
+    
+    
+$user_id= get_current_user_id();
+$email= get_the_author_meta('user_email', $user_id);
+
+
+    $n['email'] = $email;
+    
     $n['party_email'] = $party_email;
 
     aistore_send_email($n);
@@ -239,7 +247,9 @@ function sendEmailDisputed($escrow)
 
     $n['message'] = $msg;
     $n['subject'] = $subject;
-    $n['email'] = $party_email;
+    //$n['email'] = $party_email;
+        $n['email'] = aistore_escrow_getpartner($email,$escrow);
+        
      $n['party_email'] = $user_email;
 
     aistore_send_email($n);
@@ -268,6 +278,8 @@ function sendEmailReleased($escrow)
     $msg= Aistore_process_placeholder_Text($msg, $escrow)    ;
     
     
+$user_id= get_current_user_id();
+$email= get_the_author_meta('user_email', $user_id);
 
     $n = array();
     $n['message'] = $msg;
@@ -276,7 +288,7 @@ function sendEmailReleased($escrow)
     $n['escrow'] = $escrow;
     $n['reference_id'] = $escrow->id;
     $n['url'] = $details_escrow_page_id_url;
-    $n['email'] = $user_email;
+    $n['email'] = $email;
     $n['party_email'] = $party_email;
 
     aistore_send_email($n);
@@ -295,7 +307,11 @@ function sendEmailReleased($escrow)
      $subject= Aistore_process_placeholder_Text($subject, $escrow)    ;
     $n['message'] = $msg;
     $n['subject'] = $subject;
-    $n['email'] = $party_email;
+ //   $n['email'] = $party_email;
+    
+         $n['email'] = aistore_escrow_getpartner($email,$escrow);
+        
+        
     $n['party_email'] = $user_email;
  
 
@@ -357,12 +373,7 @@ function sendEmailPaymentAccepted($escrow){
 }
 function aistore_send_email($n)
 {
-
-    if (!is_user_logged_in())
-    {
-        return "";
-    }
-
+ 
     global $wpdb;
     
      $headers = array(

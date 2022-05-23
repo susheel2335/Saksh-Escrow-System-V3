@@ -1,5 +1,6 @@
 <?php
 
+//
 function aistore_users( $contactmethods ) {
     $contactmethods['escrow_list'] = 'Escrow';
     return $contactmethods;
@@ -16,7 +17,7 @@ add_filter( 'user_contactmethods', 'aistore_users', 10, 1 );
 add_filter( 'manage_users_columns', 'aistore_user_escrow' );
 
 
-
+//This is function is used to  escrow list in all users page
 
 function aistore_user_escrow_list( $val, $column_name, $user_id ) {
 

@@ -3,7 +3,7 @@
 
   add_action('Aistoreuserbank_details', 'ABP_userbank_details' ); 
     
-    
+     // This function is used to add an  user bank details page
     function ABP_userbank_details(){
 // echo "SD";
 // ob_start();

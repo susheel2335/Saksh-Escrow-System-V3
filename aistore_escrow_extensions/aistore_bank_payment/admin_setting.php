@@ -1,5 +1,5 @@
 <?php
-
+// This is function is used to  set bank details page
     add_action('Aistorebank_payment', 'ABP_page' ); 
     
     
@@ -85,7 +85,7 @@
     
         add_action('Aistorebank_payment_details', 'ABP_details' ); 
     
-    
+    // This is function is used to  add admin  bank details 
     function ABP_details(){
         ?>
                    <table class="form-table">

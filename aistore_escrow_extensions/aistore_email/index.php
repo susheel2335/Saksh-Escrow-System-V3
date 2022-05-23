@@ -29,6 +29,7 @@ function aistore_scripts_method_email()
     
 }
 
+
 add_action('admin_enqueue_scripts', 'aistore_scripts_method_email');
 
 
@@ -49,4 +50,4 @@ include_once dirname(__FILE__). '/aistore_email_install.php';
 include_once dirname(__FILE__) . '/email_report.php';
 
 include_once dirname(__FILE__) . '/send_email.php';
-include_once dirname(__FILE__) . '/menu.php';
+include_once dirname(__FILE__) . '/Emailmenu.php';

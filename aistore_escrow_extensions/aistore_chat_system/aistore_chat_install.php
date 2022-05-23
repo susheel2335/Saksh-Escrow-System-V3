@@ -7,7 +7,7 @@ if (!defined('ABSPATH'))
  
 
  
-
+// This function is used to create chat table 
 function ACS_chat_plugin_table_install()
 {
     global $wpdb;

@@ -9,7 +9,7 @@ if (!defined('ABSPATH'))
  
  add_action('AistoreEscrow_Install', 'aistore_email_plugin_table_install' ); 
      
- 
+//   This function is used to create email message
 function aistore_email_plugin_table_install()
 
 {  
@@ -43,7 +43,7 @@ register_activation_hook(__FILE__, 'aistore_plugin_email_table_install');
 
   
     
-    
+    // This function is used to create email message with escrow id
 function aistore_email_message()
 {
       //email

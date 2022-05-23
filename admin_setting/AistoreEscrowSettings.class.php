@@ -30,17 +30,7 @@ class AistoreEscrowSettings
         
         
  
-         add_action('admin_init', array(
-            $this,
-            'aistore_email_register_setting'
-        ));
-        
-          add_action('admin_init', array(
-            $this,
-            'aistore_notification_register_setting'
-        ));
-        
-        
+     
     }
 
     /**
@@ -80,52 +70,12 @@ class AistoreEscrowSettings
 
      
       
-        // add_submenu_page('aistore_escrow_dashboard', __('Notification Setting', 'aistore') , __('Notification Setting', 'aistore') , 'administrator', 'notification_setting', array(
-        //     $this,
-        //     'aistore_notification_setting'
-        // ));
-
-        // add_submenu_page('aistore_escrow_dashboard', __('Email Setting', 'aistore') , __('Email Setting', 'aistore') , 'administrator', 'email_setting', array(
-        //     $this,
-        //     'aistore_email_setting'
-        // ));
-        
         add_submenu_page('aistore_escrow_dashboard', __('Escrow Message Setting', 'aistore') , __('Escrow Message Setting', 'aistore') , 'administrator', 'message_setting', array(
             $this,
             'aistore_message_setting'
         ));
         
-             add_submenu_page('aistore_escrow_dashboard', __('Payment Process', 'aistore') , __('Payment Process', 'aistore') , 'administrator', 'payment_process', array(
-            $this,
-            'aistore_payment_process'
-        ));
-        
-        
-
-
-
-       /* move to bank gateway
-      add_submenu_page('aistore_escrow_dashboard', __('Payment Process', 'aistore') , __('Payment Process', 'aistore') , 'administrator', 'payment_process', array(
-            $this,
-            'aistore_payment_process'
-        ));
-
-
-      
-
-        add_submenu_page('aistore_escrow_dashboard', __('Escrow Admin Report', 'aistore') , __('Escrow Admin Report', 'aistore') , 'administrator', 'admin_report', array(
-            $this,
-            'aistore_escrow_admin_report'
-        ));
-        
-   
-        // add_submenu_page('aistore_escrow_dashboard', __('All Notification', 'aistore') , __('All Notification', 'aistore') , 'administrator', 'all_notification', array(
-        //     $this,
-        //     'aistore_escrow_all_notification'
-        // ));
-        
-        
-          */ 
+       
         
            add_submenu_page('aistore_escrow_dashboard', __('Escrow Setting', 'aistore') , __('Escrow Setting', 'aistore') , 'administrator', 'aistore_page_escrow_setting', array(
             $this,
@@ -136,62 +86,47 @@ class AistoreEscrowSettings
 
     }
     
+   
     
-    function aistore_escrow_all_notification(){
-         include_once dirname(__FILE__) . '../../admin_setting/aistore_escrow_all_notification.php';
-    }
-      function aistore_escrow_admin_report(){
-          
-       include_once dirname(__FILE__) . '../../admin_setting/aistore_escrow_admin_report.php';
-    }
-    
+        // This function is used to admin dashboard and show all escrow list
     function aistore_escrow_dashboard(){
-             // echo "FDsdf";
  include_once dirname(__FILE__) . '../../admin_setting/aistore_escrow_dashboard.php';
               }
     
+    
+        // This function is used to  messages set to the wallet (debit/credit) payment transaction message details for the escrow with escrow id
     function aistore_message_setting(){
         
  include_once dirname(__FILE__) . '../../admin_setting/escrow_message_setting.php';
     }
 
+    // This function is used to show all user escrow list
     function aistore_user_escrow_list()
     {
      include_once dirname(__FILE__) . '../../admin_setting/aistore_user_escrow_list.php';
 
     }
     
+    // This function is used to show disputed escrow details page.
     function aistore_disputed_escrow_details()
     {
      include_once dirname(__FILE__) . '../../admin_setting/aistore_disputed_escrow_details.php';
     }
 
-    // disputed escrow list
+ // This function is used to show all user disputed escrow list
     function aistore_disputed_escrow_list()
     {
       include_once dirname(__FILE__) . '../../admin_setting/aistore_disputed_escrow_list.php';
     }
     
     
+        // This function is used to add page setting 
     function aistore_page_setting()
     {
     include_once dirname(__FILE__) . '../../admin_setting/page_setting.php';
     }
 
-    function aistore_notification_setting()
-    {
-     include_once dirname(__FILE__) . '../../admin_setting/notification_setting.php';
-    }
-    
-    function aistore_email_setting()
-    {
-   include_once dirname(__FILE__) . '../../admin_setting/email_setting.php';
-    }
-
-    function aistore_payment_process()
-    {
-        include_once dirname(__FILE__) . '../../aistore_escrow_extensions/aistore_bank_payment/aistore_payment_process.php';
-    }
+ 
         
     // page Setting
     function aistore_page_register_setting()
@@ -230,86 +165,13 @@ class AistoreEscrowSettings
         
         register_setting('aistore_page', 'bank_details');
         register_setting('aistore_page', 'deposit_instructions');
-        // register_setting('aistore_page', 'aistore_escrow_currency');
         
     }
 
-    function aistore_notification_register_setting()
-    {
-        register_setting('aistore_notification_page', 'created_escrow');
-        register_setting('aistore_notification_page', 'partner_created_escrow');
-        register_setting('aistore_notification_page', 'accept_escrow');
-        register_setting('aistore_notification_page', 'partner_accept_escrow');
 
-        register_setting('aistore_notification_page', 'dispute_escrow');
-        register_setting('aistore_notification_page', 'partner_dispute_escrow');
-        register_setting('aistore_notification_page', 'release_escrow');
-        register_setting('aistore_notification_page', 'partner_release_escrow');
 
-        register_setting('aistore_notification_page', 'cancel_escrow');
-        register_setting('aistore_notification_page', 'partner_cancel_escrow');
-        register_setting('aistore_notification_page', 'shipping_escrow');
-        register_setting('aistore_notification_page', 'partner_shipping_escrow');
-
-        register_setting('aistore_notification_page', 'buyer_deposit');
-        register_setting('aistore_notification_page', 'seller_deposit');
-        register_setting('aistore_notification_page', 'Buyer_Mark_Paid');
-        
-        
-         register_setting('aistore_notification_page', 'PaymentRefund');
-        register_setting('aistore_notification_page', 'PaymentAccepted');
-     
-
-    }
     
-    
-    //email
-    function aistore_email_register_setting()
-    {
-        register_setting('aistore_email_page', 'email_created_escrow');
-        register_setting('aistore_email_page', 'email_partner_created_escrow');
-        register_setting('aistore_email_page', 'email_accept_escrow');
-        register_setting('aistore_email_page', 'email_partner_accept_escrow');
-
-        register_setting('aistore_email_page', 'email_dispute_escrow');
-        register_setting('aistore_email_page', 'email_partner_dispute_escrow');
-        register_setting('aistore_email_page', 'email_release_escrow');
-        register_setting('aistore_email_page', 'email_partner_release_escrow');
-
-        register_setting('aistore_email_page', 'email_cancel_escrow');
-        register_setting('aistore_email_page', 'email_partner_cancel_escrow');
-        register_setting('aistore_email_page', 'email_shipping_escrow');
-        register_setting('aistore_email_page', 'email_partner_shipping_escrow');
-
-        register_setting('aistore_email_page', 'email_buyer_deposit');
-        register_setting('aistore_email_page', 'email_seller_deposit');
-        register_setting('aistore_email_page', 'email_Buyer_Mark_Paid');
-        
-        
-        
-         register_setting('aistore_email_page', 'email_body_created_escrow');
-        register_setting('aistore_email_page', 'email_body_partner_created_escrow');
-        register_setting('aistore_email_page', 'email_body_accept_escrow');
-        register_setting('aistore_email_page', 'email_body_partner_accept_escrow');
-
-        register_setting('aistore_email_page', 'email_body_dispute_escrow');
-        register_setting('aistore_email_page', 'email_body_partner_dispute_escrow');
-        register_setting('aistore_email_page', 'email_body_release_escrow');
-        register_setting('aistore_email_page', 'email_body_partner_release_escrow');
-
-        register_setting('aistore_email_page', 'email_body_cancel_escrow');
-        register_setting('aistore_email_page', 'email_body_partner_cancel_escrow');
-        register_setting('aistore_email_page', 'email_body_shipping_escrow');
-        register_setting('aistore_email_page', 'email_body_partner_shipping_escrow');
-
-        register_setting('aistore_email_page', 'email_body_buyer_deposit');
-        register_setting('aistore_email_page', 'email_body_seller_deposit');
-        register_setting('aistore_email_page', 'email_body_Buyer_Mark_Paid');
-    }
-    
-    
-    
-       //message
+    //   This function is used to set message register setting.
     function aistore_message_register_setting()
     {
         register_setting('aistore_message_page', 'created_escrow_message');

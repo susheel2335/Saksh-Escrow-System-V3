@@ -14,7 +14,7 @@ class AistoreEscrowSystem extends  AistoreEscrow
 
 
 
-    
+    // This function is used to  bank make payment and payment method list
       public static function aistore_bank_details()
     {
 
@@ -27,6 +27,7 @@ class AistoreEscrowSystem extends  AistoreEscrow
     }
     
     // create escrow System
+    // This function is used to escrow form and create escrow 
     public  function aistore_escrow_system()
     {
 
@@ -183,6 +184,7 @@ class AistoreEscrowSystem extends  AistoreEscrow
     }
 
     // Escrow List
+    //  This function is used to escrow list
     public   function aistore_escrow_list()
     {
       
@@ -327,6 +329,7 @@ $current_user_email_id = get_the_author_meta('user_email', $user_id);
 
 
     // Escrow Details
+    //  This function is used to escrow deatils page
     public   function aistore_escrow_detail()
     {
         
@@ -471,7 +474,7 @@ $eschat->ACS_escrow_chat();
   
    
 
-      
+    //   This function is used to escrow deatils page and create a tabs like Term and Condition
      public   function aistore_escrow_detail_tabs($escrow)
     {
         

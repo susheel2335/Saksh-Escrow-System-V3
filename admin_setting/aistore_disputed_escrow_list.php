@@ -1,8 +1,5 @@
 <?php
 
-// function tssss()
-// {
-
 global $wpdb;
         $page_id = get_option('details_escrow_page_id');
 
@@ -81,6 +78,3 @@ global $wpdb;
   
   
   <?php
-  
-// }
-  

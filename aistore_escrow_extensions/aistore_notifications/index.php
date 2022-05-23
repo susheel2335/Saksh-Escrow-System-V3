@@ -49,7 +49,7 @@ function aistore_notification_escrow_plugin_table_install()
 
 register_activation_hook(__FILE__, 'aistore_escrow_plugin_notification_table_install');
 
-include_once dirname(__FILE__) . '/menu.php';
+include_once dirname(__FILE__) . '/Notificationmenu.class.php';
 
 
 

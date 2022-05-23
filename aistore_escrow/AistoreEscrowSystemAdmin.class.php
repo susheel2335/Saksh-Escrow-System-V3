@@ -18,6 +18,8 @@ class AistoreEscrowSystemAdmin extends  AistoreEscrowAdmin
 
 
     // Escrow Details
+    
+    //   This function is used to  escrow deatils admin page
     public   function aistore_admin_escrow_detail()
     {
         
