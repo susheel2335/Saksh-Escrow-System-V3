@@ -20,6 +20,18 @@ $status=  escrow_extension('file_upload');
 register_activation_hook(__FILE__, 'aistore_file_upload_plugin_table_install');
 
 
+     /**
+       * 
+       * This function is used to create file upload documents table
+       * @params eid
+       * @params documents
+       * @params ipaddress
+       * @params created_at
+       * @params user_id
+       * @params documents_name
+       * 
+      */ 
+      
 function aistore_file_upload_plugin_table_install()
 {
     global $wpdb;
@@ -40,6 +52,8 @@ function aistore_file_upload_plugin_table_install()
     dbDelta($table_escrow_documents);
 
 }
+
+
 include "aistore_escrow_file_upload.php";
 include "admin_setting.php";
 

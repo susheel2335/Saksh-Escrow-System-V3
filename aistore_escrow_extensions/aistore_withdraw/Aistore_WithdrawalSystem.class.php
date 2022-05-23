@@ -14,7 +14,22 @@ class Aistore_WithdrawalSystem {
 
 
 
-
+/**
+       * 
+       * This function is used to wWithdrawal Request form
+       * Bank Account Details  
+       * Bank Details and Deposit Instructions
+       * Withdraw Report
+       * Withdraw Id 
+       * Withdraw Amount
+       * Withdraw Charge 
+       * Withdraw Currency
+       * Withdraw Status
+       * Withdraw Date
+      
+       * 
+       */ 
+       
 public static function aistore_saksh_withdrawal_system()
 { 
    if ( !is_user_logged_in() ) {

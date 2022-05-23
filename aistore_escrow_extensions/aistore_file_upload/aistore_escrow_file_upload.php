@@ -1,6 +1,14 @@
 <?php
  add_filter( 'after_aistore_escrow_form', 'AFU_form_fields' );
-  
+ 
+ 
+     /**
+       * This function is used to File to attach
+       * @pdf
+       * @xlsx
+       * @ppt
+       * @doc
+      */ 
      function  AFU_form_fields($eid){
          
       
@@ -17,7 +25,12 @@
          
      }
      
-   //  aistore_escrow_tab_button
+     /**
+       * This function is used to aistore escrow tab button
+       * Files and documents
+     
+      */ 
+
      
      add_filter('aistore_escrow_tab_button', 'AFU_files_tab_button', 10); 
      
@@ -62,6 +75,15 @@
 
 
  
+  
+     /**
+       * This function is used to list escrow documents
+       * @params eid
+       * Documents files
+       * Documents name
+       * Date
+     
+      */ 
 
 function AFU_files($escrow)
 {
@@ -102,7 +124,15 @@ function AFU_files($escrow)
 }
      
      
+  
+     /**
+       * This function is used to process to file upload
+       * @params eid
+       * Documents files
+       * Documents name
+       * Date
      
+      */    
      
 add_action('AistoreEscrowCreatedafter', 'AFU_process_file_upload', 10, 3);
 

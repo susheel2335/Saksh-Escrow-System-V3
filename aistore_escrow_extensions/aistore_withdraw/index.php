@@ -16,7 +16,21 @@ aistore_withdraw_plugin_table_install();
 
 register_activation_hook(__FILE__, 'aistore_withdraw_plugin_table_install');
 
-
+ 
+       /**
+       * 
+       * This function is used to create widthdrawal requests table
+       * @params id
+       * @params amount
+       * @params method
+       * @params username
+       * @params currency
+       * @params reference_id
+       * @params status
+       * @params created_at
+       * 
+       */ 
+       
 function aistore_withdraw_plugin_table_install()
 {
     update_option('withdraw_fee', 15);

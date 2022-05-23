@@ -9,6 +9,16 @@ class AistoreWallet
 {
 
 
+  /**
+       * This function is used to Wallet transfer amount with debit and credit
+       * @params int $sender_user_id
+       * @params int $receiver_user_id
+       * @params int $amount
+       * @params int $currency
+       * @params int $description
+       * @params int $reference
+     
+      */
 
   public function aistore_transfer($sender_user_id,$receiver_user_id,  $amount, $currency, $description,$reference)
     {
@@ -35,6 +45,13 @@ class AistoreWallet
     
     
     
+  /**
+       * This function is used to user balance
+       * @params int $user_id
+       * @params int $currency
+     
+      */
+      
     public function aistore_balance($user_id, $currency)
     {
         global $wpdb;
@@ -127,7 +144,20 @@ class AistoreWallet
             do_action( 'aistore_wallet_credit',$transaction_id);
     }
 
-    // transaction List
+   
+      /**
+       * This function is used to show wallet transaction List 
+       * @params  ID
+       * @params Reference
+       * @params  Type
+       * @params Balance
+       * @params  Amount
+       * @params Currency 
+       * @params  Description
+       * @params Date
+     
+      */
+      
     public static function aistore_transaction_history()
     {
 
@@ -239,6 +269,15 @@ $currency=  $row->currency;
 
     }
 
+
+  /**
+       * This function is used to wallet transaction History 
+       * @params  $user_id
+       * @return wallet transactions list
+       
+     
+      */
+      
     public function aistore_wallet_transaction_history($user_id)
     {
 
@@ -250,6 +289,13 @@ $currency=  $row->currency;
 
     }
     
+    
+      /**
+       * This function is used to wallet Currency
+       * @return wallet currency list
+       
+     
+      */
      public function aistore_wallet_currency()
     {
 

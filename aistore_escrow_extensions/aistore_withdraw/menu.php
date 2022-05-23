@@ -11,7 +11,12 @@ if (!defined('ABSPATH'))
 
 add_action( 'admin_menu', 'aistore_withdraw_register_menu_page' );
 
-
+      
+     /**
+       * This function is used to withdraw register menu page
+       * Withdraw
+       * Withdrawal List
+      */
 
 function aistore_withdraw_register_menu_page() {
   
@@ -26,11 +31,30 @@ function aistore_withdraw_register_menu_page() {
     
 }
 
+  /**
+       * This function is used to withdraw details 
+       * Apprive Withdraw
+       * Reject Withdrawa
+       * Usernane
+       * Amount
+       * Status
+       * Date
+      */
 
 function withdrawal(){
 
 include_once dirname(__FILE__) . '/Withdrawal.php';
 }
+
+
+  /**
+       * This function is used to withdraw list menu page
+       * Withdrawal List
+       *  Usernane
+       * Amount
+       * Status
+       * Date
+      */
 
 function withdrawal_list(){
 include_once dirname(__FILE__) . '/Widthdrawal_requests.php';

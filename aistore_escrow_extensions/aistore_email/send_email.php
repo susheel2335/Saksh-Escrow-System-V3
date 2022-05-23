@@ -10,7 +10,13 @@ add_action('AistoreEscrowReleased', 'sendEmailReleased', 10, 3);
 add_action('AistoreEscrowPaymentAccepted', 'sendEmailPaymentAccepted', 10, 3);
 
 
-
+      /**
+       * This function is used to created escrow email
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
+ 
  
 function sendEmailCreated($escrow )
 {
@@ -74,6 +80,12 @@ function sendEmailCreated($escrow )
 
 }
 
+    /**
+       * This function is used to accept escrow email
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
 function sendEmailAccepted($escrow)
 {
     
@@ -131,6 +143,13 @@ function sendEmailAccepted($escrow)
 
 }
 
+
+    /**
+       * This function is used to cancel escrow email
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
 function sendEmailCancelled($escrow)
 {
   
@@ -189,6 +208,13 @@ function sendEmailCancelled($escrow)
     aistore_send_email($n);
 }
 
+
+    /**
+       * This function is used to dispute escrow email
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
 function sendEmailDisputed($escrow)
 {
   
@@ -256,6 +282,13 @@ $email= get_the_author_meta('user_email', $user_id);
 
 }
 
+
+    /**
+       * This function is used to release escrow email
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
 function sendEmailReleased($escrow)
 {
 
@@ -319,7 +352,12 @@ $email= get_the_author_meta('user_email', $user_id);
 }
 
 
-
+    /**
+       * This function is used to payment accepted escrow email
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
 function sendEmailPaymentAccepted($escrow){
     
     $details_escrow_page_id_url = $escrow->url;
@@ -371,6 +409,19 @@ function sendEmailPaymentAccepted($escrow){
 
     aistore_send_email($n);
 }
+
+
+    /**
+       * This function is used to send an email
+       * @param string message
+       * @param string type
+       * @param string user_email
+       * @param string party_email
+       * @param string url
+       * @param string reference_id
+       * @param string subject
+       
+      */
 function aistore_send_email($n)
 {
  

@@ -47,7 +47,16 @@ $user_email = get_the_author_meta('user_email', get_current_user_id());
       
  
     
-   
+     /**
+       * This function is used to system notification report
+       * @param string $escrow  full escrow details of escrow id
+       * ID
+       * Email
+       * Message
+       * Date
+      
+       
+      */
   
      function  aistore_notification_report($escrow){
      	global $wpdb;
@@ -109,6 +118,12 @@ $user_email = get_the_author_meta('user_email', get_current_user_id());
 
 
 
+     /**
+       * This function is used to return escrow notification
+       * @return escrow notification
+       
+       
+      */
 
  function aistore_escrow_echo_notification( ){
 	 if ( !is_user_logged_in() ) {

@@ -20,11 +20,36 @@ if (!defined('ABSPATH'))
 register_activation_hook(__FILE__, 'aistore_wallet_plugin_table_install');
 
 
+       /**
+       * 
+       * This function is used to create wallet table
+       * aistore_wallet_transactions
+       * aistore_wallet_balance
+       * escrow_currency
+     
+       * 
+       */ 
+       
 function aistore_wallet_plugin_table_install()
 {
     global $wpdb;
 
 
+       /**
+       * 
+       * Wallet table name - aistore_wallet_transactions
+       * @params transaction_id
+       * @params user_id
+       * @params reference
+       * @params type
+       * @params amount
+       * @params balance
+       * @params description
+       * @params currency
+       * @params created_at
+       * 
+       */ 
+       
   $table_aistore_wallet_transactions = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "aistore_wallet_transactions  (
    	transaction_id  bigint(20)  NOT NULL  AUTO_INCREMENT,
   user_id bigint(20)  NOT NULL,
@@ -39,6 +64,17 @@ function aistore_wallet_plugin_table_install()
   PRIMARY KEY (transaction_id)
 ) ";
 
+    /**
+       * 
+       * Wallet table name - aistore_wallet_balance
+       * @params transaction_id
+       * @params user_id
+       * @params balance
+       * @params currency
+       * @params created_at
+       * 
+       */ 
+
     $table_aistore_wallet_balance = "CREATE TABLE   IF NOT EXISTS  " . $wpdb->prefix . "aistore_wallet_balance  (
      	id  bigint(20)  NOT NULL  AUTO_INCREMENT,
    	transaction_id  bigint(20)  NOT NULL,
@@ -51,7 +87,16 @@ function aistore_wallet_plugin_table_install()
 ) ";
 
   
-   
+   /**
+       * 
+       * Wallet table name - escrow_currency
+       * @params id
+       * @params symbol
+       * @params currency
+       * @params created_at
+       * 
+       */ 
+       
   $table_escrow_currency = "CREATE TABLE  IF NOT EXISTS  " . $wpdb->prefix . "escrow_currency  (
   id int(100) NOT NULL  AUTO_INCREMENT,
   currency varchar(100) NOT NULL,
@@ -101,6 +146,13 @@ add_shortcode('aistore_transaction_history', array(
     
      add_action('aistore_escrow_tab_button', 'aistore_escrow_transactions_tab_button' ); 
      
+      /**
+       * 
+       * This function is used to transactions escrow admin tab button 
+      
+       * 
+       */ 
+     
      function aistore_escrow_transactions_tab_button($escrow)
 {
    
@@ -116,7 +168,13 @@ add_shortcode('aistore_transaction_history', array(
 
 
     add_action('aistore_escrow_tab_contents', 'aistore_escrow_transactions_tab_contents' ); 
-     
+     /**
+       * 
+       * This function is used to transactions escrow admin tab contents 
+       * Create an admin transactions escrow report
+      
+       * 
+       */ 
      function aistore_escrow_transactions_tab_contents($escrow)
 {
    

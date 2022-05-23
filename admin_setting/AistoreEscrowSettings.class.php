@@ -38,7 +38,11 @@ class AistoreEscrowSettings
      */
     public function aistore_add_plugin_page()
     {
-        // This page will be under "Settings"
+        
+      /**
+       * This page will be under "Settings"
+      */
+       
         add_options_page('Settings Admin', __('Escrow Setting', 'aistore') , 'administrator', 'Escrow-setting-admin', array(
             $this,
             'aistore_page_setting'
@@ -87,40 +91,91 @@ class AistoreEscrowSettings
     }
     
    
-    
-        // This function is used to admin dashboard and show all escrow list
+     /**
+       * This function is used to admin dashboard
+       * Show all Escrow list 
+       * Id, Title, status, Amount, Sender, Receiver and Date
+      */
+       
+   
     function aistore_escrow_dashboard(){
  include_once dirname(__FILE__) . '../../admin_setting/aistore_escrow_dashboard.php';
               }
     
     
-        // This function is used to  messages set to the wallet (debit/credit) payment transaction message details for the escrow with escrow id
+     /**
+       * This function is used to  messages set to the wallet (debit/credit)
+       * payment transaction message details for the escrow with escrow id
+       * Id, Title, status, Amount, Sender, Receiver and Date
+      */
+       
+       
+  
     function aistore_message_setting(){
         
  include_once dirname(__FILE__) . '../../admin_setting/escrow_message_setting.php';
     }
 
-    // This function is used to show all user escrow list
+
+    
+     /**
+       * This function is used to show all user escrow list
+       * Show all user Escrow list 
+       * Id, Title, status, Amount, Sender, Receiver and Date
+      */
+       
+    
     function aistore_user_escrow_list()
     {
      include_once dirname(__FILE__) . '../../admin_setting/aistore_user_escrow_list.php';
 
     }
     
-    // This function is used to show disputed escrow details page.
+    
+    
+     /**
+       * This function is used to show disputed escrow details page.
+       *  Amount, Sender, Receiver and Status
+       * Term Condition
+       * Email Notification
+       * Files and Documents
+       * System Notifications 
+       * Transaction Report 
+      */
+      
+   
     function aistore_disputed_escrow_details()
     {
      include_once dirname(__FILE__) . '../../admin_setting/aistore_disputed_escrow_details.php';
     }
 
- // This function is used to show all user disputed escrow list
+
+       /**
+       *  This function is used to show all user disputed escrow list
+       * all user disputed escrow list 
+       * Id, Title, status, Amount, Sender, Receiver and Date
+      */
+       
+
     function aistore_disputed_escrow_list()
     {
       include_once dirname(__FILE__) . '../../admin_setting/aistore_disputed_escrow_list.php';
     }
     
     
-        // This function is used to add page setting 
+      /**
+       * This function is used to add page setting 
+       * These are four steps 
+       * Step 1 - Create all pages with short codes
+       * Step 2 - Create an admin account and set its ID this will be used to hold payments 
+       * Step 3 - Set fee here for the profits percentage 
+       * Step 4 - Enable and Disable Extension 
+       * File Upload
+       * Notification
+       * Withdraw
+      */
+      
+       
     function aistore_page_setting()
     {
     include_once dirname(__FILE__) . '../../admin_setting/page_setting.php';
@@ -128,7 +183,10 @@ class AistoreEscrowSettings
 
  
         
-    // page Setting
+      /**
+       * This function is used to save page Setting
+      */
+ 
     function aistore_page_register_setting()
     {
         //register our settings
@@ -137,7 +195,7 @@ class AistoreEscrowSettings
         register_setting('aistore_page', 'details_escrow_page_id');
         register_setting('aistore_page', 'bank_details_page_id');
         register_setting('aistore_page', 'notification_page_id');
-         register_setting('aistore_page', 'aistore_transaction_history_page_id');
+        register_setting('aistore_page', 'aistore_transaction_history_page_id');
         register_setting('aistore_page', 'aistore_saksh_withdrawal_system');
         register_setting('aistore_page', 'aistore_bank_account');
         register_setting('aistore_page', 'escrow_file_type');
@@ -170,8 +228,21 @@ class AistoreEscrowSettings
 
 
 
-    
-    //   This function is used to set message register setting.
+     /**
+       * This function is used to set message register setting.
+       * Created Escrow
+       * Accept Escrow
+       * Dispute Escrow
+       * Release Escrow
+       * Cancel Escrow
+       * Created Success Escrow
+       * Accept Success Escrow
+       * Dispute Success Escrow
+       * Release Success Escrow
+       * Cancel Success Escrow
+      */
+ 
+
     function aistore_message_register_setting()
     {
         register_setting('aistore_message_page', 'created_escrow_message');

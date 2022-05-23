@@ -6,6 +6,14 @@
      
      add_action('aistore_escrow_tab_button', 'aistore_escrow_transactions_tab_button' ); 
      
+     
+       
+      /**
+       * This function is used to transaction tabs button
+      
+       
+     
+      */
      function aistore_escrow_transactions_tab_button($escrow)
 {
    
@@ -22,6 +30,13 @@
 
     add_action('aistore_escrow_tab_contents', 'aistore_escrow_transactions_tab_contents' ); 
      
+      /**
+       * 
+       * This function is used to transactions escrow admin tab contents 
+       * Create an admin transactions escrow report contents
+      
+       * 
+       */ 
      function aistore_escrow_transactions_tab_contents($escrow)
 {
    

@@ -2,7 +2,13 @@
 
 add_action('aistore_escrow_admin_tab_contents', 'aistore_withdraw_escrow_admin_tab_contents_withdraw' ); 
     
-
+ /**
+       * 
+       * This function is used to withdraw escrow admin tab contents withdraw
+       * Create an admin withdraw page with page id
+      
+       * 
+       */ 
 function  aistore_withdraw_escrow_admin_tab_contents_withdraw()
 
 {
@@ -65,7 +71,12 @@ function  aistore_withdraw_escrow_admin_tab_contents_withdraw()
 
     add_action('aistore_escrow_admin_tab', 'aistore_withdraw_tab' ); 
     
-
+ /**
+       * 
+       * This function is used to withdraw escrow admin tabs
+      
+       * 
+       */ 
 function  aistore_withdraw_tab()
 
 {

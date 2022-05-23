@@ -23,6 +23,14 @@
     }
 
 
+
+         
+     /**
+       * This function is used to notification register menu page
+       * Notification Setting
+       * Report
+      */
+      
 function aistore_escrow_register_my_notification_menu_page() {
   
      add_options_page('Notification Setting', __('Notification Setting', 'aistore') , 'administrator', 'Notification-setting-admin', array(
@@ -64,7 +72,20 @@ function aistore_escrow_notification_report(){
 
 }
 
-  //This function is used to set notification register setting.
+    /**
+       * This function is used to set notification register setting.
+       * Created Escrow
+       * Accept Escrow
+       * Dispute Escrow
+       * Release Escrow
+       * Cancel Escrow
+       * Created Partner Escrow
+       * Accept Partner Escrow
+       * Dispute Partner Escrow
+       * Release Partner Escrow
+       * Cancel Partner Escrow
+      */
+
     function aistore_notification_register_setting()
     {
         register_setting('aistore_notification_page', 'created_escrow');

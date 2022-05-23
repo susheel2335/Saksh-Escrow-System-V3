@@ -2,7 +2,14 @@
 
     add_action('Aistoreupload_file_type', 'AFU_type' ); 
     
-    
+    /**
+       * This function is used to Upload file type
+       * @pdf
+       * @xlsx
+       * @ppt
+       * @doc
+      */
+      
     function AFU_type(){
         
         ?>

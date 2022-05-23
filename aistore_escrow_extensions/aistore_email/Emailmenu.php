@@ -23,7 +23,12 @@ class Emailmenu{
 
 
 
-  
+         
+     /**
+       * This function is used to email register menu page
+       * Email Setting
+       * Report
+      */
 
 function aistore_email_register_menu_page() {
     
@@ -62,8 +67,20 @@ function aistore_all_email_report(){
 }
 
 
-
-//   This function is used to set email register setting.
+      /**
+       * This function is used to set email register setting.
+       * Created Escrow
+       * Accept Escrow
+       * Dispute Escrow
+       * Release Escrow
+       * Cancel Escrow
+       * Created Partner Escrow
+       * Accept Partner Escrow
+       * Dispute Partner Escrow
+       * Release Partner Escrow
+       * Cancel Partner Escrow
+      */
+      
     function aistore_email_register_setting()
     {
         register_setting('aistore_email_page', 'email_created_escrow');

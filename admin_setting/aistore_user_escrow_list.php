@@ -132,7 +132,13 @@ $id=sanitize_text_field($_REQUEST['id']);
         <?php }   
        
        
-       //This function is used to get user id by user email
+     /**
+       * This function is used to get user id by user email
+       * @param string email
+       * @return User Id
+      */
+ 
+       
      function get_user_by_email1($email) {
      global $wpdb;
   $user = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}users WHERE   user_email=%d ", $email));

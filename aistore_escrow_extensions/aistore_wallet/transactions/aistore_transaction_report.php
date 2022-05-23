@@ -1,6 +1,18 @@
 <?php
  add_filter( 'after_aistore_escrow_transaction', 'aistore_transaction_report' );
-  
+   /**
+       * 
+       * This function is used to transactions admin report
+       * Id
+       * Email
+       * Balance
+       * Amount
+       * Type
+       * Description
+       * Date
+     
+       * 
+       */ 
      function  aistore_transaction_report($escrow){
          
   

@@ -21,6 +21,20 @@ if (!defined('ABSPATH'))
  add_action('AistoreEscrow_Install', 'aistore_notification_escrow_plugin_table_install' ); 
       
       
+      
+       /**
+       * 
+       * This function is used to create escrow notification table
+       * @params id
+       * @params type
+       * @params message
+       * @params user_email
+       * @params url
+       * @params reference_id
+       * @params created_at
+       * 
+       */ 
+      
 function aistore_notification_escrow_plugin_table_install()
 {
     
@@ -57,9 +71,20 @@ include_once dirname(__FILE__) . '/Notificationmenu.class.php';
     
 function aistore_notification_escrow_message() 
 {  
-    
-    //notification
-    
+     /**
+       * This function is used to set notification message register setting.
+       * Created Escrow
+       * Accept Escrow
+       * Dispute Escrow
+       * Release Escrow
+       * Cancel Escrow
+       * Created Partner Escrow
+       * Accept Partner Escrow
+       * Dispute Partner Escrow
+       * Release Partner Escrow
+       * Cancel Partner Escrow
+      */
+      
 
     update_option('created_escrow', 'You have successfully created the escrow # [EID]');
     update_option('partner_created_escrow', 'Your partner have successfully created the escrow # [EID]');
@@ -89,8 +114,11 @@ function aistore_notification_escrow_message()
 
 
  
- 
-   //  aistore_escrow_tab_button
+     /**
+       * This function is used to set notification tabs
+      
+       
+      */
      
      add_action('aistore_escrow_tab_button', 'aistore_notifications_escrow_tab_button' ); 
      

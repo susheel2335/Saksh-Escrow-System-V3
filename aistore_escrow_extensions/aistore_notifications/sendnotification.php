@@ -12,6 +12,12 @@ add_action('AistoreEscrowPaymentAccepted', 'aistore_escrow_sendNotificationPayme
  
 
 
+      /**
+       * This function is used to created escrow notification
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
 
 function aistore_escrow_sendNotificationCreated($escrow) {
   
@@ -56,6 +62,15 @@ $email= $user_email;
     
 }
 
+
+     /**
+       * This function is used to accept escrow notification
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
+
+
 function aistore_escrow_sendNotificationAccepted($escrow) {
    
     $eid = $escrow->id;
@@ -86,6 +101,14 @@ $email= get_the_author_meta('user_email', $user_id);
       $n['email'] = aistore_escrow_getpartner($email,$escrow);
     aistore_notification_new($n);
 }
+
+ /**
+       * This function is used to cancel escrow notification
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
+
 
 function aistore_escrow_sendNotificationCancelled($escrow) {
     
@@ -125,6 +148,15 @@ $email= get_the_author_meta('user_email', $user_id);
     
     
 }
+
+
+ /**
+       * This function is used to dsipute escrow notification
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
+
 
 function aistore_escrow_sendNotificationDisputed($escrow) {
    
@@ -167,6 +199,16 @@ $email= get_the_author_meta('user_email', $user_id);
     aistore_notification_new($n);
 }
 
+
+ /**
+       * This function is used to release escrow notification
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
+
+
+
 function aistore_escrow_sendNotificationReleased($escrow) {
    
     $eid = $escrow->id;
@@ -200,6 +242,14 @@ $email= get_the_author_meta('user_email', $user_id);
        
     aistore_notification_new($n);
 }
+
+
+ /**
+       * This function is used to send payment escrow notification
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
 
 
 
@@ -250,6 +300,14 @@ $email= get_the_author_meta('user_email', $user_id);
     
     
 }
+
+ /**
+       * This function is used to accept payment escrow notification
+       * @param string sender_email
+       * @param string receiver_email
+       
+      */
+
 
 
 function aistore_escrow_sendNotificationPaymentAccepted($escrow) {
@@ -308,7 +366,17 @@ $email= get_the_author_meta('user_email', $user_id);
 }
 
 
-
+      /**
+       * This function is used to add a notification
+       * @param string message
+       * @param string type
+       * @param string user_email
+       * @param string url
+       * @param string reference_id
+       
+      */
+      
+      
 function aistore_notification_new($n) {
     
     global $wpdb;
