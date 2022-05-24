@@ -45,21 +45,55 @@
     
 }
 
-
-
-
     add_filter('aistore_escrow_tab_contents', 'aistore_escrow_files_tab_contents' ); 
      
      function aistore_escrow_files_tab_contents($escrow)
 {
-     
+       
+        if (isset($_POST['submit']) and $_POST['action'] == 'escrow_system')
+        {
+            
+   
+            if (!isset($_POST['aistore_nonce']) || !wp_verify_nonce($_POST['aistore_nonce'], 'aistore_nonce_action'))
+            {
+                return _e('Sorry, your nonce did not verify', 'aistore');
+                exit;
+            }
+                     
+          $data=array();
+       $data['escrow']=$escrow;
+       $data['files']=$_FILES;
+       $data['get']=$_GET;
+       $data['post']=$_POST;
+         
+          
+        do_action("AistoreEscrowCreatedafter", $data);     
+       
+            
+        }
     ?>
      
    <div class="tab-pane fade show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-        
- <?php   AFU_files($escrow); ?>
+     <form method="POST" action="" name="escrow_system" enctype="multipart/form-data"> 
+
+<?php wp_nonce_field('aistore_nonce_action', 'aistore_nonce'); ?>
+
+                
+                 
+ <?php  
+ 
+   
+  do_action( "after_aistore_escrow_form", $escrow->id  );
+?>
+	
+<input 
+ type="submit" class="button button-primary  btn  btn-primary "   name="submit" value="<?php _e('Submit', 'aistore') ?>"/>
  
  
+<input type="hidden" name="action" value="escrow_system" />
+  <?php
+ echo AFU_files($escrow); ?>
+ </form>
   </div>
      
       <?php
@@ -88,18 +122,20 @@
 function AFU_files($escrow)
 {
     
-     
+    //  print_r($escrow);
     
     
           $eid = $escrow->id;
+        //   echo $eid;
 
         global $wpdb;
 
         $escrow_documents = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}escrow_documents WHERE eid=%d", $eid));
+//   print_r($escrow_documents);
 
 
         foreach ($escrow_documents as $row):
-
+         
 ?> 
 	
 	<div class="aistore_document_list">

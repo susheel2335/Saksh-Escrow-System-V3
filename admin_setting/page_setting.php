@@ -381,14 +381,14 @@ echo "<strong>If no error then task completed successfully.</strong>";
         
        
 
-        
-         
-        
-        
-        
+     
         </table>
         
-       
+          
+        <?php    submit_button();
+         
+        ?>
+        
        
         	
   </div>
@@ -469,7 +469,11 @@ echo "<strong>If no error then task completed successfully.</strong>";
     
     <?php _e('  [ Admin who will manage escrow fee/disputes etc ]', 'aistore') ?>
   
-
+   
+        <?php    submit_button();
+         
+        ?>
+        
     	<hr/>
         	 
   </div>
@@ -534,7 +538,11 @@ echo "<strong>If no error then task completed successfully.</strong>";
   
     </table>
     
- 
+    
+        <?php    submit_button();
+         
+        ?>
+        
     
   </div>
   

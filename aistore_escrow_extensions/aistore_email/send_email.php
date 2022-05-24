@@ -202,7 +202,7 @@ function sendEmailCancelled($escrow)
 
     $n['message'] = $msg;
     $n['subject'] = $subject;
-    $n['email'] = aistore_escrow_getpartner($email,$escrow);  ;//$party_email;
+    $n['email'] = aistore_escrow_getpartner($party_email,$escrow);  ;//$party_email;
     $n['party_email'] = $user_email;
 
     aistore_send_email($n);
@@ -274,7 +274,7 @@ $email= get_the_author_meta('user_email', $user_id);
     $n['message'] = $msg;
     $n['subject'] = $subject;
     //$n['email'] = $party_email;
-        $n['email'] = aistore_escrow_getpartner($email,$escrow);
+        $n['email'] = aistore_escrow_getpartner($party_email,$escrow);
         
      $n['party_email'] = $user_email;
 
@@ -342,7 +342,7 @@ $email= get_the_author_meta('user_email', $user_id);
     $n['subject'] = $subject;
  //   $n['email'] = $party_email;
     
-         $n['email'] = aistore_escrow_getpartner($email,$escrow);
+         $n['email'] = aistore_escrow_getpartner($party_email,$escrow);
         
         
     $n['party_email'] = $user_email;
